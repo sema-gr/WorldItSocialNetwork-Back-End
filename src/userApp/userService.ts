@@ -34,12 +34,10 @@ async function login(email: string, password: string): Promise<IOkWithData<strin
     if (typeof user === "string") {
       return { status: "error", message: user };
     }
-
-    const isMatch = await compare(password, user.password);
-
-    if (!isMatch) {
+    if (password !== user.password){
       return { status: "error", message: "Passwords didn`t match" };
     }
+ 
 
     const token = sign({id: user.id}, SECRET_KEY, { expiresIn: "7d" });
 
@@ -60,15 +58,15 @@ async function registration(userData: CreateUser): Promise<IOkWithData<string> |
       return { status: "error", message: "User already exists" };
     }
 
-    const hashedPassword = await hash(userData.password, 10);
+    // const hashedPassword = await hash(userData.password, 10);
 
-    const hashedUserData = {
-      ...userData,
-      password: hashedPassword,
-    };
+    // const hashedUserData = {
+    //   ...userData,
+    //   password: hashedPassword,
+    // };
 
-    const newUser = await userRepository.createUser(hashedUserData);
-    console.log(hashedUserData)
+    const newUser = await userRepository.createUser(userData);
+    console.log(userData)
     
     if (!newUser) {
       return { status: "error", message: "User is not created" };
