@@ -20,12 +20,6 @@ app.use('/posts', postRouter);
 
 app.use('/uploads', express.static(path.join(__dirname, '..', 'public', 'uploads')));
 
-// app.use(cors({
-//   origin: ["http://localhost:8081"],
-//   methods: ["GET", "POST", "PUT", "DELETE"],
-// }));
-
-
 
 app.listen(PORT, HOST, () => {
     console.log(`Server is running at http://${HOST}:${PORT}`)
