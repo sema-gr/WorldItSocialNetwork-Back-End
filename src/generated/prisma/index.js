@@ -159,7 +159,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\honch\\OneDrive\\Робочий стіл\\ \\ChitChatBackEnd\\src\\generated\\prisma",
+      "value": "C:\\Users\\Admin\\Desktop\\Native\\Chit-Chat-Back-End\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -173,7 +173,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\honch\\OneDrive\\Робочий стіл\\ \\ChitChatBackEnd\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\Admin\\Desktop\\Native\\Chit-Chat-Back-End\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

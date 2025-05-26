@@ -1,6 +1,6 @@
 import prisma from "../client/prismaClient";
 import { Prisma } from "../generated/prisma/client";
-import { CreatePost, IUpdatePost } from "./types";
+import { CreatePost } from "./types";
 
 async function getPosts(){
     try{
@@ -39,7 +39,7 @@ async function createPost(data: CreatePost){
             include: 
             {
                 images: true,
-                tags: true
+                tags: { include: { tag: true } }
             }
         })
         return createPost

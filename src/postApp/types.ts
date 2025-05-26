@@ -3,7 +3,7 @@ import { Prisma } from "../generated/prisma";
 export type Post = Prisma.UserPostGetPayload<{
     include: {
         images: true,
-        tags: true
+        tags: { include: { tag: true } }
     }
 }>;
 
