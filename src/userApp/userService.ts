@@ -5,6 +5,8 @@ import { SECRET_KEY } from "../config/token";
 import userRepository from "./userRepository";
 import { CreateUser, UpdateUser, User } from "./types";
 import nodemailer from 'nodemailer';
+import path from "path";
+import fs from "fs/promises";
 
 const emailCodes = new Map<string, { code: string, expiresAt: number }>()
 
@@ -127,7 +129,6 @@ async function sendEmail(email: string) {
 function verifyCode(email: string, userInputCode: string) {
   const storedData = emailCodes.get(email);
   
-  // console.log(storedData)
   if (!storedData) {
       return { success: false, error: 'Код не найден или устарел' };
   }
@@ -157,24 +158,71 @@ function saveCode(email: string, code: string) {
 }
 
 async function updateUserById(data: UpdateUser, id: number): Promise<IOkWithData<UpdateUser> | IError> {
+  const createdImageFilename: string[] = [];
+
   try {
+    const API_BASE_URL = "http://192.168.1.104:3000";
+    const uploadDir = path.join(__dirname, "..", "..", "public", "uploads");
 
-    let updateData = data;
+    await fs.mkdir(uploadDir, { recursive: true });
 
-    if (updateData.password) {
-      const hashedPassword = await hash(String(data.password), 10);
-      updateData = { ...updateData, password: hashedPassword };
+    let updateData = { ...data };
+
+    if (updateData.image && typeof updateData.image === "string" && updateData.image.startsWith("data:image")) {
+      const matches = updateData.image.match(/^data:image\/(\w+);base64,(.+)$/);
+      if (!matches) {
+        return { status: "error", message: "Невірний формат base64 зображення" };
+      }
+
+      const [, ext, base64Data] = matches;
+      const allowedFormats = ["jpeg", "png", "gif"];
+      const maxSizeInBytes = 5 * 1024 * 1024;
+
+      if (!allowedFormats.includes(ext.toLowerCase())) {
+        return { status: "error", message: `Непідтримуваний формат зображення: ${ext}` };
+      }
+
+      const buffer = Buffer.from(base64Data, "base64");
+      if (buffer.length > maxSizeInBytes) {
+        return { status: "error", message: `Зображення занадто велике: максимум 5 MB` };
+      }
+
+      const filename = `${Date.now()}-${Math.round(Math.random() * 1000000)}.${ext}`;
+      const filePath = path.join(uploadDir, filename);
+
+      await fs.writeFile(filePath, buffer);
+
+      try {
+        await fs.access(filePath);
+        updateData.image = `uploads/${filename}`;
+        createdImageFilename.push(filename);
+      } catch {
+        return { status: "error", message: "Не вдалося зберегти зображення" };
+      }
     }
 
     const user = await userRepository.updateUserById(updateData, id);
 
     if (!user) {
-      return { status: 'error', message: "User doesn't update" };
+      for (const filename of createdImageFilename) {
+        await fs.unlink(path.join(uploadDir, filename)).catch(() => {});
+      }
+      return { status: "error", message: "User doesn't update" };
     }
 
-    return { status: 'success', data: user };
+    if (user.image && !user.image.startsWith("http")) {
+      const relativeUrl = user.image.replace(/^uploads\/+/, "").replace(/\\/g, "/");
+      user.image = `${API_BASE_URL}/uploads/${relativeUrl}`;
+    }
+
+    return { status: "success", data: user };
   } catch (err) {
-    return { status: 'error', message: 'Internal server error' };
+
+    for (const filename of createdImageFilename) {
+      await fs.unlink(path.join(__dirname, "..", "..", "public", "uploads", filename)).catch(() => {});
+    }
+
+    return { status: "error", message: "Internal server error" };
   }
 }
 

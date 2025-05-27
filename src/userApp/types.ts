@@ -10,8 +10,7 @@ export type User = Prisma.UserGetPayload<{
     email: true,
     password: true,
     signature: true,
-    // image: true,
-    // about: true
+    image: true,
 }}>
 
 

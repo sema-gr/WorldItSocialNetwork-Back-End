@@ -52,8 +52,7 @@ async function getUserById(id: number){
                 email: true,
                 password: true,
                 signature: true,
-
-                // image: true,
+                image: true,
                 // about: true?
             }
         })
