@@ -159,7 +159,6 @@ function saveCode(email: string, code: string) {
 
 async function updateUserById(data: UpdateUser, id: number): Promise<IOkWithData<UpdateUser> | IError> {
   const createdImageFilename: string[] = [];
-
   try {
     const API_BASE_URL = "http://192.168.1.104:3000";
     const uploadDir = path.join(__dirname, "..", "..", "public", "uploads");
@@ -214,6 +213,9 @@ async function updateUserById(data: UpdateUser, id: number): Promise<IOkWithData
       const relativeUrl = user.image.replace(/^uploads\/+/, "").replace(/\\/g, "/");
       user.image = `${API_BASE_URL}/uploads/${relativeUrl}`;
     }
+    console.log("beeeeeeeeeeeee")
+    console.log(user)
+    console.log("beeeeeeeeeeeee")
 
     return { status: "success", data: user };
   } catch (err) {

@@ -96,6 +96,7 @@ async function updateUserById(data: UpdateUser, id: number) {
                 email: updatedData.email,
                 password: updatedData.password,
                 signature: updatedData.signature,
+                image: updatedData.image
             },
         });
         return user;
