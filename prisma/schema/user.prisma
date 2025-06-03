@@ -10,4 +10,5 @@ model User {
     image     String?
     about     String?
     post UserPost[]
+    album Album[]
 }

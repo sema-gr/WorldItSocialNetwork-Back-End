@@ -1,9 +1,24 @@
+model Album {
+  id     Int     @id @default(autoincrement())
+  name   String
+  theme  String
+  year   String
+  images Image[]
+  url    String?
+
+  author   User @relation(fields: [authorId], references: [id])
+  authorId Int
+}
+
 model Image {
   id  Int    @id @default(autoincrement())
   url String
 
   post       UserPost @relation(fields: [userPostId], references: [id])
   userPostId Int
+
+  album   Album @relation(fields: [albumId], references: [id])
+  albumId Int
 }
 
 model UserPost {
@@ -47,6 +62,7 @@ model User {
   image       String?
   about       String?
   post        UserPost[]
+  album       Album[]
 }
 
 // This is your Prisma schema file,

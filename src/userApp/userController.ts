@@ -46,12 +46,23 @@ async function updateUserById(req: Request, res: Response){
     }
 }
 
+async function getUsers(req: Request, res: Response){
+    const context = await userService.getUsers();
+    if(context.status == 'error'){
+        res.send('error')
+    }
+    else{
+        res.json(context.data)
+    }
+}
+
 const userController = {
     registerUser,
     loginUser,
     getUserById,
     sendCode,
-    updateUserById
+    updateUserById,
+    getUsers
 
 }
 

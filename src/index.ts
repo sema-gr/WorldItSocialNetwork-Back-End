@@ -2,6 +2,7 @@ import express, { Express } from 'express';
 import cors from 'cors'
 import userRouter from './userApp/userRouter';
 import postRouter from './postApp/postRouter';
+import albumRouter from './albumApp/albumRouter';
 import path from 'path';
 
 
@@ -17,6 +18,8 @@ app.use(cors())
 app.use('/user', userRouter);
 
 app.use('/posts', postRouter);
+
+app.use('/albums', albumRouter);
 
 app.use('/uploads', express.static(path.join(__dirname, '..', 'public', 'uploads')));
 

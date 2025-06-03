@@ -2,6 +2,9 @@ model Image {
     id Int @id @default(autoincrement())
     url String
 
-    post UserPost @relation(fields: [userPostId], references: [id])
-    userPostId Int
+    post UserPost? @relation(fields: [userPostId], references: [id])
+    userPostId Int?
+
+    album Album? @relation(fields: [albumId], references: [id])
+    albumId Int?
 }

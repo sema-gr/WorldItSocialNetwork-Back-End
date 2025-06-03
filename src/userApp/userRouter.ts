@@ -9,6 +9,7 @@ router.post('/reg', userController.registerUser)
 router.post('/log', userController.loginUser)
 router.post('/sendCode', userController.sendCode)
 router.get('/me', authTokenMiddleware, userController.getUserById)
+router.get("/all", userController.getUsers)
 router.put("/:id", userController.updateUserById)
 
 

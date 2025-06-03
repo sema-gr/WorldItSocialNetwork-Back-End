@@ -120,11 +120,26 @@ async function updateUserById(data: UpdateUser, id: number) {
     }
 }
 
+async function getUsers() {
+    try {
+        const users = await client.user.findMany({
+            include: {
+                post: true,
+            }
+        });
+        return users;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
 const userRepository = {
     findUserByEmail: findUserByEmail,
     createUser: createUser,
     getUserById: getUserById,
-    updateUserById: updateUserById
+    updateUserById: updateUserById,
+    getUsers: getUsers
 }
 
 export default userRepository;

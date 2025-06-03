@@ -228,6 +228,15 @@ async function updateUserById(data: UpdateUser, id: number): Promise<IOkWithData
   }
 }
 
+async function getUsers(): Promise<IOkWithData<User[]> | IError> {
+  const users = await userRepository.getUsers();
+
+  if (!users) {
+    return { status: 'error', message: 'No users found' };
+  }
+
+  return { status: 'success', data: users };
+}
 
 const userService = {
   login,
@@ -236,7 +245,8 @@ const userService = {
   sendEmail,
   verifyCode,
   saveCode,
-  updateUserById
+  updateUserById,
+  getUsers
 };
 
 export default userService;

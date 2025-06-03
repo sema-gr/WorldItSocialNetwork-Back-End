@@ -2,10 +2,17 @@ import { Prisma } from "../generated/prisma";
 
 export type Post = Prisma.UserPostGetPayload<{
     include: {
-        images: true,
+        images: {
+            select: {
+                id: true,
+                url: true,
+                userPostId: true
+            }
+        },
         tags: { include: { tag: true } }
     }
 }>;
+
 
 export type CreatePost = Prisma.UserPostUncheckedCreateInput;
 

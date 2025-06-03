@@ -1,0 +1,11 @@
+model Album {
+    id Int @id @default(autoincrement())
+    name String
+    theme String
+    year String
+    images Image[]
+    url String?
+
+    author User @relation(fields: [authorId], references: [id])
+    authorId Int
+}
