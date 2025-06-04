@@ -122,7 +122,6 @@ exports.Prisma.AlbumScalarFieldEnum = {
   name: 'name',
   theme: 'theme',
   year: 'year',
-  url: 'url',
   authorId: 'authorId'
 };
 

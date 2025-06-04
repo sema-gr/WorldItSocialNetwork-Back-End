@@ -1,5 +1,4 @@
 import { Prisma } from "../generated/prisma";
-import { Image } from "../generated/prisma";
 
 export type Album = Prisma.AlbumGetPayload<{
     include: {

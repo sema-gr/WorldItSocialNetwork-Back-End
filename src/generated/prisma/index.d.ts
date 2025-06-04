@@ -1492,7 +1492,6 @@ export namespace Prisma {
     name: string | null
     theme: string | null
     year: string | null
-    url: string | null
     authorId: number | null
   }
 
@@ -1501,7 +1500,6 @@ export namespace Prisma {
     name: string | null
     theme: string | null
     year: string | null
-    url: string | null
     authorId: number | null
   }
 
@@ -1510,7 +1508,6 @@ export namespace Prisma {
     name: number
     theme: number
     year: number
-    url: number
     authorId: number
     _all: number
   }
@@ -1531,7 +1528,6 @@ export namespace Prisma {
     name?: true
     theme?: true
     year?: true
-    url?: true
     authorId?: true
   }
 
@@ -1540,7 +1536,6 @@ export namespace Prisma {
     name?: true
     theme?: true
     year?: true
-    url?: true
     authorId?: true
   }
 
@@ -1549,7 +1544,6 @@ export namespace Prisma {
     name?: true
     theme?: true
     year?: true
-    url?: true
     authorId?: true
     _all?: true
   }
@@ -1645,7 +1639,6 @@ export namespace Prisma {
     name: string
     theme: string
     year: string
-    url: string | null
     authorId: number
     _count: AlbumCountAggregateOutputType | null
     _avg: AlbumAvgAggregateOutputType | null
@@ -1673,7 +1666,6 @@ export namespace Prisma {
     name?: boolean
     theme?: boolean
     year?: boolean
-    url?: boolean
     authorId?: boolean
     images?: boolean | Album$imagesArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
@@ -1685,7 +1677,6 @@ export namespace Prisma {
     name?: boolean
     theme?: boolean
     year?: boolean
-    url?: boolean
     authorId?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["album"]>
@@ -1695,7 +1686,6 @@ export namespace Prisma {
     name?: boolean
     theme?: boolean
     year?: boolean
-    url?: boolean
     authorId?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["album"]>
@@ -1705,11 +1695,10 @@ export namespace Prisma {
     name?: boolean
     theme?: boolean
     year?: boolean
-    url?: boolean
     authorId?: boolean
   }
 
-  export type AlbumOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "theme" | "year" | "url" | "authorId", ExtArgs["result"]["album"]>
+  export type AlbumOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "theme" | "year" | "authorId", ExtArgs["result"]["album"]>
   export type AlbumInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     images?: boolean | Album$imagesArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
@@ -1733,7 +1722,6 @@ export namespace Prisma {
       name: string
       theme: string
       year: string
-      url: string | null
       authorId: number
     }, ExtArgs["result"]["album"]>
     composites: {}
@@ -2164,7 +2152,6 @@ export namespace Prisma {
     readonly name: FieldRef<"Album", 'String'>
     readonly theme: FieldRef<"Album", 'String'>
     readonly year: FieldRef<"Album", 'String'>
-    readonly url: FieldRef<"Album", 'String'>
     readonly authorId: FieldRef<"Album", 'Int'>
   }
     
@@ -8269,7 +8256,6 @@ export namespace Prisma {
     name: 'name',
     theme: 'theme',
     year: 'year',
-    url: 'url',
     authorId: 'authorId'
   };
 
@@ -8392,7 +8378,6 @@ export namespace Prisma {
     name?: StringFilter<"Album"> | string
     theme?: StringFilter<"Album"> | string
     year?: StringFilter<"Album"> | string
-    url?: StringNullableFilter<"Album"> | string | null
     authorId?: IntFilter<"Album"> | number
     images?: ImageListRelationFilter
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -8403,7 +8388,6 @@ export namespace Prisma {
     name?: SortOrder
     theme?: SortOrder
     year?: SortOrder
-    url?: SortOrderInput | SortOrder
     authorId?: SortOrder
     images?: ImageOrderByRelationAggregateInput
     author?: UserOrderByWithRelationInput
@@ -8417,7 +8401,6 @@ export namespace Prisma {
     name?: StringFilter<"Album"> | string
     theme?: StringFilter<"Album"> | string
     year?: StringFilter<"Album"> | string
-    url?: StringNullableFilter<"Album"> | string | null
     authorId?: IntFilter<"Album"> | number
     images?: ImageListRelationFilter
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -8428,7 +8411,6 @@ export namespace Prisma {
     name?: SortOrder
     theme?: SortOrder
     year?: SortOrder
-    url?: SortOrderInput | SortOrder
     authorId?: SortOrder
     _count?: AlbumCountOrderByAggregateInput
     _avg?: AlbumAvgOrderByAggregateInput
@@ -8445,7 +8427,6 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Album"> | string
     theme?: StringWithAggregatesFilter<"Album"> | string
     year?: StringWithAggregatesFilter<"Album"> | string
-    url?: StringNullableWithAggregatesFilter<"Album"> | string | null
     authorId?: IntWithAggregatesFilter<"Album"> | number
   }
 
@@ -8759,7 +8740,6 @@ export namespace Prisma {
     name: string
     theme: string
     year: string
-    url?: string | null
     images?: ImageCreateNestedManyWithoutAlbumInput
     author: UserCreateNestedOneWithoutAlbumInput
   }
@@ -8769,7 +8749,6 @@ export namespace Prisma {
     name: string
     theme: string
     year: string
-    url?: string | null
     authorId: number
     images?: ImageUncheckedCreateNestedManyWithoutAlbumInput
   }
@@ -8778,7 +8757,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     theme?: StringFieldUpdateOperationsInput | string
     year?: StringFieldUpdateOperationsInput | string
-    url?: NullableStringFieldUpdateOperationsInput | string | null
     images?: ImageUpdateManyWithoutAlbumNestedInput
     author?: UserUpdateOneRequiredWithoutAlbumNestedInput
   }
@@ -8788,7 +8766,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     theme?: StringFieldUpdateOperationsInput | string
     year?: StringFieldUpdateOperationsInput | string
-    url?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: IntFieldUpdateOperationsInput | number
     images?: ImageUncheckedUpdateManyWithoutAlbumNestedInput
   }
@@ -8798,7 +8775,6 @@ export namespace Prisma {
     name: string
     theme: string
     year: string
-    url?: string | null
     authorId: number
   }
 
@@ -8806,7 +8782,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     theme?: StringFieldUpdateOperationsInput | string
     year?: StringFieldUpdateOperationsInput | string
-    url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AlbumUncheckedUpdateManyInput = {
@@ -8814,7 +8789,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     theme?: StringFieldUpdateOperationsInput | string
     year?: StringFieldUpdateOperationsInput | string
-    url?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -9134,20 +9108,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type ImageListRelationFilter = {
     every?: ImageWhereInput
     some?: ImageWhereInput
@@ -9159,11 +9119,6 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type ImageOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -9173,7 +9128,6 @@ export namespace Prisma {
     name?: SortOrder
     theme?: SortOrder
     year?: SortOrder
-    url?: SortOrder
     authorId?: SortOrder
   }
 
@@ -9187,7 +9141,6 @@ export namespace Prisma {
     name?: SortOrder
     theme?: SortOrder
     year?: SortOrder
-    url?: SortOrder
     authorId?: SortOrder
   }
 
@@ -9196,7 +9149,6 @@ export namespace Prisma {
     name?: SortOrder
     theme?: SortOrder
     year?: SortOrder
-    url?: SortOrder
     authorId?: SortOrder
   }
 
@@ -9238,23 +9190,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -9274,6 +9209,11 @@ export namespace Prisma {
   export type AlbumNullableScalarRelationFilter = {
     is?: AlbumWhereInput | null
     isNot?: AlbumWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type ImageCountOrderByAggregateInput = {
@@ -9323,6 +9263,20 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type UserPostTagsListRelationFilter = {
@@ -9380,6 +9334,23 @@ export namespace Prisma {
     views?: SortOrder
     likes?: SortOrder
     authorId?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type TagsCountOrderByAggregateInput = {
@@ -9561,10 +9532,6 @@ export namespace Prisma {
     set?: string
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type ImageUpdateManyWithoutAlbumNestedInput = {
     create?: XOR<ImageCreateWithoutAlbumInput, ImageUncheckedCreateWithoutAlbumInput> | ImageCreateWithoutAlbumInput[] | ImageUncheckedCreateWithoutAlbumInput[]
     connectOrCreate?: ImageCreateOrConnectWithoutAlbumInput | ImageCreateOrConnectWithoutAlbumInput[]
@@ -9681,6 +9648,10 @@ export namespace Prisma {
     connectOrCreate?: ImageCreateOrConnectWithoutPostInput | ImageCreateOrConnectWithoutPostInput[]
     createMany?: ImageCreateManyPostInputEnvelope
     connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type UserPostTagsUpdateManyWithoutUserPostNestedInput = {
@@ -9930,20 +9901,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -9988,23 +9945,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -10041,6 +9981,37 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -10216,7 +10187,6 @@ export namespace Prisma {
     name: string
     theme: string
     year: string
-    url?: string | null
     author: UserCreateNestedOneWithoutAlbumInput
   }
 
@@ -10225,7 +10195,6 @@ export namespace Prisma {
     name: string
     theme: string
     year: string
-    url?: string | null
     authorId: number
   }
 
@@ -10283,7 +10252,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     theme?: StringFieldUpdateOperationsInput | string
     year?: StringFieldUpdateOperationsInput | string
-    url?: NullableStringFieldUpdateOperationsInput | string | null
     author?: UserUpdateOneRequiredWithoutAlbumNestedInput
   }
 
@@ -10292,7 +10260,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     theme?: StringFieldUpdateOperationsInput | string
     year?: StringFieldUpdateOperationsInput | string
-    url?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -10608,7 +10575,6 @@ export namespace Prisma {
     name: string
     theme: string
     year: string
-    url?: string | null
     images?: ImageCreateNestedManyWithoutAlbumInput
   }
 
@@ -10617,7 +10583,6 @@ export namespace Prisma {
     name: string
     theme: string
     year: string
-    url?: string | null
     images?: ImageUncheckedCreateNestedManyWithoutAlbumInput
   }
 
@@ -10684,7 +10649,6 @@ export namespace Prisma {
     name?: StringFilter<"Album"> | string
     theme?: StringFilter<"Album"> | string
     year?: StringFilter<"Album"> | string
-    url?: StringNullableFilter<"Album"> | string | null
     authorId?: IntFilter<"Album"> | number
   }
 
@@ -10781,7 +10745,6 @@ export namespace Prisma {
     name: string
     theme: string
     year: string
-    url?: string | null
   }
 
   export type UserPostUpdateWithoutAuthorInput = {
@@ -10821,7 +10784,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     theme?: StringFieldUpdateOperationsInput | string
     year?: StringFieldUpdateOperationsInput | string
-    url?: NullableStringFieldUpdateOperationsInput | string | null
     images?: ImageUpdateManyWithoutAlbumNestedInput
   }
 
@@ -10830,7 +10792,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     theme?: StringFieldUpdateOperationsInput | string
     year?: StringFieldUpdateOperationsInput | string
-    url?: NullableStringFieldUpdateOperationsInput | string | null
     images?: ImageUncheckedUpdateManyWithoutAlbumNestedInput
   }
 
@@ -10839,7 +10800,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     theme?: StringFieldUpdateOperationsInput | string
     year?: StringFieldUpdateOperationsInput | string
-    url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
