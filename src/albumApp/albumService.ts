@@ -16,148 +16,14 @@ async function getAlbums(): Promise<IOkWithData<Album[]> | IError> {
 	return { status: "success", data: albums };
 }
 
-async function createAlbum(
-	data: CreateAlbum
-): Promise<IOkWithData<Album> | IError> {
-	try {
-		// Логування вхідних даних
-		console.log("Raw input data:", JSON.stringify(data, null, 2));
-
-		// Валідація зображень
-		let imagesInput: CreateAlbumData | undefined;
-		const allowedFormats = ["jpeg", "png", "gif"];
-		const maxSizeInBytes = 5 * 1024 * 1024;
-
-		console.log("Original images type:", typeof data.images);
-		if (data.images) {
-			let imagesToProcess: { url: string }[] = [];
-
-			if ("create" in data.images && Array.isArray(data.images.create)) {
-				imagesToProcess = data.images.create;
-				console.log("Images to process count:", imagesToProcess.length);
-			}
-			// Обробка формату string[]
-			else if (Array.isArray(data.images)) {
-				imagesToProcess = data.images.map((url) => ({ url }));
-				console.log("Images to process count:", imagesToProcess.length);
-			}
-
-			if (imagesToProcess.length > 10) {
-				return {
-					status: "error",
-					message: "Максимум 10 зображень дозволено",
-				};
-			}
-
-			const imageUrls = await Promise.all(
-				imagesToProcess.map(async (image, index) => {
-					if (
-						typeof image !== "object" ||
-						!("url" in image) ||
-						typeof image.url !== "string"
-					) {
-						throw new Error(
-							`Некоректні дані зображення на позиції ${index}: потрібен об’єкт із полем url`
-						);
-					}
-					if (image.url.startsWith("data:image")) {
-						const matches = image.url.match(
-							/^data:image\/(\w+);base64,(.+)$/
-						);
-						if (!matches) {
-							throw new Error(
-								`Невірний формат base64 зображення на позиції ${index}`
-							);
-						}
-
-						const [, ext, base64Data] = matches;
-						if (!allowedFormats.includes(ext.toLowerCase())) {
-							throw new Error(
-								`Непідтримуваний формат зображення на позиції ${index}: ${ext}. Дозволені: JPEG, PNG, GIF`
-							);
-						}
-
-						const buffer = Buffer.from(base64Data, "base64");
-						if (buffer.length > maxSizeInBytes) {
-							throw new Error(
-								`Зображення на позиції ${index} занадто велике: ${Math.round(
-									buffer.length / 1024 / 1024
-								)} МБ. Максимум 5 МБ`
-							);
-						}
-
-						const uploadDir = path.join(
-							__dirname,
-							"..",
-							"..",
-							"public",
-							"uploads"
-						);
-						await fs.mkdir(uploadDir, { recursive: true });
-						console.log(
-							`Directory ${uploadDir} exists: ${await fs
-								.access(uploadDir)
-								.then(() => true)
-								.catch(() => false)}`
-						);
-
-						const filename = `${Date.now()}-${Math.round(
-							Math.random() * 1e9
-						)}.${ext}`;
-						const filePath = path.join(uploadDir, filename);
-
-						await fs.writeFile(filePath, buffer);
-						console.log(`File saved: ${filePath}`);
-						console.log(
-							`Successfully saved image: uploads/${filename}`
-						);
-						return { url: `uploads/${filename}` };
-					}
-					return image;
-				})
-			);
-
-			imagesInput = {
-				create: imageUrls,
-			};
-		}
-
-		// Формування даних альбома
-		const albumData: CreateAlbum = {
-			name: data.name,
-			theme: data.theme ?? null,
-			year: data.year,
-			authorId: data.authorId,
-			images: imagesInput,
-		};
-
-		console.log(
-			"Post data to be created:",
-			JSON.stringify(albumData, null, 2)
-		);
-
-		// Створення альбома
-		const newAlbum = await prisma.album.create({
-			data: albumData,
-			include: {
-				images: true,
-			},
-		});
-
-		// Логування результату
-		console.log("Post created with images:", newAlbum.images);
-
-		return { status: "success", data: newAlbum };
-	} catch (err) {
-		console.error("Помилка в createAlbum:", err);
-		return {
-			status: "error",
-			message:
-				err instanceof Error
-					? err.message
-					: "Не вдалося створити альбом",
-		};
+async function createAlbum(data: CreateAlbum): Promise<IOkWithData<CreateAlbum> | IError> {
+	// console.log(data.name + "111")
+	const result = await albumRepository.createAlbum(data)
+	console.log(result)
+	if (!result){
+		return {status: "error", message: "album not created"}
 	}
+	return { status: "success", data: result };
 }
 
 async function editAlbum(
@@ -224,17 +90,17 @@ async function editAlbum(
 				const deleteCount = Array.isArray(data.images.delete)
 					? data.images.delete.length
 					: data.images.delete
-					? 1
-					: 0;
+						? 1
+						: 0;
 				if (
 					data.images.create.length +
-						(currentAlbum.images.length - deleteCount) >
+					(currentAlbum.images.length - deleteCount) >
 					maxImages
 				) {
 					console.error(
 						"[EditPost] Перевищено ліміт зображень:",
 						data.images.create.length +
-							(currentAlbum.images.length - deleteCount)
+						(currentAlbum.images.length - deleteCount)
 					);
 					return {
 						status: "error",

@@ -13,51 +13,13 @@ async function getAlbums(req: Request, res: Response) {
 
 
 async function createAlbum(req: Request, res: Response) {
-	try {
-		const newAlbum = req.body;
-		console.log(
-			"Raw input data:",
-			JSON.stringify(
-				{
-					...newAlbum,
-					images: newAlbum.images ? "EXISTS" : "NULL",
-				},
-				null,
-				2
-			)
-		);
-
-		if (newAlbum.images) {
-			console.log("Original images type:", typeof newAlbum.images);
-
-			let imagesToProcess: string[] = [];
-
-			if (Array.isArray(newAlbum.images)) {
-				imagesToProcess = newAlbum.images;
-			} else if (newAlbum.images.create) {
-				console.warn("Converting Prisma format to array");
-				imagesToProcess = newAlbum.images.create.map((img: any) => {
-					return img.url || img.imageUrl || img;
-				});
-			}
-
-			console.log("Images to process count:", imagesToProcess.length);
-
-			newAlbum.images = [];
-			for (const img of imagesToProcess) {
-				try {
-					const savedPath = await saveBase64Image(img);
-					console.log("Successfully saved image:", savedPath);
-					newAlbum.images.push(savedPath);
-				} catch (imgError) {
-					console.error("Failed to process image:", imgError);
-				}
-			}
-		}
-
-		const result = await albumService.createAlbum(newAlbum);
-	} catch (error) {
-		console.error("Full controller error:", error);
+	let body = req.body
+	body.authorId = res.locals.userId
+	const result = await albumService.createAlbum(body)
+	if (result.status == "error") {
+		res.json(result)
+	} else {
+		res.json(result.data);
 	}
 }
 
