@@ -18,6 +18,11 @@ async function getUserById(req: Request, res: Response){
     const result = await userService.getUserById(+id);
     res.json(result)
 }
+async function getUserByReqId(req: Request, res: Response){
+    let id = req.params.id
+    const result = await userService.getUserById(+id);
+    res.json(result)
+}
 
 async function registerUser(req: Request, res: Response){
     let {code, ...user} = req.body
@@ -62,7 +67,8 @@ const userController = {
     getUserById,
     sendCode,
     updateUserById,
-    getUsers
+    getUsers,
+    getUserByReqId
 
 }
 

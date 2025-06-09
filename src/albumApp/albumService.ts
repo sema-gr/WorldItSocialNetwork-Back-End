@@ -5,6 +5,7 @@ import fs from "fs/promises";
 import path from "path";
 import prisma from "../client/prismaClient";
 import { albumRepository } from "./albumRepository";
+import { url } from "inspector";
 
 async function getAlbums(): Promise<IOkWithData<Album[]> | IError> {
 	const albums = await albumRepository.getAlbums();
@@ -17,7 +18,6 @@ async function getAlbums(): Promise<IOkWithData<Album[]> | IError> {
 }
 
 async function createAlbum(data: CreateAlbum): Promise<IOkWithData<CreateAlbum> | IError> {
-	// console.log(data.name + "111")
 	const result = await albumRepository.createAlbum(data)
 	console.log(result)
 	if (!result){

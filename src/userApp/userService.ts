@@ -7,6 +7,7 @@ import { CreateUser, UpdateUser, User } from "./types";
 import nodemailer from 'nodemailer';
 import path from "path";
 import fs from "fs/promises";
+import { Prisma } from "../generated/prisma";
 
 const emailCodes = new Map<string, { code: string, expiresAt: number }>()
 
@@ -36,22 +37,22 @@ async function login(email: string, password: string): Promise<IOkWithData<strin
     if (typeof user === "string") {
       return { status: "error", message: user };
     }
-    if (password !== user.password){
+    if (password !== user.password) {
       return { status: "error", message: "Passwords didn`t match" };
     }
- 
 
-    const token = sign({id: user.id}, SECRET_KEY, { expiresIn: "7d" });
+
+    const token = sign({ id: user.id }, SECRET_KEY, { expiresIn: "7d" });
 
     return { status: "success", data: token };
   } catch (err) {
     if (err instanceof Error) {
-      return { status: "error", message: err.message};
+      return { status: "error", message: err.message };
     }
     return { status: "error", message: "Internal server error" };
   }
 }
-  
+
 async function registration(userData: CreateUser): Promise<IOkWithData<string> | IError> {
   try {
 
@@ -67,17 +68,23 @@ async function registration(userData: CreateUser): Promise<IOkWithData<string> |
     //   password: hashedPassword,
     // };
 
-    const newUser = await userRepository.createUser(userData);
-    console.log(userData)
-    
+    const newData: CreateUser = {
+      ...userData,
+      image: "uploads/user.png"
+    }
+
+    const newUser = await userRepository.createUser(newData);
+    console.log(newData)
+
+
     if (!newUser) {
       return { status: "error", message: "User is not created" };
     }
 
-    const token = sign({id: newUser.id}, SECRET_KEY, { expiresIn: "1d" });
+    const token = sign({ id: newUser.id }, SECRET_KEY, { expiresIn: "1d" });
 
     return { status: "success", data: token };
-    
+
   } catch (err) {
     if (err instanceof Error) {
       return { status: "error", message: err.message };
@@ -89,7 +96,7 @@ async function registration(userData: CreateUser): Promise<IOkWithData<string> |
 async function sendEmail(email: string) {
 
   const generateCode = () => {
-      return Math.floor(100000 + Math.random() * 900000).toString();
+    return Math.floor(100000 + Math.random() * 900000).toString();
   }
 
   const code = generateCode();
@@ -100,56 +107,56 @@ async function sendEmail(email: string) {
 
 
   const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-          user: 'honcharovstallker@gmail.com',
-          pass: 'qxja qfuk urdy qihr' 
-      }
+    service: 'gmail',
+    auth: {
+      user: 'honcharovstallker@gmail.com',
+      pass: 'qxja qfuk urdy qihr'
+    }
   });
 
 
   const mailOptions = {
-      from: 'chitchatbyteam1@gmail.com',
-      to: email,
-      subject: 'Код подтверждения',
-      text: code
+    from: 'chitchatbyteam1@gmail.com',
+    to: email,
+    subject: 'Код подтверждения',
+    text: code
   };
 
   try {
-      const info = await transporter.sendMail(mailOptions);
-      console.log('Письмо отправлено:', info.response);
-      return { success: true, code };
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Письмо отправлено:', info.response);
+    return { success: true, code };
   } catch (err) {
-      console.error('Ошибка отправки:', err);
-      return { status: "error", message: "Не удалось отправить письмо" };
+    console.error('Ошибка отправки:', err);
+    return { status: "error", message: "Не удалось отправить письмо" };
   }
 }
 
 
 function verifyCode(email: string, userInputCode: string) {
   const storedData = emailCodes.get(email);
-  
+
   if (!storedData) {
-      return { success: false, error: 'Код не найден или устарел' };
+    return { success: false, error: 'Код не найден или устарел' };
   }
 
   const { code, expiresAt } = storedData;
 
   if (Date.now() > expiresAt) {
-      emailCodes.delete(email);
-      console.log(emailCodes)
-      return { success: false, error: 'Код истёк' };
+    emailCodes.delete(email);
+    console.log(emailCodes)
+    return { success: false, error: 'Код истёк' };
   }
 
 
   if (userInputCode !== code) {
-      return { success: false, error: 'Неверный код' };
+    return { success: false, error: 'Неверный код' };
   }
 
   emailCodes.delete(email);
   return { success: true };
 }
-  
+
 function saveCode(email: string, code: string) {
   console.log(email + " bebebebeb")
   const normalizedEmail = email.trim().toLowerCase();
@@ -204,7 +211,7 @@ async function updateUserById(data: UpdateUser, id: number): Promise<IOkWithData
 
     if (!user) {
       for (const filename of createdImageFilename) {
-        await fs.unlink(path.join(uploadDir, filename)).catch(() => {});
+        await fs.unlink(path.join(uploadDir, filename)).catch(() => { });
       }
       return { status: "error", message: "User doesn't update" };
     }
@@ -221,7 +228,7 @@ async function updateUserById(data: UpdateUser, id: number): Promise<IOkWithData
   } catch (err) {
 
     for (const filename of createdImageFilename) {
-      await fs.unlink(path.join(__dirname, "..", "..", "public", "uploads", filename)).catch(() => {});
+      await fs.unlink(path.join(__dirname, "..", "..", "public", "uploads", filename)).catch(() => { });
     }
 
     return { status: "error", message: "Internal server error" };
