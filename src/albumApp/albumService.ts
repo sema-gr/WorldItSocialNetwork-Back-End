@@ -35,24 +35,20 @@ export async function editAlbum(
 	const API_BASE_URL = "http://192.168.1.104:3000";
 
 	try {
-		console.log("[EditAlbum] Вхідні дані:", JSON.stringify(data, null, 2));
+		console.log("  Вхідні дані:", JSON.stringify(data, null, 2));
 
-		// Створюємо директорію для зображень
 		await fs.mkdir(uploadDir, { recursive: true });
-		console.log(`[EditAlbum] Директорія ${uploadDir} створена/існує`);
+		console.log(`  Директорія ${uploadDir} створена/існує`);
 
-		// Отримуємо поточний альбом
 		const currentAlbum = await prisma.album.findUnique({
 			where: { id },
 			include: { images: true },
 		});
 
 		if (!currentAlbum) {
-			console.error("[EditAlbum] Альбом із ID", id, "не знайдено");
 			return { status: "error", message: "Альбом не знайдено" };
 		}
 
-		// Підготовка даних для оновлення
 		const updateData: UpdateAlbum = {
 			name:
 				typeof data.name === "string"
@@ -70,7 +66,7 @@ export async function editAlbum(
 
 		// Обробка зображень
 		if (data.images) {
-			console.log("[EditAlbum] Обробка зображень:", JSON.stringify(data.images, null, 2));
+			console.log("Обробка зображень:", JSON.stringify(data.images, null, 2));
 			const allowedFormats = ["jpeg", "png", "gif"];
 			const maxSizeInBytes = 5 * 1024 * 1024; // 5 МБ
 			const maxImages = 10;
@@ -94,7 +90,7 @@ export async function editAlbum(
 					.filter((id) => currentImageIds.includes(id));
 
 				if (deleteImageIds.length > 0) {
-					console.log("[EditAlbum] Видаляються зображення з ID:", deleteImageIds);
+					console.log("Видаляються зображення з ID:", deleteImageIds);
 
 					// Отримуємо URL зображень для видалення
 					const imagesToDelete = currentAlbum.images.filter((img) =>
@@ -107,9 +103,9 @@ export async function editAlbum(
 						try {
 							await fs.access(filePath);
 							await fs.unlink(filePath);
-							console.log(`[EditAlbum] Файл видалено: ${filePath}`);
+							console.log(`Файл видалено: ${filePath}`);
 						} catch (err) {
-							console.warn(`[EditAlbum] Файл не знайдено або не вдалося видалити: ${filePath}`, err);
+							console.warn(` Файл не знайдено або не вдалося видалити: ${filePath}`, err);
 						}
 					}
 
@@ -133,7 +129,7 @@ export async function editAlbum(
 					maxImages
 				) {
 					console.error(
-						"[EditAlbum] Перевищено ліміт зображень:",
+						"Перевищено ліміт зображень:",
 						data.images.create.length + (currentAlbum.images.length - deleteCount)
 					);
 					return {
@@ -149,26 +145,26 @@ export async function editAlbum(
 							!image.url ||
 							typeof image.url !== "string"
 						) {
-							console.error("[EditAlbum] Некоректні дані зображення на позиції", index);
+							console.error("Некоректні дані зображення на позиції", index);
 							throw new Error(`Некоректні дані зображення на позиції ${index}`);
 						}
 
 						if (image.url.startsWith("data:image")) {
 							const matches = image.url.match(/^data:image\/(\w+);base64,(.+)$/);
 							if (!matches) {
-								console.error("[EditAlbum] Невірний формат base64 на позиції", index);
+								console.error("Невірний формат base64 на позиції", index);
 								throw new Error(`Невірний формат base64 зображення на позиції ${index}`);
 							}
 
 							const [, ext, base64Data] = matches;
 							if (!allowedFormats.includes(ext.toLowerCase())) {
-								console.error("[EditAlbum] Непідтримуваний формат зображення:", ext);
+								console.error(" Непідтримуваний формат зображення:", ext);
 								throw new Error(`Непідтримуваний формат: ${ext}. Дозволено: JPEG, PNG, GIF`);
 							}
 
 							const buffer = Buffer.from(base64Data, "base64");
 							if (buffer.length > maxSizeInBytes) {
-								console.error("[EditAlbum] Зображення занадто велике:", buffer.length);
+								console.error(" Зображення занадто велике:", buffer.length);
 								throw new Error(
 									`Зображення на позиції ${index} занадто велике: ${Math.round(
 										buffer.length / 1024 / 1024
@@ -180,19 +176,19 @@ export async function editAlbum(
 							const filePath = path.join(uploadDir, filename);
 
 							await fs.writeFile(filePath, buffer);
-							console.log("[EditAlbum] Зображення збережено:", filePath);
+							console.log("Зображення збережено:", filePath);
 
 							try {
 								await fs.access(filePath);
 								createdImageUrls.push(filename);
 								return { url: `uploads/${filename}` };
 							} catch {
-								console.error("[EditAlbum] Файл не знайдено після збереження:", filePath);
+								console.error("Файл не знайдено після збереження:", filePath);
 								throw new Error(`Не вдалося зберегти зображення на позиції ${index}`);
 							}
 						}
 
-						console.log("[EditAlbum] Використано існуючий URL:", image.url);
+						console.log("Використано існуючий URL:", image.url);
 						return { url: image.url };
 					})
 				);
@@ -203,15 +199,14 @@ export async function editAlbum(
 			}
 		}
 
-		// Оновлення альбома
-		console.log("[EditAlbum] Дані для оновлення:", JSON.stringify(updateData, null, 2));
+		console.log("Дані для оновлення:", JSON.stringify(updateData, null, 2));
 		const updatedAlbum = await prisma.album.update({
 			where: { id },
 			data: updateData,
 			include: { images: true },
 		});
 
-		// Нормалізація URL зображень
+		// Нормалізація
 		const normalizedAlbum = {
 			...updatedAlbum,
 			images: updatedAlbum.images.map((img) => {
@@ -219,43 +214,38 @@ export async function editAlbum(
 				const fullUrl = img.url.startsWith("http")
 					? img.url
 					: `${API_BASE_URL}/uploads/${relativeUrl}`;
-				console.log(`[EditAlbum] Нормалізований URL зображення: ${fullUrl}`);
+				console.log(`Нормалізований URL зображення: ${fullUrl}`);
 				return { ...img, url: fullUrl };
 			}),
 		};
 
-		// Перевірка доступності файлів
 		for (const img of normalizedAlbum.images) {
 			if (!img.url.startsWith("http")) {
 				const filePath = path.join(uploadDir, img.url.replace(/^uploads\//, ""));
 				try {
 					await fs.access(filePath);
-					console.log(`[EditAlbum] Файл зображення доступний: ${filePath}`);
+					console.log(`Файл зображення доступний: ${filePath}`);
 				} catch {
-					console.error(`[EditAlbum] Файл зображення не знайдено: ${filePath}`);
+					console.error(`Файл зображення не знайдено: ${filePath}`);
 					throw new Error(`Зображення не знайдено: ${img.url}`);
 				}
 			}
 		}
 
-		console.log("[EditAlbum] Альбом оновлено, зображення:", normalizedAlbum.images);
-		return { status: "success", data: normalizedAlbum as Album };
+		console.log("Альбом оновлено, зображення:", normalizedAlbum.images);
+		return { status: "success", data: normalizedAlbum };
 	} catch (err) {
-		console.error("[EditAlbum] Помилка:", err);
-
-		// Очищення створених файлів
+		console.error("Помилка:", err);
 		for (const filename of createdImageUrls) {
 			const filePath = path.join(uploadDir, filename);
-			console.log(`[EditAlbum] Видаляємо файл: ${filePath}`);
+			console.log(`Видаляємо файл: ${filePath}`);
 			await fs.unlink(filePath).catch((e) =>
-				console.error("[EditAlbum] Помилка видалення файлу:", e)
+				console.error("Помилка видалення файлу:", e)
 			);
 		}
-
 		return {
 			status: "error",
-			message:
-				err instanceof Error ? err.message : "Не вдалося оновити альбом",
+			message: "Не вдалося оновити альбом",
 		};
 	}
 }

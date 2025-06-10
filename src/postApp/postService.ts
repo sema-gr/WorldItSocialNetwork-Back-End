@@ -369,10 +369,10 @@ async function editPost(data: IUpdatePost, id: number): Promise<IOkWithData<Post
       }
     }
 
-    console.log("[EditPost] Пост оновлено, зображення:", normalizedPost.images);
+    console.log("Пост оновлено, зображення:", normalizedPost.images);
     return { status: "success", data: normalizedPost as Post };
   } catch (err) {
-    console.error("[EditPost] Помилка:", err);
+    console.error("Помилка:", err);
 
     // Очищення створених файлів
     for (const filename of createdImageUrls) {
