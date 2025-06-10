@@ -4,6 +4,7 @@ import userRouter from './userApp/userRouter';
 import postRouter from './postApp/postRouter';
 import albumRouter from './albumApp/albumRouter';
 import path from 'path';
+import friendshipRouter from './friendshipApp/friendshipRouter';
 
 
 const app: Express = express()
@@ -22,6 +23,8 @@ app.use('/posts', postRouter);
 app.use('/albums', albumRouter);
 
 app.use('/uploads', express.static(path.join(__dirname, '..', 'public', 'uploads')));
+
+app.use("/friendship", friendshipRouter)
 
 
 app.listen(PORT, HOST, () => {

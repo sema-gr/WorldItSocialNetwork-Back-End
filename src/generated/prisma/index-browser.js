@@ -125,6 +125,14 @@ exports.Prisma.AlbumScalarFieldEnum = {
   authorId: 'authorId'
 };
 
+exports.Prisma.FriendshipScalarFieldEnum = {
+  id: 'id',
+  idFrom: 'idFrom',
+  idTo: 'idTo',
+  status: 'status',
+  userId: 'userId'
+};
+
 exports.Prisma.ImageScalarFieldEnum = {
   id: 'id',
   url: 'url',
@@ -179,6 +187,7 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   Album: 'Album',
+  Friendship: 'Friendship',
   Image: 'Image',
   UserPost: 'UserPost',
   Tags: 'Tags',

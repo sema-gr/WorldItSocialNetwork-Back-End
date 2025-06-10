@@ -11,4 +11,5 @@ model User {
     about     String?
     post UserPost[]
     album Album[]
+    friendship Friendship[]
 }

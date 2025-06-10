@@ -7,7 +7,6 @@ import { CreateUser, UpdateUser, User } from "./types";
 import nodemailer from 'nodemailer';
 import path from "path";
 import fs from "fs/promises";
-import { Prisma } from "../generated/prisma";
 
 const emailCodes = new Map<string, { code: string, expiresAt: number }>()
 

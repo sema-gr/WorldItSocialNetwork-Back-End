@@ -1,8 +1,7 @@
 import client from "../client/prismaClient";
 import { IErrors, errors } from "../config/errorCodes"
 import { Prisma } from "../generated/prisma";
-import { IError } from "../types/types"
-import { User, CreateUser, UpdateUser } from "./types"
+import { CreateUser, UpdateUser } from "./types"
 
 async function findUserByEmail(email: string){
     try {

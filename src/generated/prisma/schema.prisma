@@ -9,6 +9,15 @@ model Album {
   authorId Int
 }
 
+model Friendship {
+  id     Int     @id @default(autoincrement())
+  idFrom Int
+  idTo   Int
+  status Boolean
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int
+}
+
 model Image {
   id  Int    @id @default(autoincrement())
   url String
@@ -50,18 +59,19 @@ model UserPostTags {
 }
 
 model User {
-  id          Int        @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   name        String?
-  username    String?    @unique
+  username    String?      @unique
   surname     String?
   dateOfBirth DateTime?
-  email       String     @unique
+  email       String       @unique
   password    String
   signature   String?
   image       String?
   about       String?
   post        UserPost[]
   album       Album[]
+  friendship  Friendship[]
 }
 
 // This is your Prisma schema file,
