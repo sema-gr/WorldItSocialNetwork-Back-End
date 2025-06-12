@@ -2704,21 +2704,18 @@ export namespace Prisma {
   export type FriendshipAvgAggregateOutputType = {
     id: number | null
     idFrom: number | null
-    idTo: number | null
     userId: number | null
   }
 
   export type FriendshipSumAggregateOutputType = {
     id: number | null
     idFrom: number | null
-    idTo: number | null
     userId: number | null
   }
 
   export type FriendshipMinAggregateOutputType = {
     id: number | null
     idFrom: number | null
-    idTo: number | null
     status: boolean | null
     userId: number | null
   }
@@ -2726,7 +2723,6 @@ export namespace Prisma {
   export type FriendshipMaxAggregateOutputType = {
     id: number | null
     idFrom: number | null
-    idTo: number | null
     status: boolean | null
     userId: number | null
   }
@@ -2734,7 +2730,6 @@ export namespace Prisma {
   export type FriendshipCountAggregateOutputType = {
     id: number
     idFrom: number
-    idTo: number
     status: number
     userId: number
     _all: number
@@ -2744,21 +2739,18 @@ export namespace Prisma {
   export type FriendshipAvgAggregateInputType = {
     id?: true
     idFrom?: true
-    idTo?: true
     userId?: true
   }
 
   export type FriendshipSumAggregateInputType = {
     id?: true
     idFrom?: true
-    idTo?: true
     userId?: true
   }
 
   export type FriendshipMinAggregateInputType = {
     id?: true
     idFrom?: true
-    idTo?: true
     status?: true
     userId?: true
   }
@@ -2766,7 +2758,6 @@ export namespace Prisma {
   export type FriendshipMaxAggregateInputType = {
     id?: true
     idFrom?: true
-    idTo?: true
     status?: true
     userId?: true
   }
@@ -2774,7 +2765,6 @@ export namespace Prisma {
   export type FriendshipCountAggregateInputType = {
     id?: true
     idFrom?: true
-    idTo?: true
     status?: true
     userId?: true
     _all?: true
@@ -2869,7 +2859,6 @@ export namespace Prisma {
   export type FriendshipGroupByOutputType = {
     id: number
     idFrom: number
-    idTo: number
     status: boolean
     userId: number
     _count: FriendshipCountAggregateOutputType | null
@@ -2896,7 +2885,6 @@ export namespace Prisma {
   export type FriendshipSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     idFrom?: boolean
-    idTo?: boolean
     status?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2905,7 +2893,6 @@ export namespace Prisma {
   export type FriendshipSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     idFrom?: boolean
-    idTo?: boolean
     status?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2914,7 +2901,6 @@ export namespace Prisma {
   export type FriendshipSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     idFrom?: boolean
-    idTo?: boolean
     status?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2923,12 +2909,11 @@ export namespace Prisma {
   export type FriendshipSelectScalar = {
     id?: boolean
     idFrom?: boolean
-    idTo?: boolean
     status?: boolean
     userId?: boolean
   }
 
-  export type FriendshipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idFrom" | "idTo" | "status" | "userId", ExtArgs["result"]["friendship"]>
+  export type FriendshipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "idFrom" | "status" | "userId", ExtArgs["result"]["friendship"]>
   export type FriendshipInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -2947,7 +2932,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       idFrom: number
-      idTo: number
       status: boolean
       userId: number
     }, ExtArgs["result"]["friendship"]>
@@ -3376,7 +3360,6 @@ export namespace Prisma {
   interface FriendshipFieldRefs {
     readonly id: FieldRef<"Friendship", 'Int'>
     readonly idFrom: FieldRef<"Friendship", 'Int'>
-    readonly idTo: FieldRef<"Friendship", 'Int'>
     readonly status: FieldRef<"Friendship", 'Boolean'>
     readonly userId: FieldRef<"Friendship", 'Int'>
   }
@@ -9495,7 +9478,6 @@ export namespace Prisma {
   export const FriendshipScalarFieldEnum: {
     id: 'id',
     idFrom: 'idFrom',
-    idTo: 'idTo',
     status: 'status',
     userId: 'userId'
   };
@@ -9684,7 +9666,6 @@ export namespace Prisma {
     NOT?: FriendshipWhereInput | FriendshipWhereInput[]
     id?: IntFilter<"Friendship"> | number
     idFrom?: IntFilter<"Friendship"> | number
-    idTo?: IntFilter<"Friendship"> | number
     status?: BoolFilter<"Friendship"> | boolean
     userId?: IntFilter<"Friendship"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -9693,7 +9674,6 @@ export namespace Prisma {
   export type FriendshipOrderByWithRelationInput = {
     id?: SortOrder
     idFrom?: SortOrder
-    idTo?: SortOrder
     status?: SortOrder
     userId?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -9705,7 +9685,6 @@ export namespace Prisma {
     OR?: FriendshipWhereInput[]
     NOT?: FriendshipWhereInput | FriendshipWhereInput[]
     idFrom?: IntFilter<"Friendship"> | number
-    idTo?: IntFilter<"Friendship"> | number
     status?: BoolFilter<"Friendship"> | boolean
     userId?: IntFilter<"Friendship"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -9714,7 +9693,6 @@ export namespace Prisma {
   export type FriendshipOrderByWithAggregationInput = {
     id?: SortOrder
     idFrom?: SortOrder
-    idTo?: SortOrder
     status?: SortOrder
     userId?: SortOrder
     _count?: FriendshipCountOrderByAggregateInput
@@ -9730,7 +9708,6 @@ export namespace Prisma {
     NOT?: FriendshipScalarWhereWithAggregatesInput | FriendshipScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Friendship"> | number
     idFrom?: IntWithAggregatesFilter<"Friendship"> | number
-    idTo?: IntWithAggregatesFilter<"Friendship"> | number
     status?: BoolWithAggregatesFilter<"Friendship"> | boolean
     userId?: IntWithAggregatesFilter<"Friendship"> | number
   }
@@ -10102,7 +10079,6 @@ export namespace Prisma {
 
   export type FriendshipCreateInput = {
     idFrom: number
-    idTo: number
     status: boolean
     user: UserCreateNestedOneWithoutFriendshipInput
   }
@@ -10110,14 +10086,12 @@ export namespace Prisma {
   export type FriendshipUncheckedCreateInput = {
     id?: number
     idFrom: number
-    idTo: number
     status: boolean
     userId: number
   }
 
   export type FriendshipUpdateInput = {
     idFrom?: IntFieldUpdateOperationsInput | number
-    idTo?: IntFieldUpdateOperationsInput | number
     status?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneRequiredWithoutFriendshipNestedInput
   }
@@ -10125,7 +10099,6 @@ export namespace Prisma {
   export type FriendshipUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     idFrom?: IntFieldUpdateOperationsInput | number
-    idTo?: IntFieldUpdateOperationsInput | number
     status?: BoolFieldUpdateOperationsInput | boolean
     userId?: IntFieldUpdateOperationsInput | number
   }
@@ -10133,21 +10106,18 @@ export namespace Prisma {
   export type FriendshipCreateManyInput = {
     id?: number
     idFrom: number
-    idTo: number
     status: boolean
     userId: number
   }
 
   export type FriendshipUpdateManyMutationInput = {
     idFrom?: IntFieldUpdateOperationsInput | number
-    idTo?: IntFieldUpdateOperationsInput | number
     status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FriendshipUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     idFrom?: IntFieldUpdateOperationsInput | number
-    idTo?: IntFieldUpdateOperationsInput | number
     status?: BoolFieldUpdateOperationsInput | boolean
     userId?: IntFieldUpdateOperationsInput | number
   }
@@ -10598,7 +10568,6 @@ export namespace Prisma {
   export type FriendshipCountOrderByAggregateInput = {
     id?: SortOrder
     idFrom?: SortOrder
-    idTo?: SortOrder
     status?: SortOrder
     userId?: SortOrder
   }
@@ -10606,14 +10575,12 @@ export namespace Prisma {
   export type FriendshipAvgOrderByAggregateInput = {
     id?: SortOrder
     idFrom?: SortOrder
-    idTo?: SortOrder
     userId?: SortOrder
   }
 
   export type FriendshipMaxOrderByAggregateInput = {
     id?: SortOrder
     idFrom?: SortOrder
-    idTo?: SortOrder
     status?: SortOrder
     userId?: SortOrder
   }
@@ -10621,7 +10588,6 @@ export namespace Prisma {
   export type FriendshipMinOrderByAggregateInput = {
     id?: SortOrder
     idFrom?: SortOrder
-    idTo?: SortOrder
     status?: SortOrder
     userId?: SortOrder
   }
@@ -10629,7 +10595,6 @@ export namespace Prisma {
   export type FriendshipSumOrderByAggregateInput = {
     id?: SortOrder
     idFrom?: SortOrder
-    idTo?: SortOrder
     userId?: SortOrder
   }
 
@@ -12177,14 +12142,12 @@ export namespace Prisma {
 
   export type FriendshipCreateWithoutUserInput = {
     idFrom: number
-    idTo: number
     status: boolean
   }
 
   export type FriendshipUncheckedCreateWithoutUserInput = {
     id?: number
     idFrom: number
-    idTo: number
     status: boolean
   }
 
@@ -12276,7 +12239,6 @@ export namespace Prisma {
     NOT?: FriendshipScalarWhereInput | FriendshipScalarWhereInput[]
     id?: IntFilter<"Friendship"> | number
     idFrom?: IntFilter<"Friendship"> | number
-    idTo?: IntFilter<"Friendship"> | number
     status?: BoolFilter<"Friendship"> | boolean
     userId?: IntFilter<"Friendship"> | number
   }
@@ -12379,7 +12341,6 @@ export namespace Prisma {
   export type FriendshipCreateManyUserInput = {
     id?: number
     idFrom: number
-    idTo: number
     status: boolean
   }
 
@@ -12440,21 +12401,18 @@ export namespace Prisma {
 
   export type FriendshipUpdateWithoutUserInput = {
     idFrom?: IntFieldUpdateOperationsInput | number
-    idTo?: IntFieldUpdateOperationsInput | number
     status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FriendshipUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     idFrom?: IntFieldUpdateOperationsInput | number
-    idTo?: IntFieldUpdateOperationsInput | number
     status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FriendshipUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     idFrom?: IntFieldUpdateOperationsInput | number
-    idTo?: IntFieldUpdateOperationsInput | number
     status?: BoolFieldUpdateOperationsInput | boolean
   }
 

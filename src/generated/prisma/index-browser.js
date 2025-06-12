@@ -128,7 +128,6 @@ exports.Prisma.AlbumScalarFieldEnum = {
 exports.Prisma.FriendshipScalarFieldEnum = {
   id: 'id',
   idFrom: 'idFrom',
-  idTo: 'idTo',
   status: 'status',
   userId: 'userId'
 };
