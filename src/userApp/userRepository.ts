@@ -52,6 +52,7 @@ async function getUserById(id: number){
                 password: true,
                 signature: true,
                 image: true,
+                friendship: true
                 // about: true?
             }
         })

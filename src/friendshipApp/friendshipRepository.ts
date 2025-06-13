@@ -17,8 +17,32 @@ async function createFriendship(data: CreateFriendship){
         }
     }}
 
-const friendshipRepository = {
-    createFriendship: createFriendship
+
+
+async function getFriendship(){
+    try{
+        let friendship = await client.friendship.findMany()
+        return friendship
+    } catch(err){
+        if (err instanceof Prisma.PrismaClientKnownRequestError){
+            if (err.code == 'P2002'){
+                console.log(err.message);
+                throw err;
+            }
+            if (err.code == 'P2015'){
+                console.log(err.message);
+                throw err;
+            }
+            if (err.code == 'P20019'){
+                console.log(err.message);
+                throw err;
+            }
+        }
+    }
 }
 
+const friendshipRepository = {
+    createFriendship: createFriendship,
+    getFriendship: getFriendship
+}
 export default friendshipRepository;

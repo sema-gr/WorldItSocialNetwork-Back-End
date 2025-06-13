@@ -3,7 +3,7 @@ import friendshipController from "./friendshipController";
 import express from 'express';
 
 const router = express.Router();
-
+router.get('/all', friendshipController.getFriendship)
 router.post('/create', authTokenMiddleware, friendshipController.createFriendship)
 
 

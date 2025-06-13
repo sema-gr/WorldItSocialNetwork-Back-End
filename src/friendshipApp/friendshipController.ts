@@ -10,9 +10,17 @@ async function createFriendship(req: Request, res: Response) {
 		res.json(result.data);
 	}
 }
-
+async function getFriendship(req: Request, res: Response) {
+	const result = await friendshipService.getFriendship();
+	if (result.status == "error") {
+		res.json("error");
+	} else {
+		res.json(result.data);
+	}
+}
 const friendshipController = {
-    createFriendship: createFriendship
+    createFriendship: createFriendship,
+	getFriendship: getFriendship
 }
 
 
