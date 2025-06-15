@@ -56,12 +56,14 @@ async function createPost(req: Request, res: Response) {
 		}
 
 		const result = await postService.createPost(newPost);
+
+		if (result.status == "error") {
+			res.json("error");
+		} else {
+			res.json(result.data);
+		}
 	} catch (error) {
 		console.error("Full controller error:", error);
-		// return res.json({
-		//     error: error instanceof Error ? error.message : 'Server error',
-		//     stack: process.env.NODE_ENV === 'development' && error instanceof Error ? error.stack : undefined
-		// });
 	}
 }
 
