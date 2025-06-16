@@ -120,34 +120,48 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.AlbumScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  theme: 'theme',
-  year: 'year',
+  created_at: 'created_at',
+  shown: 'shown',
+  topic: 'topic',
   authorId: 'authorId'
+};
+
+exports.Prisma.ChatGroupScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  isPersonalChat: 'isPersonalChat',
+  adminId: 'adminId',
+  avatar: 'avatar'
+};
+
+exports.Prisma.ChatMessageScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  sentAt: 'sentAt',
+  authorId: 'authorId',
+  chatGroupId: 'chatGroupId',
+  attachedImage: 'attachedImage'
 };
 
 exports.Prisma.FriendshipScalarFieldEnum = {
   id: 'id',
-  idFrom: 'idFrom',
-  status: 'status',
-  userId: 'userId'
+  idTo: 'idTo',
+  idFromId: 'idFromId',
+  accepted: 'accepted'
 };
 
 exports.Prisma.ImageScalarFieldEnum = {
   id: 'id',
   url: 'url',
-  userPostId: 'userPostId',
-  albumId: 'albumId'
+  uploadedAt: 'uploadedAt'
 };
 
 exports.Prisma.UserPostScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  theme: 'theme',
-  text: 'text',
-  links: 'links',
-  views: 'views',
-  likes: 'likes',
-  authorId: 'authorId'
+  title: 'title',
+  content: 'content',
+  authorId: 'authorId',
+  linkId: 'linkId'
 };
 
 exports.Prisma.TagsScalarFieldEnum = {
@@ -155,12 +169,12 @@ exports.Prisma.TagsScalarFieldEnum = {
   name: 'name'
 };
 
-exports.Prisma.UserPostTagsScalarFieldEnum = {
-  userPostId: 'userPostId',
-  tagId: 'tagId'
+exports.Prisma.LinkScalarFieldEnum = {
+  id: 'id',
+  url: 'url'
 };
 
-exports.Prisma.UserScalarFieldEnum = {
+exports.Prisma.ProfileScalarFieldEnum = {
   id: 'id',
   name: 'name',
   username: 'username',
@@ -168,9 +182,17 @@ exports.Prisma.UserScalarFieldEnum = {
   dateOfBirth: 'dateOfBirth',
   email: 'email',
   password: 'password',
-  signature: 'signature',
   image: 'image',
-  about: 'about'
+  about: 'about',
+  signature: 'signature'
+};
+
+exports.Prisma.AvatarScalarFieldEnum = {
+  id: 'id',
+  image: 'image',
+  profileId: 'profileId',
+  shown: 'shown',
+  active: 'active'
 };
 
 exports.Prisma.SortOrder = {
@@ -186,12 +208,15 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   Album: 'Album',
+  ChatGroup: 'ChatGroup',
+  ChatMessage: 'ChatMessage',
   Friendship: 'Friendship',
   Image: 'Image',
   UserPost: 'UserPost',
   Tags: 'Tags',
-  UserPostTags: 'UserPostTags',
-  User: 'User'
+  Link: 'Link',
+  Profile: 'Profile',
+  Avatar: 'Avatar'
 };
 
 /**

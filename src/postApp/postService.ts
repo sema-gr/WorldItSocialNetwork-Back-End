@@ -22,7 +22,7 @@ async function createPost(data: CreatePost): Promise<IOkWithData<Post> | IError>
     console.log("Raw input data:", JSON.stringify(data, null, 2));
 
     // Валідація тегів
-    let tagsInput: { create: { tag: { connect: { id: number } } }[] } | undefined;
+    let tagsInput: { connect: { id: number }[] } | undefined;
     if (Array.isArray(data.tags)) {
       if (data.tags.length > 10) {
         return { status: "error", message: "Максимум 10 тегів дозволено" };
@@ -39,14 +39,12 @@ async function createPost(data: CreatePost): Promise<IOkWithData<Post> | IError>
           if (!tag) {
             tag = await prisma.tags.create({ data: { name: tagName } });
           }
-          return { tagId: tag.id };
+          return { id: tag.id };
         })
       );
 
       tagsInput = {
-        create: tagConnections.map((connection) => ({
-          tag: { connect: { id: connection.tagId } },
-        })),
+        connect: tagConnections,
       };
     }
 
@@ -117,14 +115,13 @@ async function createPost(data: CreatePost): Promise<IOkWithData<Post> | IError>
 
     // Формування даних поста
     const postData: CreatePost = {
-      name: data.name,
-      text: data.text,
+      title: data.title,
       authorId: data.authorId,
-      theme: data.theme ?? null,
       tags: tagsInput,
-      links: data.links ?? null,
-      views: data.views ?? null,
-      likes: data.likes ?? null,
+      content: data.content,
+      links: data.links ?? undefined,
+      views: data.views ?? undefined,
+      likes: data.likes ?? undefined,
       images: imagesInput,
     };
 
@@ -134,9 +131,19 @@ async function createPost(data: CreatePost): Promise<IOkWithData<Post> | IError>
     const newPost = await prisma.userPost.create({
       data: postData,
       include: {
-        images: true,
-        tags: { include: { tag: true } },
-      },
+        images: {
+          select: {
+            id: true,
+            url: true,
+            uploadedAt: true
+          }
+        },
+        tags: {
+          select: {
+            name: true
+          }
+        }
+      }
     });
 
     // Логування результату
@@ -170,9 +177,21 @@ async function editPost(data: IUpdatePost, id: number): Promise<IOkWithData<Post
     const currentPost = await prisma.userPost.findUnique({
       where: { id },
       include: {
-        images: true,
-        tags: { include: { tag: true } },
-      },
+        images: {
+          select: {
+            id: true,
+            url: true,
+            uploadedAt: true
+          }
+        },
+        tags: {
+          select: {
+            name: true
+          }
+        },
+        likes: true,
+        views: true,
+      }
     });
 
     if (!currentPost) {
@@ -182,12 +201,8 @@ async function editPost(data: IUpdatePost, id: number): Promise<IOkWithData<Post
 
     // Підготовка даних для оновлення
     const updateData: IUpdatePost = {
-      name: typeof data.name === "string" ? data.name.trim() : data.name ?? currentPost.name,
-      text: typeof data.text === "string" ? data.text.trim() : data.text ?? currentPost.text,
-      theme: typeof data.theme === "string" ? data.theme.trim() : data.theme ?? currentPost.theme,
-      links: typeof data.links === "string" ? data.links.trim() : data.links ?? currentPost.links,
-      views: data.views ?? currentPost.views,
-      likes: data.likes ?? currentPost.likes,
+      title: typeof data.title === "string" ? data.title.trim() : data.title ?? currentPost.title,
+      content: typeof data.content === "string" ? data.content.trim() : data.content ?? currentPost.content,
     };
 
     // Обробка тегів
@@ -206,16 +221,16 @@ async function editPost(data: IUpdatePost, id: number): Promise<IOkWithData<Post
         return { status: "error", message: "Некоректні теги або занадто довгі (макс. 50 символів)" };
       }
 
-      const currentTagNames = currentPost.tags.map((t) => t.tag.name);
+      const currentTagNames = currentPost.tags.map((t) => t.name);
       const tagsToAdd = validTags.filter((tag) => !currentTagNames.includes(tag));
       const tagsToRemove = currentTagNames.filter((tag) => !validTags.includes(tag));
 
       if (tagsToRemove.length > 0) {
         console.log("[EditPost] Видаляються теги:", tagsToRemove);
-        await prisma.userPostTags.deleteMany({
+        await prisma.userPost.deleteMany({
           where: {
-            userPostId: id,
-            tag: { name: { in: tagsToRemove } },
+            tags: {
+            id: { in: tagsToRemove.map((tag) => tag.) },
           },
         });
       }

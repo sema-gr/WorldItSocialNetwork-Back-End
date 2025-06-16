@@ -5,7 +5,7 @@ import { CreateUser, UpdateUser } from "./types"
 
 async function findUserByEmail(email: string){
     try {
-        let user = await client.user.findUnique({
+        let user = await client.profile.findUnique({
             where: {
                 email: email
             }
@@ -22,7 +22,7 @@ async function findUserByEmail(email: string){
 }
 async function createUser(data: CreateUser){
     try{
-        const user = await client.user.create({
+        const user = await client.profile.create({
             data: data
         })
         return user;
@@ -38,7 +38,7 @@ async function createUser(data: CreateUser){
 
 async function getUserById(id: number){
     try {
-        let user = await client.user.findUnique({
+        let user = await client.profile.findUnique({
             where: {
                 id: id
             },
@@ -52,7 +52,7 @@ async function getUserById(id: number){
                 password: true,
                 signature: true,
                 image: true,
-                friendship: true
+                friendshipFrom: true,
                 // about: true?
             }
         })
@@ -69,7 +69,7 @@ async function getUserById(id: number){
 
 async function updateUserById(data: UpdateUser, id: number) {
     try {
-        const currentUser = await client.user.findUnique({
+        const currentUser = await client.profile.findUnique({
             where: {
                 id: id,
             },
@@ -84,7 +84,7 @@ async function updateUserById(data: UpdateUser, id: number) {
             ...data,
         };
 
-        const user = await client.user.update({
+        const user = await client.profile.update({
             where: {
                 id: id,
             },
@@ -122,7 +122,7 @@ async function updateUserById(data: UpdateUser, id: number) {
 
 async function getUsers() {
     try {
-        const users = await client.user.findMany({
+        const users = await client.profile.findMany({
             include: {
                 post: true,
             }

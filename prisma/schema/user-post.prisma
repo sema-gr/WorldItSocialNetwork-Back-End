@@ -1,27 +1,35 @@
 model UserPost{
     id Int @id @default(autoincrement())
-    name String
-    theme String?
-    tags UserPostTags[]
-    text String
-    links String?
+    title String
+    // theme String?
+    tags Tags[]
+    content String
     images Image[]
-    views Int?
-    likes Int?
-    author User @relation(fields: [authorId], references: [id])
+    views Profile[] @relation("views")
+    likes Profile[] @relation("likes")
+    author Profile @relation(fields: [authorId], references: [id])
     authorId Int
+    link Link? @relation(fields: [linkId], references: [id])
+    linkId Int?
 }
 
 model Tags {
     id Int @id @default(autoincrement())
     name String
-    userPosts UserPostTags[]
+    // userPosts UserPostTags[]
+    UserPost UserPost[]
 }
 
-model UserPostTags {
-    userPostId Int
-    tagId Int
-    userPost UserPost @relation(fields: [userPostId], references: [id])
-    tag Tags @relation(fields: [tagId], references: [id])
-    @@id([userPostId, tagId])
+model Link{
+    id Int @id @default(autoincrement())
+    url String
+    userPost UserPost[] @relation()
 }
+
+// model UserPostTags {
+//     userPostId Int
+//     tagId Int
+//     userPost UserPost @relation(fields: [userPostId], references: [id])
+//     tag Tags @relation(fields: [tagId], references: [id])
+//     @@id([userPostId, tagId])
+// }

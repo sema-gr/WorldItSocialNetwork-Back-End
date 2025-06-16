@@ -1,0 +1,21 @@
+model ChatGroup{
+    id Int @id @default(autoincrement())
+    name String
+    isPersonalChat Boolean @default(false)
+    members Profile[] @relation("groupMembers")
+    admin Profile @relation("administeredGroup", fields: [adminId], references: [id])
+    adminId Int
+    avatar String
+    chatMessages ChatMessage[]
+}
+
+model ChatMessage {
+    id Int @id @default(autoincrement())
+    content String
+    sentAt DateTime @default(now())
+    author Profile @relation(fields: [authorId], references: [id])
+    authorId Int
+    chatGroup ChatGroup @relation(fields: [chatGroupId], references: [id])
+    chatGroupId Int
+    attachedImage String
+}

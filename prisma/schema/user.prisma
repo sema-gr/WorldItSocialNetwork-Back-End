@@ -1,15 +1,31 @@
-model User {
-    id        Int   @id @default(autoincrement())
-    name      String?
-    username  String?   @unique
-    surname   String?
-    dateOfBirth DateTime?
-    email     String   @unique
-    password  String
-    signature String?
-    image     String?
-    about     String?
-    post UserPost[]
-    album Album[]
-    friendship Friendship[]
+model Profile {
+    id                 Int           @id @default(autoincrement())
+    name               String?
+    username           String?       @unique
+    surname            String?
+    dateOfBirth        DateTime?
+    email              String        @unique
+    password           String
+    image              String?
+    about              String?
+    signature          String?
+    post               UserPost[]
+    album              Album[]
+    chats              ChatGroup[]   @relation("groupMembers")
+    administeredGroups ChatGroup[]   @relation("administeredGroup")
+    chatMessages       ChatMessage[]
+    userPostViews      UserPost[]    @relation("views")
+    userPostLikes      UserPost[]    @relation("likes")
+    avatar             Avatar?
+    friendshipFrom Friendship[] @relation("friendshipFrom")
+    friendshipTo Friendship[] @relation("friendshipTo")
+}
+
+model Avatar {
+    id        Int     @id @default(autoincrement())
+    image     String
+    profile   Profile @relation(fields: [profileId], references: [id])
+    profileId Int     @unique
+    shown     Boolean @default(true)
+    active    Boolean @default(true)
 }

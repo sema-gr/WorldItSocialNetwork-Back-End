@@ -1,10 +1,12 @@
 model Album {
     id Int @id @default(autoincrement())
     name String
-    theme String?
-    year String?
+    // theme String?
+    // year String?
     images Image[]
-
-    author User @relation(fields: [authorId], references: [id])
+    created_at DateTime @default(now())
+    shown Boolean @default(false)
+    topic String?
+    author Profile @relation(fields: [authorId], references: [id])
     authorId Int
 }

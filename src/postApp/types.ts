@@ -4,12 +4,16 @@ export type Post = Prisma.UserPostGetPayload<{
     include: {
         images: {
             select: {
-                id: true,
-                url: true,
-                userPostId: true
+                id: true;
+                url: true;
+                uploadedAt: true;
             }
         },
-        tags: { include: { tag: true } }
+        tags: {
+            select: {
+                name: true
+            }
+        }
     }
 }>;
 
@@ -18,4 +22,4 @@ export type CreatePost = Prisma.UserPostUncheckedCreateInput;
 
 export type IUpdatePost = Prisma.UserPostUpdateInput;
 
-export type CreatePostData = Prisma.ImageUncheckedCreateNestedManyWithoutPostInput;
+export type CreatePostData = Prisma.ImageUncheckedCreateNestedManyWithoutUserPostInput;

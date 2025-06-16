@@ -2,29 +2,37 @@ import prisma from "../client/prismaClient";
 import { Prisma } from "../generated/prisma/client";
 import { CreatePost } from "./types";
 
-async function getPosts(){
-    try{
+async function getPosts() {
+    try {
         let post = await prisma.userPost.findMany(
-            {include: {
-                images: true,
-                tags: {
-                    include: {
-                        tag: true
+            {
+                include: {
+                    images: {
+                        select: {
+                            id: true,
+                            url: true,
+                            uploadedAt: true
+                        }
+                    },
+                    tags: {
+                        select: {
+                            name: true
+                        }
                     }
                 }
-            }})
+            })
         return post
-    } catch(err){
-        if (err instanceof Prisma.PrismaClientKnownRequestError){
-            if (err.code == 'P2002'){
+    } catch (err) {
+        if (err instanceof Prisma.PrismaClientKnownRequestError) {
+            if (err.code == 'P2002') {
                 console.log(err.message);
                 throw err;
             }
-            if (err.code == 'P2015'){
+            if (err.code == 'P2015') {
                 console.log(err.message);
                 throw err;
             }
-            if (err.code == 'P20019'){
+            if (err.code == 'P20019') {
                 console.log(err.message);
                 throw err;
             }
@@ -32,20 +40,29 @@ async function getPosts(){
     }
 }
 
-async function createPost(data: CreatePost){
-    try{
+async function createPost(data: CreatePost) {
+    try {
         let createPost = await prisma.userPost.create({
             data: data,
-            include: 
-            {
-                images: true,
-                tags: { include: { tag: true } }
+            include: {
+                images: {
+                    select: {
+                        id: true,
+                        url: true,
+                        uploadedAt: true
+                    }
+                },
+                tags: {
+                    select: {
+                        name: true
+                    }
+                }
             }
         })
         return createPost
     } catch (err) {
-        if (err instanceof Prisma.PrismaClientKnownRequestError){
-            if (err.code == 'P2002'){
+        if (err instanceof Prisma.PrismaClientKnownRequestError) {
+            if (err.code == 'P2002') {
                 console.log(err.message)
                 throw err
             }
@@ -54,42 +71,58 @@ async function createPost(data: CreatePost){
 }
 
 async function editPost(data: any, id: number) {
-  try {
-    return await prisma.userPost.update({
-      where: { id },
-      data,
-      include: {
-        images: true,
-        tags: { include: { tag: true } }
-      },
-    });
-  } catch (err) {
-    console.log("Error in editPost:", err);
-    throw err;
-  }
+    try {
+        return await prisma.userPost.update({
+            where: { id },
+            data,
+            include: {
+                images: {
+                    select: {
+                        id: true,
+                        url: true,
+                        uploadedAt: true
+                    }
+                },
+                tags: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        });
+    } catch (err) {
+        console.log("Error in editPost:", err);
+        throw err;
+    }
 }
 
 async function deletePost(id: number) {
     try {
         // Спочатку видаляємо зв'язані записи
-        await prisma.userPostTags.deleteMany({
-            where: { userPostId: id }
-        });
+        // await prisma.userPostTags.deleteMany({
+        //     where: { userPostId: id }
+        // });
 
-        await prisma.image.deleteMany({
-            where: { userPostId: id }
-        });
+        // await prisma.image.deleteMany({
+        //     where: { userPostId: id }
+        // });
 
         // Потім видаляємо сам пост
         const deletedPost = await prisma.userPost.delete({
             where: { id },
             include: {
-                tags: {
-                    include: {
-                        tag: true
+                images: {
+                    select: {
+                        id: true,
+                        url: true,
+                        uploadedAt: true
                     }
                 },
-                images: true
+                tags: {
+                    select: {
+                        name: true
+                    }
+                }
             }
         });
 
@@ -104,9 +137,9 @@ async function deletePost(id: number) {
 
 const postRepository = {
     getPosts,
-    createPost, 
+    createPost,
     editPost,
     deletePost,
 
 }
-export {postRepository}
+export { postRepository }
