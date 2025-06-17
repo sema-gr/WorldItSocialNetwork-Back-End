@@ -4,19 +4,17 @@ import { CreatePost } from "./types";
 
 async function getPosts() {
     try {
-        let post = await prisma.userPost.findMany(
+        let post = await prisma.post.findMany(
             {
                 include: {
                     images: {
                         select: {
-                            id: true,
-                            url: true,
-                            uploadedAt: true
+                            image: true
                         }
                     },
                     tags: {
                         select: {
-                            name: true
+                            tag: true
                         }
                     }
                 }
@@ -42,19 +40,17 @@ async function getPosts() {
 
 async function createPost(data: CreatePost) {
     try {
-        let createPost = await prisma.userPost.create({
+        let createPost = await prisma.post.create({
             data: data,
             include: {
                 images: {
                     select: {
-                        id: true,
-                        url: true,
-                        uploadedAt: true
+                        image: true
                     }
                 },
                 tags: {
                     select: {
-                        name: true
+                        tag: true
                     }
                 }
             }
@@ -72,20 +68,18 @@ async function createPost(data: CreatePost) {
 
 async function editPost(data: any, id: number) {
     try {
-        return await prisma.userPost.update({
+        return await prisma.post.update({
             where: { id },
             data,
             include: {
                 images: {
                     select: {
-                        id: true,
-                        url: true,
-                        uploadedAt: true
+                        image: true
                     }
                 },
                 tags: {
                     select: {
-                        name: true
+                        tag: true
                     }
                 }
             }
@@ -108,19 +102,17 @@ async function deletePost(id: number) {
         // });
 
         // Потім видаляємо сам пост
-        const deletedPost = await prisma.userPost.delete({
+        const deletedPost = await prisma.post.delete({
             where: { id },
             include: {
                 images: {
                     select: {
-                        id: true,
-                        url: true,
-                        uploadedAt: true
+                        image: true
                     }
                 },
                 tags: {
                     select: {
-                        name: true
+                        tag: true
                     }
                 }
             }

@@ -122,45 +122,60 @@ exports.Prisma.AlbumScalarFieldEnum = {
   name: 'name',
   created_at: 'created_at',
   shown: 'shown',
-  topic: 'topic',
-  authorId: 'authorId'
+  author_id: 'author_id'
+};
+
+exports.Prisma.AlbumImagesScalarFieldEnum = {
+  album_id: 'album_id',
+  image_id: 'image_id'
+};
+
+exports.Prisma.AlbumTagsScalarFieldEnum = {
+  album_id: 'album_id',
+  tag_id: 'tag_id'
 };
 
 exports.Prisma.ChatGroupScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  isPersonalChat: 'isPersonalChat',
-  adminId: 'adminId',
+  is_personal_chat: 'is_personal_chat',
+  admin_id: 'admin_id',
   avatar: 'avatar'
 };
 
 exports.Prisma.ChatMessageScalarFieldEnum = {
   id: 'id',
   content: 'content',
-  sentAt: 'sentAt',
-  authorId: 'authorId',
-  chatGroupId: 'chatGroupId',
-  attachedImage: 'attachedImage'
+  sent_at: 'sent_at',
+  author_id: 'author_id',
+  chat_groupId: 'chat_groupId',
+  attached_image: 'attached_image'
+};
+
+exports.Prisma.ChatGroupMembersScalarFieldEnum = {
+  chat_groupId: 'chat_groupId',
+  profile_id: 'profile_id'
 };
 
 exports.Prisma.FriendshipScalarFieldEnum = {
   id: 'id',
-  idTo: 'idTo',
-  idFromId: 'idFromId',
+  profile1_id: 'profile1_id',
+  profile2_id: 'profile2_id',
   accepted: 'accepted'
 };
 
 exports.Prisma.ImageScalarFieldEnum = {
   id: 'id',
-  url: 'url',
-  uploadedAt: 'uploadedAt'
+  filename: 'filename',
+  file: 'file',
+  uploaded_at: 'uploaded_at'
 };
 
-exports.Prisma.UserPostScalarFieldEnum = {
+exports.Prisma.PostScalarFieldEnum = {
   id: 'id',
   title: 'title',
   content: 'content',
-  authorId: 'authorId',
+  author_id: 'author_id',
   linkId: 'linkId'
 };
 
@@ -174,12 +189,30 @@ exports.Prisma.LinkScalarFieldEnum = {
   url: 'url'
 };
 
+exports.Prisma.PostTagsScalarFieldEnum = {
+  post_id: 'post_id',
+  tag_id: 'tag_id'
+};
+
+exports.Prisma.PostLikesScalarFieldEnum = {
+  post_id: 'post_id'
+};
+
+exports.Prisma.PostViewsScalarFieldEnum = {
+  post_id: 'post_id'
+};
+
+exports.Prisma.PostImagesScalarFieldEnum = {
+  post_id: 'post_id',
+  image_id: 'image_id'
+};
+
 exports.Prisma.ProfileScalarFieldEnum = {
   id: 'id',
   name: 'name',
   username: 'username',
   surname: 'surname',
-  dateOfBirth: 'dateOfBirth',
+  date_of_birth: 'date_of_birth',
   email: 'email',
   password: 'password',
   image: 'image',
@@ -190,9 +223,17 @@ exports.Prisma.ProfileScalarFieldEnum = {
 exports.Prisma.AvatarScalarFieldEnum = {
   id: 'id',
   image: 'image',
-  profileId: 'profileId',
+  profile_id: 'profile_id',
   shown: 'shown',
   active: 'active'
+};
+
+exports.Prisma.ProfileViewsScalarFieldEnum = {
+  profile_id: 'profile_id'
+};
+
+exports.Prisma.ProfileLikesScalarFieldEnum = {
+  profile_id: 'profile_id'
 };
 
 exports.Prisma.SortOrder = {
@@ -208,15 +249,24 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   Album: 'Album',
+  AlbumImages: 'AlbumImages',
+  AlbumTags: 'AlbumTags',
   ChatGroup: 'ChatGroup',
   ChatMessage: 'ChatMessage',
+  ChatGroupMembers: 'ChatGroupMembers',
   Friendship: 'Friendship',
   Image: 'Image',
-  UserPost: 'UserPost',
+  Post: 'Post',
   Tags: 'Tags',
   Link: 'Link',
+  PostTags: 'PostTags',
+  PostLikes: 'PostLikes',
+  PostViews: 'PostViews',
+  PostImages: 'PostImages',
   Profile: 'Profile',
-  Avatar: 'Avatar'
+  Avatar: 'Avatar',
+  ProfileViews: 'ProfileViews',
+  ProfileLikes: 'ProfileLikes'
 };
 
 /**

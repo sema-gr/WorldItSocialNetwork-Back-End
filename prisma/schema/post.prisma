@@ -1,0 +1,54 @@
+model Post{
+    id Int @id @default(autoincrement())
+    title String
+    tags PostTags[]
+    content String
+    images PostImages[]
+    views PostViews[]
+    likes PostLikes[]
+    author Profile @relation(fields: [author_id], references: [id])
+    author_id Int
+    link Link? @relation(fields: [linkId], references: [id])
+    linkId Int?
+}
+
+model Tags {
+    id Int @id @default(autoincrement())
+    name String
+    posts PostTags[]
+    album_tags AlbumTags[]
+}
+
+model Link{
+    id Int @id @default(autoincrement())
+    url String
+    post Post[] @relation()
+}
+    
+model PostTags {
+    post_id Int
+    tag_id Int
+    post Post @relation(fields: [post_id], references: [id])
+    tag Tags @relation(fields: [tag_id], references: [id])
+    @@id([post_id, tag_id])
+}
+
+model PostLikes {
+    post_id Int
+    post Post @relation(fields: [post_id], references: [id])
+    @@id([post_id])
+}
+
+model PostViews {
+    post_id Int
+    post Post @relation(fields: [post_id], references: [id])
+    @@id([post_id])
+}
+
+model PostImages {
+    post_id Int
+    image_id Int
+    post Post @relation(fields: [post_id], references: [id])
+    image Image @relation(fields: [image_id], references: [id])
+    @@id([post_id, image_id])
+}

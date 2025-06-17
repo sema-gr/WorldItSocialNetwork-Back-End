@@ -1,7 +1,8 @@
 model Image {
     id Int @id @default(autoincrement())
-    url String
-    uploadedAt DateTime @default(now())
+    filename String
+    file String
+    uploaded_at DateTime @default(now())
 
     // post UserPost? @relation(fields: [userPostId], references: [id])
     // userPostId Int?
@@ -9,6 +10,7 @@ model Image {
     // album Album? @relation(fields: [albumId], references: [id])
     // albumId Int?
 
-    UserPost UserPost[]
-    Album Album[]
+    album Album[]
+    album_images AlbumImages[]
+    PostImages PostImages[]
 }

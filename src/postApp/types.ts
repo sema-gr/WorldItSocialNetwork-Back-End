@@ -1,25 +1,36 @@
 import { Prisma } from "../generated/prisma";
 
-export type Post = Prisma.UserPostGetPayload<{
+export type Post = Prisma.PostGetPayload<{
     include: {
         images: {
             select: {
-                id: true;
-                url: true;
-                uploadedAt: true;
+                image: true
             }
         },
         tags: {
             select: {
-                name: true
+                tag: true
             }
         }
     }
 }>;
 
 
-export type CreatePost = Prisma.UserPostUncheckedCreateInput;
+export type CreatePost = Prisma.PostUncheckedCreateInput;
 
-export type IUpdatePost = Prisma.UserPostUpdateInput;
+export type IUpdatePost = Prisma.PostUpdateInput;
 
-export type CreatePostData = Prisma.ImageUncheckedCreateNestedManyWithoutUserPostInput;
+export type CreatePostData = Prisma.PostImagesUncheckedCreateNestedManyWithoutPostInput;
+
+export type Image = Prisma.ImageUncheckedCreateInput;
+
+export interface CreatePostBody {
+    title: string;
+    content: string;
+    links?: string[];
+    tags?: string[];
+    images?: {
+        url: string;
+    }[]
+    author_id: number;
+}

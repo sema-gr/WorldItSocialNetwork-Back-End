@@ -1,8 +1,8 @@
 model Friendship{
     id Int @id @default(autoincrement())
-    profile1 Profile @relation("friendshipFrom", fields: [idFromId], references: [id]) 
-    profile2 Profile @relation("friendshipTo",fields: [idTo], references: [id])
-    idTo Int
-    idFromId Int
+    profile1 Profile @relation("friendshipFrom", fields: [profile1_id], references: [id]) 
+    profile2 Profile @relation("friendshipTo",fields: [profile1_id], references: [id])
+    profile1_id Int
+    profile2_id Int
     accepted Boolean @default(false)
 }

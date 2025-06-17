@@ -1,21 +1,29 @@
 model ChatGroup{
     id Int @id @default(autoincrement())
     name String
-    isPersonalChat Boolean @default(false)
-    members Profile[] @relation("groupMembers")
-    admin Profile @relation("administeredGroup", fields: [adminId], references: [id])
-    adminId Int
+    is_personal_chat Boolean @default(false)
+    members ChatGroupMembers[]
+    admin Profile @relation("administeredGroup", fields: [admin_id], references: [id])
+    admin_id Int
     avatar String
-    chatMessages ChatMessage[]
+    chat_messages ChatMessage[]
 }
 
 model ChatMessage {
     id Int @id @default(autoincrement())
     content String
-    sentAt DateTime @default(now())
-    author Profile @relation(fields: [authorId], references: [id])
-    authorId Int
-    chatGroup ChatGroup @relation(fields: [chatGroupId], references: [id])
-    chatGroupId Int
-    attachedImage String
+    sent_at DateTime @default(now())
+    author Profile @relation(fields: [author_id], references: [id])
+    author_id Int
+    chat_group ChatGroup @relation(fields: [chat_groupId], references: [id])
+    chat_groupId Int
+    attached_image String
+}
+
+model ChatGroupMembers {
+    chat_groupId Int
+    profile_id Int
+    chat_group ChatGroup @relation(fields: [chat_groupId], references: [id])
+    profile Profile @relation(fields: [profile_id], references: [id])
+    @@id([chat_groupId, profile_id])
 }

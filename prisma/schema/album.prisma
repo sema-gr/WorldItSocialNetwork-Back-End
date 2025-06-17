@@ -6,7 +6,24 @@ model Album {
     images Image[]
     created_at DateTime @default(now())
     shown Boolean @default(false)
-    topic String?
-    author Profile @relation(fields: [authorId], references: [id])
-    authorId Int
+    topic AlbumTags[]
+    author Profile @relation(fields: [author_id], references: [id])
+    author_id Int
+    album_images AlbumImages[]
+}
+
+model AlbumImages {
+    album_id Int
+    image_id Int
+    album Album @relation(fields: [album_id], references: [id])
+    image Image @relation(fields: [image_id], references: [id])
+    @@id([album_id, image_id])
+}
+
+model AlbumTags {
+    album_id Int
+    tag_id Int
+    album Album @relation(fields: [album_id], references: [id])
+    tag Tags @relation(fields: [tag_id], references: [id])
+    @@id([album_id, tag_id])
 }
