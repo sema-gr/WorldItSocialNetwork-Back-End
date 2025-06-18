@@ -1,10 +1,10 @@
 import { IError, IOkWithData } from "../types/types";
 import { postRepository } from "./postRepository";
-import { Post, CreatePost, IUpdatePost, CreatePostData, Image, CreatePostBody } from "./types";
+import { Post, CreatePost, IUpdatePost, CreatePostData, Image, CreatePostBody, CreateImageData, ImageCreate, UpdateCreatePost } from "./types";
 import fs from "fs/promises";
 import path from "path";
 import prisma from "../client/prismaClient";
-import { Prisma } from "../generated/prisma";
+import { Prisma, Tags } from "../generated/prisma";
 
 async function getPosts(): Promise<IOkWithData<Post[]> | IError> {
   const posts = await postRepository.getPosts();
@@ -45,26 +45,24 @@ async function createPost(data: CreatePostBody): Promise<IOkWithData<Post> | IEr
       };
     }
 
-    // Валідація зображень
-    let imagesInput: CreatePostData | undefined;
-    
-    if (data.images) {
-      let imagesToProcess = data.images.map((url) => ({ filename: url, file: url }));
-
-      if (imagesToProcess.length > 10) {
+    let imageInput: { create: { image: { connect: { id: number, filename: string, file: string } } }[] } | undefined;
+    if (Array.isArray(data.images)) {
+      if (data.images.length > 10) {
         return { status: "error", message: "Максимум 10 зображень дозволено" };
       }
-      const imagesToSend: Image[] = []
-      imageUrls.forEach((filename) => {
-        const image: Image = {
-          filename: filename,
-          file: filename
-        }
-        imagesToSend.push(image)
-      })
 
-      imagesInput = {
-        create: imagesToSend,
+      const imageConnections = await Promise.all(
+        data.images.map(async (mapImage) => {
+          let image = await prisma.image.findFirst({ where: { file: mapImage.url } });
+          if (!image) {
+            image = await prisma.image.create({ data: { file: mapImage.url, filename: mapImage.url } });
+          }
+          return { image: { connect: { id: image.id, filename: image.filename, file: image.file } } };
+        })
+      );
+
+      imageInput = {
+        create: imageConnections,
       };
     }
 
@@ -74,7 +72,7 @@ async function createPost(data: CreatePostBody): Promise<IOkWithData<Post> | IEr
       author_id: data.author_id,
       tags: tagsInput,
       content: data.content,
-      images: imagesInput,
+      images: imageInput,
     };
 
     console.log("Post data to be created:", JSON.stringify(postData, null, 2));
@@ -83,13 +81,10 @@ async function createPost(data: CreatePostBody): Promise<IOkWithData<Post> | IEr
     const newPost = await prisma.post.create({
       data: postData,
       include: {
-        images: true,
-        tags: true
-      }
+        images: { select: { image: true } },
+        tags: { include: { tag: true } },
+      },
     });
-
-    // Логування результату
-    console.log("Post created with images:", newPost.images);
 
     return { status: "success", data: newPost };
   } catch (err) {
@@ -119,8 +114,16 @@ async function editPost(data: IUpdatePost, id: number): Promise<IOkWithData<Post
     const currentPost = await prisma.post.findUnique({
       where: { id },
       include: {
-        images: true,
-        tags: true,
+        images: {
+          select: {
+            image: true
+          }
+        },
+        tags: {
+          select: {
+            tag: true
+          }
+        },
         likes: true,
         views: true,
       }
@@ -132,13 +135,14 @@ async function editPost(data: IUpdatePost, id: number): Promise<IOkWithData<Post
     }
 
     // Підготовка даних для оновлення
-    const updateData: IUpdatePost = {
+    const updateData: UpdateCreatePost = {
       title: typeof data.title === "string" ? data.title.trim() : data.title ?? currentPost.title,
       content: typeof data.content === "string" ? data.content.trim() : data.content ?? currentPost.content,
     };
 
     // Обробка тегів
     if (data.tags && Array.isArray(data.tags)) {
+
       if (data.tags.length > 10) {
         console.error("[EditPost] Занадто багато тегів:", data.tags.length);
         return { status: "error", message: "Максимум 10 тегів дозволено" };
@@ -153,71 +157,74 @@ async function editPost(data: IUpdatePost, id: number): Promise<IOkWithData<Post
         return { status: "error", message: "Некоректні теги або занадто довгі (макс. 50 символів)" };
       }
 
-      const currentTagNames = currentPost.tags.map((t) => t.name);
-      const tagsToAdd = validTags.filter((tag) => !currentTagNames.includes(tag));
-      const tagsToRemove = currentTagNames.filter((tag) => !validTags.includes(tag));
+      // const currentTagNames: string[] = currentPost.tags.map((t) => t.tag.name);
+      // let correctTags: Prisma.PostTagsUpdateManyWithoutPostNestedInput[] = [];
 
-      if (tagsToRemove.length > 0) {
-        console.log("Видаляються теги:", tagsToRemove);
-        // Видаляємо зв'язки між постом і тегами у таблиці зв'язків (наприклад, userPostTags)
-        await prisma.userPostTags.deleteMany({
-          where: {
-            post_id: id,
-            tag: {
-              name: { in: tagsToRemove }
-            }
+      // if (currentTagNames.length > 0) {
+      //   currentTagNames.forEach(async (tag) => {
+      //     let findUnique = await prisma.tags.findUnique({
+      //       where: { name: tag }
+      //     })
+      //     if (!findUnique) {
+      //       findUnique = await prisma.tags.delete({
+      //         where: { name: tag }
+      //       });
+      //     } else {
+      //       const tagsToAdd = {
+      //         create:{
+      //           tag: { connect: { id: findUnique.id, name: findUnique.name } }
+      //         }
+      //       }
+      //       correctTags.push(tagsToAdd);
+      //     }
+      //   });
+      // }
+
+      // updateData.tags = correctTags;
+
+      let tagsInput: { create: { tag: { connect: { id: number, name: string } } }[] } | undefined;
+      const tagConnections = await Promise.all(
+        data.tags.map(async (tagName: string) => {
+          let tag = await prisma.tags.findFirst({ where: { name: tagName } });
+          if (!tag) {
+            tag = await prisma.tags.create({ data: { name: tagName } });
           }
-        });
-      }
+          return { tag: { connect: { id: tag.id, name: tag.name } } };
+        })
+      );
 
-      if (tagsToAdd.length > 0) {
-        console.log("[EditPost] Додаються теги:", tagsToAdd);
-        const tagConnections = await Promise.all(
-          tagsToAdd.map(async (tagName: string) => {
-            let tag = await prisma.tags.findFirst({ where: { name: tagName } });
-            if (!tag) {
-              tag = await prisma.tags.create({ data: { name: tagName } });
-              console.log("[EditPost] Створено новий тег:", tagName);
-            }
-            return { tagId: tag.id };
-          })
-        );
-
-        updateData.tags = {
-          create: tagConnections.map((connection) => ({
-            tag: { connect: { id: connection.tagId } },
-          })),
-        };
-      }
+      tagsInput = {
+        create: tagConnections,
+      };
+      updateData.tags = tagsInput;
     }
 
-    // Обробка зображень
-    if (data.images) {
-      console.log("[EditPost] Обробка зображень:", JSON.stringify(data.images, null, 2));
-      const allowedFormats = ["jpeg", "png", "gif"];
-      const maxSizeInBytes = 5 * 1024 * 1024; // 5 МБ
-      const maxImages = 10;
+    if (currentPost.images)
+      // Обробка зображень
+      if (data.images) {
+        console.log("[EditPost] Обробка зображень:", JSON.stringify(data.images, null, 2));
+        const allowedFormats = ["jpeg", "png", "gif"];
+        const maxSizeInBytes = 5 * 1024 * 1024; // 5 МБ
+        const maxImages = 10;
 
-      const currentImageIds = currentPost.images.map((img) => img.id);
+        const currentImageIds = currentPost.images.map((img) => img.image.id);
 
-      // Обробка нових зображень (create)
-      let createImages: { url: string }[] = [];
-      if (data.images.create && Array.isArray(data.images.create)) {
-        const deleteCount = Array.isArray(data.images.delete) ? data.images.delete.length : data.images.delete ? 1 : 0;
-        if (data.images.create.length + (currentPost.images.length - deleteCount) > maxImages) {
-          console.error("[EditPost] Перевищено ліміт зображень:", data.images.create.length + (currentPost.images.length - deleteCount));
-          return { status: "error", message: "Максимум 10 зображень дозволено" };
-        }
+        // Обробка нових зображень (create)
+        let createImages: { url: string }[] = [];
+        data.images.forEach((img) => {
+          prisma.image.delete({
+            where: { id: img.id }
+          })
+        })
 
         createImages = await Promise.all(
-          data.images.create.map(async (image, index) => {
-            if (typeof image !== "object" || !image.filename || typeof image.filename !== "string") {
+          data.images.map(async (image, index) => {
+            if (typeof image !== "object" || !image.url) {
               console.error("[EditPost] Некоректні дані зображення на позиції", index);
               throw new Error(`Некоректні дані зображення на позиції ${index}: потрібен об’єкт із полем url`);
             }
-
-            if (image.filename.startsWith("data:image")) {
-              const matches = image.filename.match(/^data:image\/(\w+);base64,(.+)$/);
+            if (image.url.startsWith("data:image")) {
+              const matches = image.url.match(/^data:image\/(\w+);base64,(.+)$/);
               if (!matches) {
                 console.error("[EditPost] Невірний формат base64 на позиції", index);
                 throw new Error(`Невірний формат base64 зображення на позиції ${index}`);
@@ -251,45 +258,42 @@ async function editPost(data: IUpdatePost, id: number): Promise<IOkWithData<Post
                 throw new Error(`Не вдалося зберегти зображення на позиції ${index}`);
               }
             }
-
-            console.log("[EditPost] Використано існуючий URL:", image.filename);
-            return { url: image.filename };
+            return { url: image.url };
           })
         );
-      }
 
-      // Обробка видалення зображень (delete)
-      let deleteImageIds: number[] = [];
-      if (data.images.delete) {
-        const toDelete = Array.isArray(data.images.delete) ? data.images.delete : [data.images.delete];
-        deleteImageIds = toDelete
-          .filter((item): item is { id: number } => typeof item === "object" && "id" in item && typeof item.id === "number")
-          .map((item) => item.id)
-          .filter((id) => currentImageIds.includes(id));
+        let imageInput: { create: { image: { connect: { id: number, filename: string, file: string } } }[] } | undefined;
+        if (Array.isArray(data.images)) {
+          if (data.images.length > 10) {
+            return { status: "error", message: "Максимум 10 зображень дозволено" };
+          }
 
-        if (deleteImageIds.length > 0) {
-          console.log("[EditPost] Видаляються зображення з ID:", deleteImageIds);
-          await prisma.image.deleteMany({
-            where: {
-              id: { in: deleteImageIds },
-              post_id: id,
-            },
-          });
+          const imageConnections = await Promise.all(
+            data.images.map(async (mapImage) => {
+              let image = await prisma.image.findFirst({ where: { file: mapImage.url } });
+              if (!image) {
+                image = await prisma.image.create({ data: { file: mapImage.url, filename: mapImage.url } });
+              }
+              return { image: { connect: { id: image.id, filename: image.filename, file: image.file } } };
+            })
+          );
+
+          imageInput = {
+            create: imageConnections,
+          };
         }
-      }
 
-      if (createImages.length > 0) {
-        updateData.images = { create: createImages };
+        updateData.images = imageInput;
+
       }
-    }
 
     // Оновлення поста
     console.log("[EditPost] Дані для оновлення:", JSON.stringify(updateData, null, 2));
-    const updatedPost = await prisma.userPost.update({
+    const updatedPost = await prisma.post.update({
       where: { id },
       data: updateData,
       include: {
-        images: true,
+        images: { include: { image: true } },
         tags: { include: { tag: true } },
       },
     });
@@ -298,8 +302,8 @@ async function editPost(data: IUpdatePost, id: number): Promise<IOkWithData<Post
     const normalizedPost = {
       ...updatedPost,
       images: updatedPost.images.map((img) => {
-        const relativeUrl = img.url.replace(/\\/g, "/").replace(/^uploads\/+/, "");
-        const fullUrl = img.url.startsWith("http") ? img.url : `${API_BASE_URL}/uploads/${relativeUrl}`;
+        const relativeUrl = img.image.filename.replace(/\\/g, "/").replace(/^uploads\/+/, "");
+        const fullUrl = img.image.filename.startsWith("http") ? img.image.filename : `${API_BASE_URL}/uploads/${relativeUrl}`;
         console.log(`[EditPost] Нормалізований URL зображення: ${fullUrl}`);
         return { ...img, url: fullUrl };
       }),
@@ -341,21 +345,21 @@ async function deletePost(id: number): Promise<IOkWithData<Post> | IError> {
   try {
     const deletedPost = await postRepository.deletePost(id);
 
-    const result: Post = {
-      ...deletedPost,
-      tags: deletedPost.tags.map((t) => ({
-        userPostId: t.userPostId,
-        tagId: t.tagId,
-        tag: t.tag,
-      })),
-      images: deletedPost.images.map((img) => ({
-        id: img.id,
-        userPostId: img.userPostId,
-        url: img.url,
-      })),
-    };
+    // const result: Post = {
+    //   ...deletedPost,
+    //   tags: deletedPost.tags.map((t) => ({
+    //     userPostId: t.tag.userPostId,
+    //     tagId: t.tag.id,
+    //     tag: t.tag,
+    //   })),
+    //   images: deletedPost.images.map((img) => ({
+    //     id: img.id,
+    //     userPostId: img.userPostId,
+    //     url: img.image.filename,
+    //   })),
+    // };
 
-    return { status: "success", data: result };
+    return { status: "success", data: deletedPost };
   } catch (error) {
     console.error("Error in deletePost service:", error);
     return {

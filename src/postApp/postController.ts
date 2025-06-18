@@ -23,29 +23,6 @@ async function createPost(req: Request<{}, {}, CreatePostBody>, res: Response) {
 
 			for (const img of newPost.images) {
 				try {
-					const allowedFormats = ["jpeg", "png", "gif"];
-					const maxSizeInBytes = 5 * 1024 * 1024; // 5 МБ
-
-					const imageUrls = await Promise.all(
-						imagesToProcess.map(async (image, index) => {
-							if (typeof image !== "object" || !("filename" in image) || typeof image.filename !== "string") {
-								throw new Error(`Некоректні дані зображення на позиції ${index}: потрібен об’єкт із полем filename`);
-							}
-							if (image.filename.startsWith("data:image")) {
-								const matches = image.filename.match(/^data:image\/(\w+);base64,(.+)$/);
-								if (!matches) {
-									throw new Error(`Невірний формат base64 зображення на позиції ${index}`);
-								}
-
-								const [, ext, base64Data] = matches;
-								if (!allowedFormats.includes(ext.toLowerCase())) {
-									throw new Error(`Непідтримуваний формат зображення на позиції ${index}: ${ext}. Дозволені: JPEG, PNG, GIF`);
-								}
-							}
-							return image.filename;
-						})
-					);
-
 					const savedPath = await saveBase64Image(img.url);
 					console.log("Successfully saved image:", savedPath);
 					imagesToProcess.push({ url: savedPath });
@@ -55,8 +32,6 @@ async function createPost(req: Request<{}, {}, CreatePostBody>, res: Response) {
 			}
 			newPost.images = imagesToProcess
 		}
-
-		// newPost.images = [name, name]
 
 		const result = await postService.createPost(newPost);
 

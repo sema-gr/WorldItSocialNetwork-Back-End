@@ -2509,13 +2509,11 @@ export namespace Prisma {
   export type AlbumCountOutputType = {
     images: number
     topic: number
-    album_images: number
   }
 
   export type AlbumCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     images?: boolean | AlbumCountOutputTypeCountImagesArgs
     topic?: boolean | AlbumCountOutputTypeCountTopicArgs
-    album_images?: boolean | AlbumCountOutputTypeCountAlbum_imagesArgs
   }
 
   // Custom InputTypes
@@ -2533,7 +2531,7 @@ export namespace Prisma {
    * AlbumCountOutputType without action
    */
   export type AlbumCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ImageWhereInput
+    where?: AlbumImagesWhereInput
   }
 
   /**
@@ -2541,13 +2539,6 @@ export namespace Prisma {
    */
   export type AlbumCountOutputTypeCountTopicArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AlbumTagsWhereInput
-  }
-
-  /**
-   * AlbumCountOutputType without action
-   */
-  export type AlbumCountOutputTypeCountAlbum_imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AlbumImagesWhereInput
   }
 
 
@@ -2596,13 +2587,11 @@ export namespace Prisma {
    */
 
   export type ImageCountOutputType = {
-    album: number
     album_images: number
     PostImages: number
   }
 
   export type ImageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    album?: boolean | ImageCountOutputTypeCountAlbumArgs
     album_images?: boolean | ImageCountOutputTypeCountAlbum_imagesArgs
     PostImages?: boolean | ImageCountOutputTypeCountPostImagesArgs
   }
@@ -2616,13 +2605,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the ImageCountOutputType
      */
     select?: ImageCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * ImageCountOutputType without action
-   */
-  export type ImageCountOutputTypeCountAlbumArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AlbumWhereInput
   }
 
   /**
@@ -3081,7 +3063,6 @@ export namespace Prisma {
     images?: boolean | Album$imagesArgs<ExtArgs>
     topic?: boolean | Album$topicArgs<ExtArgs>
     author?: boolean | ProfileDefaultArgs<ExtArgs>
-    album_images?: boolean | Album$album_imagesArgs<ExtArgs>
     _count?: boolean | AlbumCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["album"]>
 
@@ -3116,7 +3097,6 @@ export namespace Prisma {
     images?: boolean | Album$imagesArgs<ExtArgs>
     topic?: boolean | Album$topicArgs<ExtArgs>
     author?: boolean | ProfileDefaultArgs<ExtArgs>
-    album_images?: boolean | Album$album_imagesArgs<ExtArgs>
     _count?: boolean | AlbumCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AlbumIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3129,10 +3109,9 @@ export namespace Prisma {
   export type $AlbumPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Album"
     objects: {
-      images: Prisma.$ImagePayload<ExtArgs>[]
+      images: Prisma.$AlbumImagesPayload<ExtArgs>[]
       topic: Prisma.$AlbumTagsPayload<ExtArgs>[]
       author: Prisma.$ProfilePayload<ExtArgs>
-      album_images: Prisma.$AlbumImagesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3534,10 +3513,9 @@ export namespace Prisma {
    */
   export interface Prisma__AlbumClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    images<T extends Album$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Album$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    images<T extends Album$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Album$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlbumImagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     topic<T extends Album$topicArgs<ExtArgs> = {}>(args?: Subset<T, Album$topicArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlbumTagsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     author<T extends ProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProfileDefaultArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    album_images<T extends Album$album_imagesArgs<ExtArgs> = {}>(args?: Subset<T, Album$album_imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlbumImagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3970,23 +3948,23 @@ export namespace Prisma {
    */
   export type Album$imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Image
+     * Select specific fields to fetch from the AlbumImages
      */
-    select?: ImageSelect<ExtArgs> | null
+    select?: AlbumImagesSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Image
+     * Omit specific fields from the AlbumImages
      */
-    omit?: ImageOmit<ExtArgs> | null
+    omit?: AlbumImagesOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ImageInclude<ExtArgs> | null
-    where?: ImageWhereInput
-    orderBy?: ImageOrderByWithRelationInput | ImageOrderByWithRelationInput[]
-    cursor?: ImageWhereUniqueInput
+    include?: AlbumImagesInclude<ExtArgs> | null
+    where?: AlbumImagesWhereInput
+    orderBy?: AlbumImagesOrderByWithRelationInput | AlbumImagesOrderByWithRelationInput[]
+    cursor?: AlbumImagesWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ImageScalarFieldEnum | ImageScalarFieldEnum[]
+    distinct?: AlbumImagesScalarFieldEnum | AlbumImagesScalarFieldEnum[]
   }
 
   /**
@@ -4011,30 +3989,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AlbumTagsScalarFieldEnum | AlbumTagsScalarFieldEnum[]
-  }
-
-  /**
-   * Album.album_images
-   */
-  export type Album$album_imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AlbumImages
-     */
-    select?: AlbumImagesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AlbumImages
-     */
-    omit?: AlbumImagesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AlbumImagesInclude<ExtArgs> | null
-    where?: AlbumImagesWhereInput
-    orderBy?: AlbumImagesOrderByWithRelationInput | AlbumImagesOrderByWithRelationInput[]
-    cursor?: AlbumImagesWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AlbumImagesScalarFieldEnum | AlbumImagesScalarFieldEnum[]
   }
 
   /**
@@ -10799,7 +10753,6 @@ export namespace Prisma {
     filename?: boolean
     file?: boolean
     uploaded_at?: boolean
-    album?: boolean | Image$albumArgs<ExtArgs>
     album_images?: boolean | Image$album_imagesArgs<ExtArgs>
     PostImages?: boolean | Image$PostImagesArgs<ExtArgs>
     _count?: boolean | ImageCountOutputTypeDefaultArgs<ExtArgs>
@@ -10828,7 +10781,6 @@ export namespace Prisma {
 
   export type ImageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "filename" | "file" | "uploaded_at", ExtArgs["result"]["image"]>
   export type ImageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    album?: boolean | Image$albumArgs<ExtArgs>
     album_images?: boolean | Image$album_imagesArgs<ExtArgs>
     PostImages?: boolean | Image$PostImagesArgs<ExtArgs>
     _count?: boolean | ImageCountOutputTypeDefaultArgs<ExtArgs>
@@ -10839,7 +10791,6 @@ export namespace Prisma {
   export type $ImagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Image"
     objects: {
-      album: Prisma.$AlbumPayload<ExtArgs>[]
       album_images: Prisma.$AlbumImagesPayload<ExtArgs>[]
       PostImages: Prisma.$PostImagesPayload<ExtArgs>[]
     }
@@ -11242,7 +11193,6 @@ export namespace Prisma {
    */
   export interface Prisma__ImageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    album<T extends Image$albumArgs<ExtArgs> = {}>(args?: Subset<T, Image$albumArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlbumPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     album_images<T extends Image$album_imagesArgs<ExtArgs> = {}>(args?: Subset<T, Image$album_imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlbumImagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     PostImages<T extends Image$PostImagesArgs<ExtArgs> = {}>(args?: Subset<T, Image$PostImagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostImagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -11661,30 +11611,6 @@ export namespace Prisma {
      * Limit how many Images to delete.
      */
     limit?: number
-  }
-
-  /**
-   * Image.album
-   */
-  export type Image$albumArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Album
-     */
-    select?: AlbumSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Album
-     */
-    omit?: AlbumOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AlbumInclude<ExtArgs> | null
-    where?: AlbumWhereInput
-    orderBy?: AlbumOrderByWithRelationInput | AlbumOrderByWithRelationInput[]
-    cursor?: AlbumWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AlbumScalarFieldEnum | AlbumScalarFieldEnum[]
   }
 
   /**
@@ -24188,10 +24114,9 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Album"> | Date | string
     shown?: BoolFilter<"Album"> | boolean
     author_id?: IntFilter<"Album"> | number
-    images?: ImageListRelationFilter
+    images?: AlbumImagesListRelationFilter
     topic?: AlbumTagsListRelationFilter
     author?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
-    album_images?: AlbumImagesListRelationFilter
   }
 
   export type AlbumOrderByWithRelationInput = {
@@ -24200,10 +24125,9 @@ export namespace Prisma {
     created_at?: SortOrder
     shown?: SortOrder
     author_id?: SortOrder
-    images?: ImageOrderByRelationAggregateInput
+    images?: AlbumImagesOrderByRelationAggregateInput
     topic?: AlbumTagsOrderByRelationAggregateInput
     author?: ProfileOrderByWithRelationInput
-    album_images?: AlbumImagesOrderByRelationAggregateInput
   }
 
   export type AlbumWhereUniqueInput = Prisma.AtLeast<{
@@ -24215,10 +24139,9 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Album"> | Date | string
     shown?: BoolFilter<"Album"> | boolean
     author_id?: IntFilter<"Album"> | number
-    images?: ImageListRelationFilter
+    images?: AlbumImagesListRelationFilter
     topic?: AlbumTagsListRelationFilter
     author?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
-    album_images?: AlbumImagesListRelationFilter
   }, "id">
 
   export type AlbumOrderByWithAggregationInput = {
@@ -24574,7 +24497,6 @@ export namespace Prisma {
     filename?: StringFilter<"Image"> | string
     file?: StringFilter<"Image"> | string
     uploaded_at?: DateTimeFilter<"Image"> | Date | string
-    album?: AlbumListRelationFilter
     album_images?: AlbumImagesListRelationFilter
     PostImages?: PostImagesListRelationFilter
   }
@@ -24584,7 +24506,6 @@ export namespace Prisma {
     filename?: SortOrder
     file?: SortOrder
     uploaded_at?: SortOrder
-    album?: AlbumOrderByRelationAggregateInput
     album_images?: AlbumImagesOrderByRelationAggregateInput
     PostImages?: PostImagesOrderByRelationAggregateInput
   }
@@ -24597,7 +24518,6 @@ export namespace Prisma {
     filename?: StringFilter<"Image"> | string
     file?: StringFilter<"Image"> | string
     uploaded_at?: DateTimeFilter<"Image"> | Date | string
-    album?: AlbumListRelationFilter
     album_images?: AlbumImagesListRelationFilter
     PostImages?: PostImagesListRelationFilter
   }, "id">
@@ -24715,13 +24635,13 @@ export namespace Prisma {
 
   export type TagsWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    name?: string
     AND?: TagsWhereInput | TagsWhereInput[]
     OR?: TagsWhereInput[]
     NOT?: TagsWhereInput | TagsWhereInput[]
-    name?: StringFilter<"Tags"> | string
     posts?: PostTagsListRelationFilter
     album_tags?: AlbumTagsListRelationFilter
-  }, "id">
+  }, "id" | "name">
 
   export type TagsOrderByWithAggregationInput = {
     id?: SortOrder
@@ -25193,10 +25113,9 @@ export namespace Prisma {
     name: string
     created_at?: Date | string
     shown?: boolean
-    images?: ImageCreateNestedManyWithoutAlbumInput
+    images?: AlbumImagesCreateNestedManyWithoutAlbumInput
     topic?: AlbumTagsCreateNestedManyWithoutAlbumInput
     author: ProfileCreateNestedOneWithoutAlbumInput
-    album_images?: AlbumImagesCreateNestedManyWithoutAlbumInput
   }
 
   export type AlbumUncheckedCreateInput = {
@@ -25205,19 +25124,17 @@ export namespace Prisma {
     created_at?: Date | string
     shown?: boolean
     author_id: number
-    images?: ImageUncheckedCreateNestedManyWithoutAlbumInput
+    images?: AlbumImagesUncheckedCreateNestedManyWithoutAlbumInput
     topic?: AlbumTagsUncheckedCreateNestedManyWithoutAlbumInput
-    album_images?: AlbumImagesUncheckedCreateNestedManyWithoutAlbumInput
   }
 
   export type AlbumUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     shown?: BoolFieldUpdateOperationsInput | boolean
-    images?: ImageUpdateManyWithoutAlbumNestedInput
+    images?: AlbumImagesUpdateManyWithoutAlbumNestedInput
     topic?: AlbumTagsUpdateManyWithoutAlbumNestedInput
     author?: ProfileUpdateOneRequiredWithoutAlbumNestedInput
-    album_images?: AlbumImagesUpdateManyWithoutAlbumNestedInput
   }
 
   export type AlbumUncheckedUpdateInput = {
@@ -25226,9 +25143,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     shown?: BoolFieldUpdateOperationsInput | boolean
     author_id?: IntFieldUpdateOperationsInput | number
-    images?: ImageUncheckedUpdateManyWithoutAlbumNestedInput
+    images?: AlbumImagesUncheckedUpdateManyWithoutAlbumNestedInput
     topic?: AlbumTagsUncheckedUpdateManyWithoutAlbumNestedInput
-    album_images?: AlbumImagesUncheckedUpdateManyWithoutAlbumNestedInput
   }
 
   export type AlbumCreateManyInput = {
@@ -25254,7 +25170,7 @@ export namespace Prisma {
   }
 
   export type AlbumImagesCreateInput = {
-    album: AlbumCreateNestedOneWithoutAlbum_imagesInput
+    album: AlbumCreateNestedOneWithoutImagesInput
     image: ImageCreateNestedOneWithoutAlbum_imagesInput
   }
 
@@ -25264,7 +25180,7 @@ export namespace Prisma {
   }
 
   export type AlbumImagesUpdateInput = {
-    album?: AlbumUpdateOneRequiredWithoutAlbum_imagesNestedInput
+    album?: AlbumUpdateOneRequiredWithoutImagesNestedInput
     image?: ImageUpdateOneRequiredWithoutAlbum_imagesNestedInput
   }
 
@@ -25524,7 +25440,6 @@ export namespace Prisma {
     filename: string
     file: string
     uploaded_at?: Date | string
-    album?: AlbumCreateNestedManyWithoutImagesInput
     album_images?: AlbumImagesCreateNestedManyWithoutImageInput
     PostImages?: PostImagesCreateNestedManyWithoutImageInput
   }
@@ -25534,7 +25449,6 @@ export namespace Prisma {
     filename: string
     file: string
     uploaded_at?: Date | string
-    album?: AlbumUncheckedCreateNestedManyWithoutImagesInput
     album_images?: AlbumImagesUncheckedCreateNestedManyWithoutImageInput
     PostImages?: PostImagesUncheckedCreateNestedManyWithoutImageInput
   }
@@ -25543,7 +25457,6 @@ export namespace Prisma {
     filename?: StringFieldUpdateOperationsInput | string
     file?: StringFieldUpdateOperationsInput | string
     uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    album?: AlbumUpdateManyWithoutImagesNestedInput
     album_images?: AlbumImagesUpdateManyWithoutImageNestedInput
     PostImages?: PostImagesUpdateManyWithoutImageNestedInput
   }
@@ -25553,7 +25466,6 @@ export namespace Prisma {
     filename?: StringFieldUpdateOperationsInput | string
     file?: StringFieldUpdateOperationsInput | string
     uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    album?: AlbumUncheckedUpdateManyWithoutImagesNestedInput
     album_images?: AlbumImagesUncheckedUpdateManyWithoutImageNestedInput
     PostImages?: PostImagesUncheckedUpdateManyWithoutImageNestedInput
   }
@@ -26122,10 +26034,10 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type ImageListRelationFilter = {
-    every?: ImageWhereInput
-    some?: ImageWhereInput
-    none?: ImageWhereInput
+  export type AlbumImagesListRelationFilter = {
+    every?: AlbumImagesWhereInput
+    some?: AlbumImagesWhereInput
+    none?: AlbumImagesWhereInput
   }
 
   export type AlbumTagsListRelationFilter = {
@@ -26139,21 +26051,11 @@ export namespace Prisma {
     isNot?: ProfileWhereInput
   }
 
-  export type AlbumImagesListRelationFilter = {
-    every?: AlbumImagesWhereInput
-    some?: AlbumImagesWhereInput
-    none?: AlbumImagesWhereInput
-  }
-
-  export type ImageOrderByRelationAggregateInput = {
+  export type AlbumImagesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type AlbumTagsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type AlbumImagesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -26482,20 +26384,10 @@ export namespace Prisma {
     profile2_id?: SortOrder
   }
 
-  export type AlbumListRelationFilter = {
-    every?: AlbumWhereInput
-    some?: AlbumWhereInput
-    none?: AlbumWhereInput
-  }
-
   export type PostImagesListRelationFilter = {
     every?: PostImagesWhereInput
     some?: PostImagesWhereInput
     none?: PostImagesWhereInput
-  }
-
-  export type AlbumOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type PostImagesOrderByRelationAggregateInput = {
@@ -26820,6 +26712,12 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type AlbumListRelationFilter = {
+    every?: AlbumWhereInput
+    some?: AlbumWhereInput
+    none?: AlbumWhereInput
+  }
+
   export type ChatGroupListRelationFilter = {
     every?: ChatGroupWhereInput
     some?: ChatGroupWhereInput
@@ -26847,6 +26745,10 @@ export namespace Prisma {
     every?: ProfileLikesWhereInput
     some?: ProfileLikesWhereInput
     none?: ProfileLikesWhereInput
+  }
+
+  export type AlbumOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type ChatGroupOrderByRelationAggregateInput = {
@@ -27017,10 +26919,11 @@ export namespace Prisma {
     profile_id?: SortOrder
   }
 
-  export type ImageCreateNestedManyWithoutAlbumInput = {
-    create?: XOR<ImageCreateWithoutAlbumInput, ImageUncheckedCreateWithoutAlbumInput> | ImageCreateWithoutAlbumInput[] | ImageUncheckedCreateWithoutAlbumInput[]
-    connectOrCreate?: ImageCreateOrConnectWithoutAlbumInput | ImageCreateOrConnectWithoutAlbumInput[]
-    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+  export type AlbumImagesCreateNestedManyWithoutAlbumInput = {
+    create?: XOR<AlbumImagesCreateWithoutAlbumInput, AlbumImagesUncheckedCreateWithoutAlbumInput> | AlbumImagesCreateWithoutAlbumInput[] | AlbumImagesUncheckedCreateWithoutAlbumInput[]
+    connectOrCreate?: AlbumImagesCreateOrConnectWithoutAlbumInput | AlbumImagesCreateOrConnectWithoutAlbumInput[]
+    createMany?: AlbumImagesCreateManyAlbumInputEnvelope
+    connect?: AlbumImagesWhereUniqueInput | AlbumImagesWhereUniqueInput[]
   }
 
   export type AlbumTagsCreateNestedManyWithoutAlbumInput = {
@@ -27036,17 +26939,11 @@ export namespace Prisma {
     connect?: ProfileWhereUniqueInput
   }
 
-  export type AlbumImagesCreateNestedManyWithoutAlbumInput = {
+  export type AlbumImagesUncheckedCreateNestedManyWithoutAlbumInput = {
     create?: XOR<AlbumImagesCreateWithoutAlbumInput, AlbumImagesUncheckedCreateWithoutAlbumInput> | AlbumImagesCreateWithoutAlbumInput[] | AlbumImagesUncheckedCreateWithoutAlbumInput[]
     connectOrCreate?: AlbumImagesCreateOrConnectWithoutAlbumInput | AlbumImagesCreateOrConnectWithoutAlbumInput[]
     createMany?: AlbumImagesCreateManyAlbumInputEnvelope
     connect?: AlbumImagesWhereUniqueInput | AlbumImagesWhereUniqueInput[]
-  }
-
-  export type ImageUncheckedCreateNestedManyWithoutAlbumInput = {
-    create?: XOR<ImageCreateWithoutAlbumInput, ImageUncheckedCreateWithoutAlbumInput> | ImageCreateWithoutAlbumInput[] | ImageUncheckedCreateWithoutAlbumInput[]
-    connectOrCreate?: ImageCreateOrConnectWithoutAlbumInput | ImageCreateOrConnectWithoutAlbumInput[]
-    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
   }
 
   export type AlbumTagsUncheckedCreateNestedManyWithoutAlbumInput = {
@@ -27054,13 +26951,6 @@ export namespace Prisma {
     connectOrCreate?: AlbumTagsCreateOrConnectWithoutAlbumInput | AlbumTagsCreateOrConnectWithoutAlbumInput[]
     createMany?: AlbumTagsCreateManyAlbumInputEnvelope
     connect?: AlbumTagsWhereUniqueInput | AlbumTagsWhereUniqueInput[]
-  }
-
-  export type AlbumImagesUncheckedCreateNestedManyWithoutAlbumInput = {
-    create?: XOR<AlbumImagesCreateWithoutAlbumInput, AlbumImagesUncheckedCreateWithoutAlbumInput> | AlbumImagesCreateWithoutAlbumInput[] | AlbumImagesUncheckedCreateWithoutAlbumInput[]
-    connectOrCreate?: AlbumImagesCreateOrConnectWithoutAlbumInput | AlbumImagesCreateOrConnectWithoutAlbumInput[]
-    createMany?: AlbumImagesCreateManyAlbumInputEnvelope
-    connect?: AlbumImagesWhereUniqueInput | AlbumImagesWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -27075,17 +26965,18 @@ export namespace Prisma {
     set?: boolean
   }
 
-  export type ImageUpdateManyWithoutAlbumNestedInput = {
-    create?: XOR<ImageCreateWithoutAlbumInput, ImageUncheckedCreateWithoutAlbumInput> | ImageCreateWithoutAlbumInput[] | ImageUncheckedCreateWithoutAlbumInput[]
-    connectOrCreate?: ImageCreateOrConnectWithoutAlbumInput | ImageCreateOrConnectWithoutAlbumInput[]
-    upsert?: ImageUpsertWithWhereUniqueWithoutAlbumInput | ImageUpsertWithWhereUniqueWithoutAlbumInput[]
-    set?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-    disconnect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-    delete?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-    update?: ImageUpdateWithWhereUniqueWithoutAlbumInput | ImageUpdateWithWhereUniqueWithoutAlbumInput[]
-    updateMany?: ImageUpdateManyWithWhereWithoutAlbumInput | ImageUpdateManyWithWhereWithoutAlbumInput[]
-    deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
+  export type AlbumImagesUpdateManyWithoutAlbumNestedInput = {
+    create?: XOR<AlbumImagesCreateWithoutAlbumInput, AlbumImagesUncheckedCreateWithoutAlbumInput> | AlbumImagesCreateWithoutAlbumInput[] | AlbumImagesUncheckedCreateWithoutAlbumInput[]
+    connectOrCreate?: AlbumImagesCreateOrConnectWithoutAlbumInput | AlbumImagesCreateOrConnectWithoutAlbumInput[]
+    upsert?: AlbumImagesUpsertWithWhereUniqueWithoutAlbumInput | AlbumImagesUpsertWithWhereUniqueWithoutAlbumInput[]
+    createMany?: AlbumImagesCreateManyAlbumInputEnvelope
+    set?: AlbumImagesWhereUniqueInput | AlbumImagesWhereUniqueInput[]
+    disconnect?: AlbumImagesWhereUniqueInput | AlbumImagesWhereUniqueInput[]
+    delete?: AlbumImagesWhereUniqueInput | AlbumImagesWhereUniqueInput[]
+    connect?: AlbumImagesWhereUniqueInput | AlbumImagesWhereUniqueInput[]
+    update?: AlbumImagesUpdateWithWhereUniqueWithoutAlbumInput | AlbumImagesUpdateWithWhereUniqueWithoutAlbumInput[]
+    updateMany?: AlbumImagesUpdateManyWithWhereWithoutAlbumInput | AlbumImagesUpdateManyWithWhereWithoutAlbumInput[]
+    deleteMany?: AlbumImagesScalarWhereInput | AlbumImagesScalarWhereInput[]
   }
 
   export type AlbumTagsUpdateManyWithoutAlbumNestedInput = {
@@ -27110,53 +27001,12 @@ export namespace Prisma {
     update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutAlbumInput, ProfileUpdateWithoutAlbumInput>, ProfileUncheckedUpdateWithoutAlbumInput>
   }
 
-  export type AlbumImagesUpdateManyWithoutAlbumNestedInput = {
-    create?: XOR<AlbumImagesCreateWithoutAlbumInput, AlbumImagesUncheckedCreateWithoutAlbumInput> | AlbumImagesCreateWithoutAlbumInput[] | AlbumImagesUncheckedCreateWithoutAlbumInput[]
-    connectOrCreate?: AlbumImagesCreateOrConnectWithoutAlbumInput | AlbumImagesCreateOrConnectWithoutAlbumInput[]
-    upsert?: AlbumImagesUpsertWithWhereUniqueWithoutAlbumInput | AlbumImagesUpsertWithWhereUniqueWithoutAlbumInput[]
-    createMany?: AlbumImagesCreateManyAlbumInputEnvelope
-    set?: AlbumImagesWhereUniqueInput | AlbumImagesWhereUniqueInput[]
-    disconnect?: AlbumImagesWhereUniqueInput | AlbumImagesWhereUniqueInput[]
-    delete?: AlbumImagesWhereUniqueInput | AlbumImagesWhereUniqueInput[]
-    connect?: AlbumImagesWhereUniqueInput | AlbumImagesWhereUniqueInput[]
-    update?: AlbumImagesUpdateWithWhereUniqueWithoutAlbumInput | AlbumImagesUpdateWithWhereUniqueWithoutAlbumInput[]
-    updateMany?: AlbumImagesUpdateManyWithWhereWithoutAlbumInput | AlbumImagesUpdateManyWithWhereWithoutAlbumInput[]
-    deleteMany?: AlbumImagesScalarWhereInput | AlbumImagesScalarWhereInput[]
-  }
-
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type ImageUncheckedUpdateManyWithoutAlbumNestedInput = {
-    create?: XOR<ImageCreateWithoutAlbumInput, ImageUncheckedCreateWithoutAlbumInput> | ImageCreateWithoutAlbumInput[] | ImageUncheckedCreateWithoutAlbumInput[]
-    connectOrCreate?: ImageCreateOrConnectWithoutAlbumInput | ImageCreateOrConnectWithoutAlbumInput[]
-    upsert?: ImageUpsertWithWhereUniqueWithoutAlbumInput | ImageUpsertWithWhereUniqueWithoutAlbumInput[]
-    set?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-    disconnect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-    delete?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-    update?: ImageUpdateWithWhereUniqueWithoutAlbumInput | ImageUpdateWithWhereUniqueWithoutAlbumInput[]
-    updateMany?: ImageUpdateManyWithWhereWithoutAlbumInput | ImageUpdateManyWithWhereWithoutAlbumInput[]
-    deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
-  }
-
-  export type AlbumTagsUncheckedUpdateManyWithoutAlbumNestedInput = {
-    create?: XOR<AlbumTagsCreateWithoutAlbumInput, AlbumTagsUncheckedCreateWithoutAlbumInput> | AlbumTagsCreateWithoutAlbumInput[] | AlbumTagsUncheckedCreateWithoutAlbumInput[]
-    connectOrCreate?: AlbumTagsCreateOrConnectWithoutAlbumInput | AlbumTagsCreateOrConnectWithoutAlbumInput[]
-    upsert?: AlbumTagsUpsertWithWhereUniqueWithoutAlbumInput | AlbumTagsUpsertWithWhereUniqueWithoutAlbumInput[]
-    createMany?: AlbumTagsCreateManyAlbumInputEnvelope
-    set?: AlbumTagsWhereUniqueInput | AlbumTagsWhereUniqueInput[]
-    disconnect?: AlbumTagsWhereUniqueInput | AlbumTagsWhereUniqueInput[]
-    delete?: AlbumTagsWhereUniqueInput | AlbumTagsWhereUniqueInput[]
-    connect?: AlbumTagsWhereUniqueInput | AlbumTagsWhereUniqueInput[]
-    update?: AlbumTagsUpdateWithWhereUniqueWithoutAlbumInput | AlbumTagsUpdateWithWhereUniqueWithoutAlbumInput[]
-    updateMany?: AlbumTagsUpdateManyWithWhereWithoutAlbumInput | AlbumTagsUpdateManyWithWhereWithoutAlbumInput[]
-    deleteMany?: AlbumTagsScalarWhereInput | AlbumTagsScalarWhereInput[]
   }
 
   export type AlbumImagesUncheckedUpdateManyWithoutAlbumNestedInput = {
@@ -27173,9 +27023,23 @@ export namespace Prisma {
     deleteMany?: AlbumImagesScalarWhereInput | AlbumImagesScalarWhereInput[]
   }
 
-  export type AlbumCreateNestedOneWithoutAlbum_imagesInput = {
-    create?: XOR<AlbumCreateWithoutAlbum_imagesInput, AlbumUncheckedCreateWithoutAlbum_imagesInput>
-    connectOrCreate?: AlbumCreateOrConnectWithoutAlbum_imagesInput
+  export type AlbumTagsUncheckedUpdateManyWithoutAlbumNestedInput = {
+    create?: XOR<AlbumTagsCreateWithoutAlbumInput, AlbumTagsUncheckedCreateWithoutAlbumInput> | AlbumTagsCreateWithoutAlbumInput[] | AlbumTagsUncheckedCreateWithoutAlbumInput[]
+    connectOrCreate?: AlbumTagsCreateOrConnectWithoutAlbumInput | AlbumTagsCreateOrConnectWithoutAlbumInput[]
+    upsert?: AlbumTagsUpsertWithWhereUniqueWithoutAlbumInput | AlbumTagsUpsertWithWhereUniqueWithoutAlbumInput[]
+    createMany?: AlbumTagsCreateManyAlbumInputEnvelope
+    set?: AlbumTagsWhereUniqueInput | AlbumTagsWhereUniqueInput[]
+    disconnect?: AlbumTagsWhereUniqueInput | AlbumTagsWhereUniqueInput[]
+    delete?: AlbumTagsWhereUniqueInput | AlbumTagsWhereUniqueInput[]
+    connect?: AlbumTagsWhereUniqueInput | AlbumTagsWhereUniqueInput[]
+    update?: AlbumTagsUpdateWithWhereUniqueWithoutAlbumInput | AlbumTagsUpdateWithWhereUniqueWithoutAlbumInput[]
+    updateMany?: AlbumTagsUpdateManyWithWhereWithoutAlbumInput | AlbumTagsUpdateManyWithWhereWithoutAlbumInput[]
+    deleteMany?: AlbumTagsScalarWhereInput | AlbumTagsScalarWhereInput[]
+  }
+
+  export type AlbumCreateNestedOneWithoutImagesInput = {
+    create?: XOR<AlbumCreateWithoutImagesInput, AlbumUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: AlbumCreateOrConnectWithoutImagesInput
     connect?: AlbumWhereUniqueInput
   }
 
@@ -27185,12 +27049,12 @@ export namespace Prisma {
     connect?: ImageWhereUniqueInput
   }
 
-  export type AlbumUpdateOneRequiredWithoutAlbum_imagesNestedInput = {
-    create?: XOR<AlbumCreateWithoutAlbum_imagesInput, AlbumUncheckedCreateWithoutAlbum_imagesInput>
-    connectOrCreate?: AlbumCreateOrConnectWithoutAlbum_imagesInput
-    upsert?: AlbumUpsertWithoutAlbum_imagesInput
+  export type AlbumUpdateOneRequiredWithoutImagesNestedInput = {
+    create?: XOR<AlbumCreateWithoutImagesInput, AlbumUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: AlbumCreateOrConnectWithoutImagesInput
+    upsert?: AlbumUpsertWithoutImagesInput
     connect?: AlbumWhereUniqueInput
-    update?: XOR<XOR<AlbumUpdateToOneWithWhereWithoutAlbum_imagesInput, AlbumUpdateWithoutAlbum_imagesInput>, AlbumUncheckedUpdateWithoutAlbum_imagesInput>
+    update?: XOR<XOR<AlbumUpdateToOneWithWhereWithoutImagesInput, AlbumUpdateWithoutImagesInput>, AlbumUncheckedUpdateWithoutImagesInput>
   }
 
   export type ImageUpdateOneRequiredWithoutAlbum_imagesNestedInput = {
@@ -27411,12 +27275,6 @@ export namespace Prisma {
     update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutFriendship_toInput, ProfileUpdateWithoutFriendship_toInput>, ProfileUncheckedUpdateWithoutFriendship_toInput>
   }
 
-  export type AlbumCreateNestedManyWithoutImagesInput = {
-    create?: XOR<AlbumCreateWithoutImagesInput, AlbumUncheckedCreateWithoutImagesInput> | AlbumCreateWithoutImagesInput[] | AlbumUncheckedCreateWithoutImagesInput[]
-    connectOrCreate?: AlbumCreateOrConnectWithoutImagesInput | AlbumCreateOrConnectWithoutImagesInput[]
-    connect?: AlbumWhereUniqueInput | AlbumWhereUniqueInput[]
-  }
-
   export type AlbumImagesCreateNestedManyWithoutImageInput = {
     create?: XOR<AlbumImagesCreateWithoutImageInput, AlbumImagesUncheckedCreateWithoutImageInput> | AlbumImagesCreateWithoutImageInput[] | AlbumImagesUncheckedCreateWithoutImageInput[]
     connectOrCreate?: AlbumImagesCreateOrConnectWithoutImageInput | AlbumImagesCreateOrConnectWithoutImageInput[]
@@ -27431,12 +27289,6 @@ export namespace Prisma {
     connect?: PostImagesWhereUniqueInput | PostImagesWhereUniqueInput[]
   }
 
-  export type AlbumUncheckedCreateNestedManyWithoutImagesInput = {
-    create?: XOR<AlbumCreateWithoutImagesInput, AlbumUncheckedCreateWithoutImagesInput> | AlbumCreateWithoutImagesInput[] | AlbumUncheckedCreateWithoutImagesInput[]
-    connectOrCreate?: AlbumCreateOrConnectWithoutImagesInput | AlbumCreateOrConnectWithoutImagesInput[]
-    connect?: AlbumWhereUniqueInput | AlbumWhereUniqueInput[]
-  }
-
   export type AlbumImagesUncheckedCreateNestedManyWithoutImageInput = {
     create?: XOR<AlbumImagesCreateWithoutImageInput, AlbumImagesUncheckedCreateWithoutImageInput> | AlbumImagesCreateWithoutImageInput[] | AlbumImagesUncheckedCreateWithoutImageInput[]
     connectOrCreate?: AlbumImagesCreateOrConnectWithoutImageInput | AlbumImagesCreateOrConnectWithoutImageInput[]
@@ -27449,19 +27301,6 @@ export namespace Prisma {
     connectOrCreate?: PostImagesCreateOrConnectWithoutImageInput | PostImagesCreateOrConnectWithoutImageInput[]
     createMany?: PostImagesCreateManyImageInputEnvelope
     connect?: PostImagesWhereUniqueInput | PostImagesWhereUniqueInput[]
-  }
-
-  export type AlbumUpdateManyWithoutImagesNestedInput = {
-    create?: XOR<AlbumCreateWithoutImagesInput, AlbumUncheckedCreateWithoutImagesInput> | AlbumCreateWithoutImagesInput[] | AlbumUncheckedCreateWithoutImagesInput[]
-    connectOrCreate?: AlbumCreateOrConnectWithoutImagesInput | AlbumCreateOrConnectWithoutImagesInput[]
-    upsert?: AlbumUpsertWithWhereUniqueWithoutImagesInput | AlbumUpsertWithWhereUniqueWithoutImagesInput[]
-    set?: AlbumWhereUniqueInput | AlbumWhereUniqueInput[]
-    disconnect?: AlbumWhereUniqueInput | AlbumWhereUniqueInput[]
-    delete?: AlbumWhereUniqueInput | AlbumWhereUniqueInput[]
-    connect?: AlbumWhereUniqueInput | AlbumWhereUniqueInput[]
-    update?: AlbumUpdateWithWhereUniqueWithoutImagesInput | AlbumUpdateWithWhereUniqueWithoutImagesInput[]
-    updateMany?: AlbumUpdateManyWithWhereWithoutImagesInput | AlbumUpdateManyWithWhereWithoutImagesInput[]
-    deleteMany?: AlbumScalarWhereInput | AlbumScalarWhereInput[]
   }
 
   export type AlbumImagesUpdateManyWithoutImageNestedInput = {
@@ -27490,19 +27329,6 @@ export namespace Prisma {
     update?: PostImagesUpdateWithWhereUniqueWithoutImageInput | PostImagesUpdateWithWhereUniqueWithoutImageInput[]
     updateMany?: PostImagesUpdateManyWithWhereWithoutImageInput | PostImagesUpdateManyWithWhereWithoutImageInput[]
     deleteMany?: PostImagesScalarWhereInput | PostImagesScalarWhereInput[]
-  }
-
-  export type AlbumUncheckedUpdateManyWithoutImagesNestedInput = {
-    create?: XOR<AlbumCreateWithoutImagesInput, AlbumUncheckedCreateWithoutImagesInput> | AlbumCreateWithoutImagesInput[] | AlbumUncheckedCreateWithoutImagesInput[]
-    connectOrCreate?: AlbumCreateOrConnectWithoutImagesInput | AlbumCreateOrConnectWithoutImagesInput[]
-    upsert?: AlbumUpsertWithWhereUniqueWithoutImagesInput | AlbumUpsertWithWhereUniqueWithoutImagesInput[]
-    set?: AlbumWhereUniqueInput | AlbumWhereUniqueInput[]
-    disconnect?: AlbumWhereUniqueInput | AlbumWhereUniqueInput[]
-    delete?: AlbumWhereUniqueInput | AlbumWhereUniqueInput[]
-    connect?: AlbumWhereUniqueInput | AlbumWhereUniqueInput[]
-    update?: AlbumUpdateWithWhereUniqueWithoutImagesInput | AlbumUpdateWithWhereUniqueWithoutImagesInput[]
-    updateMany?: AlbumUpdateManyWithWhereWithoutImagesInput | AlbumUpdateManyWithWhereWithoutImagesInput[]
-    deleteMany?: AlbumScalarWhereInput | AlbumScalarWhereInput[]
   }
 
   export type AlbumImagesUncheckedUpdateManyWithoutImageNestedInput = {
@@ -28610,26 +28436,21 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type ImageCreateWithoutAlbumInput = {
-    filename: string
-    file: string
-    uploaded_at?: Date | string
-    album_images?: AlbumImagesCreateNestedManyWithoutImageInput
-    PostImages?: PostImagesCreateNestedManyWithoutImageInput
+  export type AlbumImagesCreateWithoutAlbumInput = {
+    image: ImageCreateNestedOneWithoutAlbum_imagesInput
   }
 
-  export type ImageUncheckedCreateWithoutAlbumInput = {
-    id?: number
-    filename: string
-    file: string
-    uploaded_at?: Date | string
-    album_images?: AlbumImagesUncheckedCreateNestedManyWithoutImageInput
-    PostImages?: PostImagesUncheckedCreateNestedManyWithoutImageInput
+  export type AlbumImagesUncheckedCreateWithoutAlbumInput = {
+    image_id: number
   }
 
-  export type ImageCreateOrConnectWithoutAlbumInput = {
-    where: ImageWhereUniqueInput
-    create: XOR<ImageCreateWithoutAlbumInput, ImageUncheckedCreateWithoutAlbumInput>
+  export type AlbumImagesCreateOrConnectWithoutAlbumInput = {
+    where: AlbumImagesWhereUniqueInput
+    create: XOR<AlbumImagesCreateWithoutAlbumInput, AlbumImagesUncheckedCreateWithoutAlbumInput>
+  }
+
+  export type AlbumImagesCreateManyAlbumInputEnvelope = {
+    data: AlbumImagesCreateManyAlbumInput | AlbumImagesCreateManyAlbumInput[]
   }
 
   export type AlbumTagsCreateWithoutAlbumInput = {
@@ -28697,47 +28518,28 @@ export namespace Prisma {
     create: XOR<ProfileCreateWithoutAlbumInput, ProfileUncheckedCreateWithoutAlbumInput>
   }
 
-  export type AlbumImagesCreateWithoutAlbumInput = {
-    image: ImageCreateNestedOneWithoutAlbum_imagesInput
-  }
-
-  export type AlbumImagesUncheckedCreateWithoutAlbumInput = {
-    image_id: number
-  }
-
-  export type AlbumImagesCreateOrConnectWithoutAlbumInput = {
+  export type AlbumImagesUpsertWithWhereUniqueWithoutAlbumInput = {
     where: AlbumImagesWhereUniqueInput
+    update: XOR<AlbumImagesUpdateWithoutAlbumInput, AlbumImagesUncheckedUpdateWithoutAlbumInput>
     create: XOR<AlbumImagesCreateWithoutAlbumInput, AlbumImagesUncheckedCreateWithoutAlbumInput>
   }
 
-  export type AlbumImagesCreateManyAlbumInputEnvelope = {
-    data: AlbumImagesCreateManyAlbumInput | AlbumImagesCreateManyAlbumInput[]
+  export type AlbumImagesUpdateWithWhereUniqueWithoutAlbumInput = {
+    where: AlbumImagesWhereUniqueInput
+    data: XOR<AlbumImagesUpdateWithoutAlbumInput, AlbumImagesUncheckedUpdateWithoutAlbumInput>
   }
 
-  export type ImageUpsertWithWhereUniqueWithoutAlbumInput = {
-    where: ImageWhereUniqueInput
-    update: XOR<ImageUpdateWithoutAlbumInput, ImageUncheckedUpdateWithoutAlbumInput>
-    create: XOR<ImageCreateWithoutAlbumInput, ImageUncheckedCreateWithoutAlbumInput>
+  export type AlbumImagesUpdateManyWithWhereWithoutAlbumInput = {
+    where: AlbumImagesScalarWhereInput
+    data: XOR<AlbumImagesUpdateManyMutationInput, AlbumImagesUncheckedUpdateManyWithoutAlbumInput>
   }
 
-  export type ImageUpdateWithWhereUniqueWithoutAlbumInput = {
-    where: ImageWhereUniqueInput
-    data: XOR<ImageUpdateWithoutAlbumInput, ImageUncheckedUpdateWithoutAlbumInput>
-  }
-
-  export type ImageUpdateManyWithWhereWithoutAlbumInput = {
-    where: ImageScalarWhereInput
-    data: XOR<ImageUpdateManyMutationInput, ImageUncheckedUpdateManyWithoutAlbumInput>
-  }
-
-  export type ImageScalarWhereInput = {
-    AND?: ImageScalarWhereInput | ImageScalarWhereInput[]
-    OR?: ImageScalarWhereInput[]
-    NOT?: ImageScalarWhereInput | ImageScalarWhereInput[]
-    id?: IntFilter<"Image"> | number
-    filename?: StringFilter<"Image"> | string
-    file?: StringFilter<"Image"> | string
-    uploaded_at?: DateTimeFilter<"Image"> | Date | string
+  export type AlbumImagesScalarWhereInput = {
+    AND?: AlbumImagesScalarWhereInput | AlbumImagesScalarWhereInput[]
+    OR?: AlbumImagesScalarWhereInput[]
+    NOT?: AlbumImagesScalarWhereInput | AlbumImagesScalarWhereInput[]
+    album_id?: IntFilter<"AlbumImages"> | number
+    image_id?: IntFilter<"AlbumImages"> | number
   }
 
   export type AlbumTagsUpsertWithWhereUniqueWithoutAlbumInput = {
@@ -28818,59 +28620,32 @@ export namespace Prisma {
     chat_group_members?: ChatGroupMembersUncheckedUpdateManyWithoutProfileNestedInput
   }
 
-  export type AlbumImagesUpsertWithWhereUniqueWithoutAlbumInput = {
-    where: AlbumImagesWhereUniqueInput
-    update: XOR<AlbumImagesUpdateWithoutAlbumInput, AlbumImagesUncheckedUpdateWithoutAlbumInput>
-    create: XOR<AlbumImagesCreateWithoutAlbumInput, AlbumImagesUncheckedCreateWithoutAlbumInput>
-  }
-
-  export type AlbumImagesUpdateWithWhereUniqueWithoutAlbumInput = {
-    where: AlbumImagesWhereUniqueInput
-    data: XOR<AlbumImagesUpdateWithoutAlbumInput, AlbumImagesUncheckedUpdateWithoutAlbumInput>
-  }
-
-  export type AlbumImagesUpdateManyWithWhereWithoutAlbumInput = {
-    where: AlbumImagesScalarWhereInput
-    data: XOR<AlbumImagesUpdateManyMutationInput, AlbumImagesUncheckedUpdateManyWithoutAlbumInput>
-  }
-
-  export type AlbumImagesScalarWhereInput = {
-    AND?: AlbumImagesScalarWhereInput | AlbumImagesScalarWhereInput[]
-    OR?: AlbumImagesScalarWhereInput[]
-    NOT?: AlbumImagesScalarWhereInput | AlbumImagesScalarWhereInput[]
-    album_id?: IntFilter<"AlbumImages"> | number
-    image_id?: IntFilter<"AlbumImages"> | number
-  }
-
-  export type AlbumCreateWithoutAlbum_imagesInput = {
+  export type AlbumCreateWithoutImagesInput = {
     name: string
     created_at?: Date | string
     shown?: boolean
-    images?: ImageCreateNestedManyWithoutAlbumInput
     topic?: AlbumTagsCreateNestedManyWithoutAlbumInput
     author: ProfileCreateNestedOneWithoutAlbumInput
   }
 
-  export type AlbumUncheckedCreateWithoutAlbum_imagesInput = {
+  export type AlbumUncheckedCreateWithoutImagesInput = {
     id?: number
     name: string
     created_at?: Date | string
     shown?: boolean
     author_id: number
-    images?: ImageUncheckedCreateNestedManyWithoutAlbumInput
     topic?: AlbumTagsUncheckedCreateNestedManyWithoutAlbumInput
   }
 
-  export type AlbumCreateOrConnectWithoutAlbum_imagesInput = {
+  export type AlbumCreateOrConnectWithoutImagesInput = {
     where: AlbumWhereUniqueInput
-    create: XOR<AlbumCreateWithoutAlbum_imagesInput, AlbumUncheckedCreateWithoutAlbum_imagesInput>
+    create: XOR<AlbumCreateWithoutImagesInput, AlbumUncheckedCreateWithoutImagesInput>
   }
 
   export type ImageCreateWithoutAlbum_imagesInput = {
     filename: string
     file: string
     uploaded_at?: Date | string
-    album?: AlbumCreateNestedManyWithoutImagesInput
     PostImages?: PostImagesCreateNestedManyWithoutImageInput
   }
 
@@ -28879,7 +28654,6 @@ export namespace Prisma {
     filename: string
     file: string
     uploaded_at?: Date | string
-    album?: AlbumUncheckedCreateNestedManyWithoutImagesInput
     PostImages?: PostImagesUncheckedCreateNestedManyWithoutImageInput
   }
 
@@ -28888,33 +28662,31 @@ export namespace Prisma {
     create: XOR<ImageCreateWithoutAlbum_imagesInput, ImageUncheckedCreateWithoutAlbum_imagesInput>
   }
 
-  export type AlbumUpsertWithoutAlbum_imagesInput = {
-    update: XOR<AlbumUpdateWithoutAlbum_imagesInput, AlbumUncheckedUpdateWithoutAlbum_imagesInput>
-    create: XOR<AlbumCreateWithoutAlbum_imagesInput, AlbumUncheckedCreateWithoutAlbum_imagesInput>
+  export type AlbumUpsertWithoutImagesInput = {
+    update: XOR<AlbumUpdateWithoutImagesInput, AlbumUncheckedUpdateWithoutImagesInput>
+    create: XOR<AlbumCreateWithoutImagesInput, AlbumUncheckedCreateWithoutImagesInput>
     where?: AlbumWhereInput
   }
 
-  export type AlbumUpdateToOneWithWhereWithoutAlbum_imagesInput = {
+  export type AlbumUpdateToOneWithWhereWithoutImagesInput = {
     where?: AlbumWhereInput
-    data: XOR<AlbumUpdateWithoutAlbum_imagesInput, AlbumUncheckedUpdateWithoutAlbum_imagesInput>
+    data: XOR<AlbumUpdateWithoutImagesInput, AlbumUncheckedUpdateWithoutImagesInput>
   }
 
-  export type AlbumUpdateWithoutAlbum_imagesInput = {
+  export type AlbumUpdateWithoutImagesInput = {
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     shown?: BoolFieldUpdateOperationsInput | boolean
-    images?: ImageUpdateManyWithoutAlbumNestedInput
     topic?: AlbumTagsUpdateManyWithoutAlbumNestedInput
     author?: ProfileUpdateOneRequiredWithoutAlbumNestedInput
   }
 
-  export type AlbumUncheckedUpdateWithoutAlbum_imagesInput = {
+  export type AlbumUncheckedUpdateWithoutImagesInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     shown?: BoolFieldUpdateOperationsInput | boolean
     author_id?: IntFieldUpdateOperationsInput | number
-    images?: ImageUncheckedUpdateManyWithoutAlbumNestedInput
     topic?: AlbumTagsUncheckedUpdateManyWithoutAlbumNestedInput
   }
 
@@ -28933,7 +28705,6 @@ export namespace Prisma {
     filename?: StringFieldUpdateOperationsInput | string
     file?: StringFieldUpdateOperationsInput | string
     uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    album?: AlbumUpdateManyWithoutImagesNestedInput
     PostImages?: PostImagesUpdateManyWithoutImageNestedInput
   }
 
@@ -28942,7 +28713,6 @@ export namespace Prisma {
     filename?: StringFieldUpdateOperationsInput | string
     file?: StringFieldUpdateOperationsInput | string
     uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    album?: AlbumUncheckedUpdateManyWithoutImagesNestedInput
     PostImages?: PostImagesUncheckedUpdateManyWithoutImageNestedInput
   }
 
@@ -28950,9 +28720,8 @@ export namespace Prisma {
     name: string
     created_at?: Date | string
     shown?: boolean
-    images?: ImageCreateNestedManyWithoutAlbumInput
+    images?: AlbumImagesCreateNestedManyWithoutAlbumInput
     author: ProfileCreateNestedOneWithoutAlbumInput
-    album_images?: AlbumImagesCreateNestedManyWithoutAlbumInput
   }
 
   export type AlbumUncheckedCreateWithoutTopicInput = {
@@ -28961,8 +28730,7 @@ export namespace Prisma {
     created_at?: Date | string
     shown?: boolean
     author_id: number
-    images?: ImageUncheckedCreateNestedManyWithoutAlbumInput
-    album_images?: AlbumImagesUncheckedCreateNestedManyWithoutAlbumInput
+    images?: AlbumImagesUncheckedCreateNestedManyWithoutAlbumInput
   }
 
   export type AlbumCreateOrConnectWithoutTopicInput = {
@@ -29001,9 +28769,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     shown?: BoolFieldUpdateOperationsInput | boolean
-    images?: ImageUpdateManyWithoutAlbumNestedInput
+    images?: AlbumImagesUpdateManyWithoutAlbumNestedInput
     author?: ProfileUpdateOneRequiredWithoutAlbumNestedInput
-    album_images?: AlbumImagesUpdateManyWithoutAlbumNestedInput
   }
 
   export type AlbumUncheckedUpdateWithoutTopicInput = {
@@ -29012,8 +28779,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     shown?: BoolFieldUpdateOperationsInput | boolean
     author_id?: IntFieldUpdateOperationsInput | number
-    images?: ImageUncheckedUpdateManyWithoutAlbumNestedInput
-    album_images?: AlbumImagesUncheckedUpdateManyWithoutAlbumNestedInput
+    images?: AlbumImagesUncheckedUpdateManyWithoutAlbumNestedInput
   }
 
   export type TagsUpsertWithoutAlbum_tagsInput = {
@@ -29741,32 +29507,8 @@ export namespace Prisma {
     chat_group_members?: ChatGroupMembersUncheckedUpdateManyWithoutProfileNestedInput
   }
 
-  export type AlbumCreateWithoutImagesInput = {
-    name: string
-    created_at?: Date | string
-    shown?: boolean
-    topic?: AlbumTagsCreateNestedManyWithoutAlbumInput
-    author: ProfileCreateNestedOneWithoutAlbumInput
-    album_images?: AlbumImagesCreateNestedManyWithoutAlbumInput
-  }
-
-  export type AlbumUncheckedCreateWithoutImagesInput = {
-    id?: number
-    name: string
-    created_at?: Date | string
-    shown?: boolean
-    author_id: number
-    topic?: AlbumTagsUncheckedCreateNestedManyWithoutAlbumInput
-    album_images?: AlbumImagesUncheckedCreateNestedManyWithoutAlbumInput
-  }
-
-  export type AlbumCreateOrConnectWithoutImagesInput = {
-    where: AlbumWhereUniqueInput
-    create: XOR<AlbumCreateWithoutImagesInput, AlbumUncheckedCreateWithoutImagesInput>
-  }
-
   export type AlbumImagesCreateWithoutImageInput = {
-    album: AlbumCreateNestedOneWithoutAlbum_imagesInput
+    album: AlbumCreateNestedOneWithoutImagesInput
   }
 
   export type AlbumImagesUncheckedCreateWithoutImageInput = {
@@ -29797,33 +29539,6 @@ export namespace Prisma {
 
   export type PostImagesCreateManyImageInputEnvelope = {
     data: PostImagesCreateManyImageInput | PostImagesCreateManyImageInput[]
-  }
-
-  export type AlbumUpsertWithWhereUniqueWithoutImagesInput = {
-    where: AlbumWhereUniqueInput
-    update: XOR<AlbumUpdateWithoutImagesInput, AlbumUncheckedUpdateWithoutImagesInput>
-    create: XOR<AlbumCreateWithoutImagesInput, AlbumUncheckedCreateWithoutImagesInput>
-  }
-
-  export type AlbumUpdateWithWhereUniqueWithoutImagesInput = {
-    where: AlbumWhereUniqueInput
-    data: XOR<AlbumUpdateWithoutImagesInput, AlbumUncheckedUpdateWithoutImagesInput>
-  }
-
-  export type AlbumUpdateManyWithWhereWithoutImagesInput = {
-    where: AlbumScalarWhereInput
-    data: XOR<AlbumUpdateManyMutationInput, AlbumUncheckedUpdateManyWithoutImagesInput>
-  }
-
-  export type AlbumScalarWhereInput = {
-    AND?: AlbumScalarWhereInput | AlbumScalarWhereInput[]
-    OR?: AlbumScalarWhereInput[]
-    NOT?: AlbumScalarWhereInput | AlbumScalarWhereInput[]
-    id?: IntFilter<"Album"> | number
-    name?: StringFilter<"Album"> | string
-    created_at?: DateTimeFilter<"Album"> | Date | string
-    shown?: BoolFilter<"Album"> | boolean
-    author_id?: IntFilter<"Album"> | number
   }
 
   export type AlbumImagesUpsertWithWhereUniqueWithoutImageInput = {
@@ -30521,7 +30236,6 @@ export namespace Prisma {
     filename: string
     file: string
     uploaded_at?: Date | string
-    album?: AlbumCreateNestedManyWithoutImagesInput
     album_images?: AlbumImagesCreateNestedManyWithoutImageInput
   }
 
@@ -30530,7 +30244,6 @@ export namespace Prisma {
     filename: string
     file: string
     uploaded_at?: Date | string
-    album?: AlbumUncheckedCreateNestedManyWithoutImagesInput
     album_images?: AlbumImagesUncheckedCreateNestedManyWithoutImageInput
   }
 
@@ -30586,7 +30299,6 @@ export namespace Prisma {
     filename?: StringFieldUpdateOperationsInput | string
     file?: StringFieldUpdateOperationsInput | string
     uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    album?: AlbumUpdateManyWithoutImagesNestedInput
     album_images?: AlbumImagesUpdateManyWithoutImageNestedInput
   }
 
@@ -30595,7 +30307,6 @@ export namespace Prisma {
     filename?: StringFieldUpdateOperationsInput | string
     file?: StringFieldUpdateOperationsInput | string
     uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    album?: AlbumUncheckedUpdateManyWithoutImagesNestedInput
     album_images?: AlbumImagesUncheckedUpdateManyWithoutImageNestedInput
   }
 
@@ -30633,9 +30344,8 @@ export namespace Prisma {
     name: string
     created_at?: Date | string
     shown?: boolean
-    images?: ImageCreateNestedManyWithoutAlbumInput
+    images?: AlbumImagesCreateNestedManyWithoutAlbumInput
     topic?: AlbumTagsCreateNestedManyWithoutAlbumInput
-    album_images?: AlbumImagesCreateNestedManyWithoutAlbumInput
   }
 
   export type AlbumUncheckedCreateWithoutAuthorInput = {
@@ -30643,9 +30353,8 @@ export namespace Prisma {
     name: string
     created_at?: Date | string
     shown?: boolean
-    images?: ImageUncheckedCreateNestedManyWithoutAlbumInput
+    images?: AlbumImagesUncheckedCreateNestedManyWithoutAlbumInput
     topic?: AlbumTagsUncheckedCreateNestedManyWithoutAlbumInput
-    album_images?: AlbumImagesUncheckedCreateNestedManyWithoutAlbumInput
   }
 
   export type AlbumCreateOrConnectWithoutAuthorInput = {
@@ -30848,6 +30557,17 @@ export namespace Prisma {
   export type AlbumUpdateManyWithWhereWithoutAuthorInput = {
     where: AlbumScalarWhereInput
     data: XOR<AlbumUpdateManyMutationInput, AlbumUncheckedUpdateManyWithoutAuthorInput>
+  }
+
+  export type AlbumScalarWhereInput = {
+    AND?: AlbumScalarWhereInput | AlbumScalarWhereInput[]
+    OR?: AlbumScalarWhereInput[]
+    NOT?: AlbumScalarWhereInput | AlbumScalarWhereInput[]
+    id?: IntFilter<"Album"> | number
+    name?: StringFilter<"Album"> | string
+    created_at?: DateTimeFilter<"Album"> | Date | string
+    shown?: BoolFilter<"Album"> | boolean
+    author_id?: IntFilter<"Album"> | number
   }
 
   export type ChatGroupUpsertWithWhereUniqueWithoutAdminInput = {
@@ -31327,48 +31047,12 @@ export namespace Prisma {
     chat_group_members?: ChatGroupMembersUncheckedUpdateManyWithoutProfileNestedInput
   }
 
-  export type AlbumTagsCreateManyAlbumInput = {
-    tag_id: number
-  }
-
   export type AlbumImagesCreateManyAlbumInput = {
     image_id: number
   }
 
-  export type ImageUpdateWithoutAlbumInput = {
-    filename?: StringFieldUpdateOperationsInput | string
-    file?: StringFieldUpdateOperationsInput | string
-    uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    album_images?: AlbumImagesUpdateManyWithoutImageNestedInput
-    PostImages?: PostImagesUpdateManyWithoutImageNestedInput
-  }
-
-  export type ImageUncheckedUpdateWithoutAlbumInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    filename?: StringFieldUpdateOperationsInput | string
-    file?: StringFieldUpdateOperationsInput | string
-    uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    album_images?: AlbumImagesUncheckedUpdateManyWithoutImageNestedInput
-    PostImages?: PostImagesUncheckedUpdateManyWithoutImageNestedInput
-  }
-
-  export type ImageUncheckedUpdateManyWithoutAlbumInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    filename?: StringFieldUpdateOperationsInput | string
-    file?: StringFieldUpdateOperationsInput | string
-    uploaded_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AlbumTagsUpdateWithoutAlbumInput = {
-    tag?: TagsUpdateOneRequiredWithoutAlbum_tagsNestedInput
-  }
-
-  export type AlbumTagsUncheckedUpdateWithoutAlbumInput = {
-    tag_id?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type AlbumTagsUncheckedUpdateManyWithoutAlbumInput = {
-    tag_id?: IntFieldUpdateOperationsInput | number
+  export type AlbumTagsCreateManyAlbumInput = {
+    tag_id: number
   }
 
   export type AlbumImagesUpdateWithoutAlbumInput = {
@@ -31381,6 +31065,18 @@ export namespace Prisma {
 
   export type AlbumImagesUncheckedUpdateManyWithoutAlbumInput = {
     image_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AlbumTagsUpdateWithoutAlbumInput = {
+    tag?: TagsUpdateOneRequiredWithoutAlbum_tagsNestedInput
+  }
+
+  export type AlbumTagsUncheckedUpdateWithoutAlbumInput = {
+    tag_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AlbumTagsUncheckedUpdateManyWithoutAlbumInput = {
+    tag_id?: IntFieldUpdateOperationsInput | number
   }
 
   export type ChatGroupMembersCreateManyChat_groupInput = {
@@ -31438,35 +31134,8 @@ export namespace Prisma {
     post_id: number
   }
 
-  export type AlbumUpdateWithoutImagesInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    shown?: BoolFieldUpdateOperationsInput | boolean
-    topic?: AlbumTagsUpdateManyWithoutAlbumNestedInput
-    author?: ProfileUpdateOneRequiredWithoutAlbumNestedInput
-    album_images?: AlbumImagesUpdateManyWithoutAlbumNestedInput
-  }
-
-  export type AlbumUncheckedUpdateWithoutImagesInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    shown?: BoolFieldUpdateOperationsInput | boolean
-    author_id?: IntFieldUpdateOperationsInput | number
-    topic?: AlbumTagsUncheckedUpdateManyWithoutAlbumNestedInput
-    album_images?: AlbumImagesUncheckedUpdateManyWithoutAlbumNestedInput
-  }
-
-  export type AlbumUncheckedUpdateManyWithoutImagesInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    shown?: BoolFieldUpdateOperationsInput | boolean
-    author_id?: IntFieldUpdateOperationsInput | number
-  }
-
   export type AlbumImagesUpdateWithoutImageInput = {
-    album?: AlbumUpdateOneRequiredWithoutAlbum_imagesNestedInput
+    album?: AlbumUpdateOneRequiredWithoutImagesNestedInput
   }
 
   export type AlbumImagesUncheckedUpdateWithoutImageInput = {
@@ -31705,9 +31374,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     shown?: BoolFieldUpdateOperationsInput | boolean
-    images?: ImageUpdateManyWithoutAlbumNestedInput
+    images?: AlbumImagesUpdateManyWithoutAlbumNestedInput
     topic?: AlbumTagsUpdateManyWithoutAlbumNestedInput
-    album_images?: AlbumImagesUpdateManyWithoutAlbumNestedInput
   }
 
   export type AlbumUncheckedUpdateWithoutAuthorInput = {
@@ -31715,9 +31383,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     shown?: BoolFieldUpdateOperationsInput | boolean
-    images?: ImageUncheckedUpdateManyWithoutAlbumNestedInput
+    images?: AlbumImagesUncheckedUpdateManyWithoutAlbumNestedInput
     topic?: AlbumTagsUncheckedUpdateManyWithoutAlbumNestedInput
-    album_images?: AlbumImagesUncheckedUpdateManyWithoutAlbumNestedInput
   }
 
   export type AlbumUncheckedUpdateManyWithoutAuthorInput = {

@@ -18,11 +18,24 @@ export type Post = Prisma.PostGetPayload<{
 
 export type CreatePost = Prisma.PostUncheckedCreateInput;
 
-export type IUpdatePost = Prisma.PostUpdateInput;
+export type IUpdatePost = {
+    title: string;
+    content: string;
+    links?: string[];
+    tags?: string[];
+    images?: {
+        id?: number;
+        url: string;
+    }[]
+    author_id: number;
+};
 
 export type CreatePostData = Prisma.PostImagesUncheckedCreateNestedManyWithoutPostInput;
 
 export type Image = Prisma.ImageUncheckedCreateInput;
+
+export type CreateImageData = Prisma.PostImagesUncheckedCreateNestedManyWithoutPostInput
+
 
 export interface CreatePostBody {
     title: string;
@@ -34,3 +47,6 @@ export interface CreatePostBody {
     }[]
     author_id: number;
 }
+export type ImageCreate = Prisma.ImageCreateNestedOneWithoutPostImagesInput
+
+export type UpdateCreatePost = Prisma.PostUncheckedUpdateInput

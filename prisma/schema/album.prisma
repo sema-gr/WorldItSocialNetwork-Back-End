@@ -3,13 +3,12 @@ model Album {
     name String
     // theme String?
     // year String?
-    images Image[]
+    images AlbumImages[]
     created_at DateTime @default(now())
     shown Boolean @default(false)
     topic AlbumTags[]
     author Profile @relation(fields: [author_id], references: [id])
     author_id Int
-    album_images AlbumImages[]
 }
 
 model AlbumImages {

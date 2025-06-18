@@ -14,7 +14,7 @@ model Post{
 
 model Tags {
     id Int @id @default(autoincrement())
-    name String
+    name String @unique
     posts PostTags[]
     album_tags AlbumTags[]
 }

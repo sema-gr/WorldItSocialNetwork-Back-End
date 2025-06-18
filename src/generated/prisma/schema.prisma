@@ -1,15 +1,14 @@
 model Album {
-  id           Int           @id @default(autoincrement())
-  name         String
+  id         Int           @id @default(autoincrement())
+  name       String
   // theme String?
   // year String?
-  images       Image[]
-  created_at   DateTime      @default(now())
-  shown        Boolean       @default(false)
-  topic        AlbumTags[]
-  author       Profile       @relation(fields: [author_id], references: [id])
-  author_id    Int
-  album_images AlbumImages[]
+  images     AlbumImages[]
+  created_at DateTime      @default(now())
+  shown      Boolean       @default(false)
+  topic      AlbumTags[]
+  author     Profile       @relation(fields: [author_id], references: [id])
+  author_id  Int
 }
 
 model AlbumImages {
@@ -82,7 +81,6 @@ model Image {
   // album Album? @relation(fields: [albumId], references: [id])
   // albumId Int?
 
-  album        Album[]
   album_images AlbumImages[]
   PostImages   PostImages[]
 }
@@ -103,7 +101,7 @@ model Post {
 
 model Tags {
   id         Int         @id @default(autoincrement())
-  name       String
+  name       String      @unique
   posts      PostTags[]
   album_tags AlbumTags[]
 }

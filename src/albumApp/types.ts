@@ -4,11 +4,14 @@ export type Album = Prisma.AlbumGetPayload<{
     include: {
         images: {
             select: {
-                id: true,
-                url: true,
-                albumId: true
+                image: true
             }
         },
+        topic: {
+            select: {
+                tag: true
+            }
+        }
     }
 }>;
 
@@ -16,4 +19,9 @@ export type CreateAlbum = Prisma.AlbumUncheckedCreateInput
 
 export type UpdateAlbum = Prisma.AlbumUpdateInput
 
-export type CreateAlbumData = Prisma.ImageUncheckedCreateNestedManyWithoutAlbumInput
+export type CreateAlbumData = Prisma.AlbumImagesUncheckedCreateNestedManyWithoutAlbumInput
+
+export type AlbumBody = {
+    name: string,
+    tags?: string[];
+}

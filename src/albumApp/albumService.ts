@@ -5,7 +5,6 @@ import fs from "fs/promises";
 import path from "path";
 import prisma from "../client/prismaClient";
 import { albumRepository } from "./albumRepository";
-import { url } from "inspector";
 
 async function getAlbums(): Promise<IOkWithData<Album[]> | IError> {
 	const albums = await albumRepository.getAlbums();
@@ -42,7 +41,18 @@ export async function editAlbum(
 
 		const currentAlbum = await prisma.album.findUnique({
 			where: { id },
-			include: { images: true },
+			include: {
+				images: {
+					select: {
+						image: true
+					}
+				},
+				topic: {
+					select: {
+						tag: true
+					}
+				}
+			}
 		});
 
 		if (!currentAlbum) {
@@ -54,14 +64,10 @@ export async function editAlbum(
 				typeof data.name === "string"
 					? data.name.trim()
 					: data.name ?? currentAlbum.name,
-			theme:
-				typeof data.theme === "string"
-					? data.theme.trim()
-					: data.theme ?? currentAlbum.theme,
-			year:
-				typeof data.year === "string"
-					? data.year.trim()
-					: data.year ?? currentAlbum.year,
+			created_at:
+				typeof data.created_at === "string"
+					? data.created_at.trim()
+					: data.created_at ?? currentAlbum.created_at,
 		};
 
 		// Обробка зображень
@@ -71,7 +77,7 @@ export async function editAlbum(
 			const maxSizeInBytes = 5 * 1024 * 1024; // 5 МБ
 			const maxImages = 10;
 
-			const currentImageIds = currentAlbum.images.map((img) => img.id);
+			const currentImageIds = currentAlbum.images.map((img) => img.image.id);
 
 			// Обробка видалення зображень
 			let deleteImageIds: number[] = [];
@@ -81,7 +87,7 @@ export async function editAlbum(
 					: [data.images.delete];
 				deleteImageIds = toDelete
 					.filter(
-						(item): item is { id: number } =>
+						(item): item is {  } =>
 							typeof item === "object" &&
 							"id" in item &&
 							typeof item.id === "number"
