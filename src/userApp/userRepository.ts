@@ -47,12 +47,12 @@ async function getUserById(id: number){
                 name: true,
                 username: true,
                 surname: true,
-                dateOfBirth: true,
+                date_of_birth: true,
                 email: true,
                 password: true,
                 signature: true,
                 image: true,
-                friendshipFrom: true,
+                friendship_from: true,
                 // about: true?
             }
         })
@@ -92,7 +92,7 @@ async function updateUserById(data: UpdateUser, id: number) {
                 name: updatedData.name,
                 username: updatedData.username,
                 surname: updatedData.surname,
-                dateOfBirth: updatedData.dateOfBirth,
+                date_of_birth: updatedData.date_of_birth,
                 email: updatedData.email,
                 password: updatedData.password,
                 signature: updatedData.signature,

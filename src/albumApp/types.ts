@@ -21,6 +21,16 @@ export type UpdateAlbum = Prisma.AlbumUpdateInput
 
 export type CreateAlbumData = Prisma.AlbumImagesUncheckedCreateNestedManyWithoutAlbumInput
 
+export type AlbumUpdateBody = {
+    name?: string,
+    tags?: string[],
+    images?: {
+        id?: number;
+        url: string;
+    }[],
+    created_at?: Date
+}
+
 export type AlbumBody = {
     name: string,
     tags?: string[];

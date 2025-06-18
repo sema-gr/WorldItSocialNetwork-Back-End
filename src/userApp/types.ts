@@ -1,12 +1,12 @@
 import { Prisma } from "../generated/prisma";
 
-export type User = Prisma.UserGetPayload<{
+export type User = Prisma.ProfileGetPayload<{
     select: {
         id: true,
         name: true,
         username: true,
         surname: true,
-        dateOfBirth: true,
+        date_of_birth: true,
         email: true,
         password: true,
         signature: true,
@@ -15,6 +15,6 @@ export type User = Prisma.UserGetPayload<{
 }>
 
 
-export type CreateUser = Prisma.UserUncheckedCreateInput
+export type CreateUser = Prisma.ProfileUncheckedCreateInput
 
-export type UpdateUser = Prisma.UserUncheckedUpdateInput
+export type UpdateUser = Prisma.ProfileUncheckedUpdateInput
