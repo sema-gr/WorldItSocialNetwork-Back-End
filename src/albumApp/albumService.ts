@@ -1,10 +1,11 @@
 import { Prisma } from "@prisma/client";
 import { IError, IOkWithData } from "../types/types";
-import { Album, CreateAlbum, UpdateAlbum, CreateAlbumData, CreateAlbumBody, AlbumCorrect } from "./types";
+import { Album, CreateAlbum, UpdateAlbum, CreateAlbumData, CreateAlbumBody, AlbumCorrect, AlbumUpdateBody } from "./types";
 import fs from "fs/promises";
 import path from "path";
 import prisma from "../client/prismaClient";
 import { albumRepository } from "./albumRepository";
+import { Image } from "../postApp/types";
 
 async function getAlbums(): Promise<IOkWithData<Album[]> | IError> {
 	const albums = await albumRepository.getAlbums();
@@ -60,7 +61,7 @@ async function createAlbum(data: CreateAlbum): Promise<IOkWithData<AlbumCorrect>
 }
 
 export async function editAlbum(
-	data: Album,
+	data: AlbumUpdateBody,
 	id: number
 ): Promise<IOkWithData<Album> | IError> {
 	const createdImageUrls: string[] = [];
@@ -68,6 +69,8 @@ export async function editAlbum(
 	const API_BASE_URL = "http://192.168.1.104:3000";
 
 	try {
+		console.log("========================")
+		console.log(data.images)
 		await fs.mkdir(uploadDir, { recursive: true });
 		console.log(`  Директорія ${uploadDir} створена/існує`);
 
@@ -114,19 +117,19 @@ export async function editAlbum(
 			// Обробка видалення зображень
 			data.images.forEach(async (image) => {
 				const foundImage = await prisma.image.findUnique({
-					where: { id: image.image.id }
+					where: { id: image.id }
 				});
 				if (foundImage) {
 					await prisma.image.delete({
-						where: { id: image.image.id }
+						where: { id: image.id }
 					});
 				}
 			});
 
 			const createImages = await Promise.all(
 				data.images.map(async (image, index) => {
-					if (image.image.filename.startsWith("data:image")) {
-						const matches = image.image.filename.match(/^data:image\/(\w+);base64,(.+)$/);
+					if (image.filename.startsWith("data:image")) {
+						const matches = image.filename.match(/^data:image\/(\w+);base64,(.+)$/);
 						if (!matches) {
 							console.error("Невірний формат base64 на позиції", index);
 							throw new Error(`Невірний формат base64 зображення на позиції ${index}`);
@@ -163,15 +166,41 @@ export async function editAlbum(
 							throw new Error(`Не вдалося зберегти зображення на позиції ${index}`);
 						}
 					}
-					return { url: image.image.filename };
+					return { url: image.filename };
 				})
 			);
+
+			let imageInput: { create: { image: { connect: { id: number, filename: string, file: string } } }[] } | undefined;
+			if (Array.isArray(createImages)) {
+				if (data.images.length > 10) {
+					return { status: "error", message: "Максимум 10 зображень дозволено" };
+				}
+
+				const imageConnections = await Promise.all(
+					createImages.map(async (mapImage) => {
+						let image = await prisma.image.findFirst({ where: { file: mapImage.url } });
+						if (!image) {
+							image = await prisma.image.create({ data: { file: mapImage.url, filename: mapImage.url } });
+						}
+						return { image: { connect: { id: image.id, filename: image.filename, file: image.file } } };
+					})
+				);
+
+				imageInput = {
+					create: imageConnections,
+				};
+			}
+
+			updateData.images = imageInput
 		}
 
 		const updatedAlbum = await prisma.album.update({
 			where: { id },
 			data: updateData,
-			include: { images: { select: { image: true } }, topic: { select: { tag: true } } }
+			include: {
+				images: { include: { image: true } },
+				topic: { include: { tag: true } },
+			},
 		});
 
 		// Нормалізація

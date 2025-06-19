@@ -69,6 +69,7 @@ async function createAlbum(data: CreateAlbum) {
 
 async function editAlbum(data: UpdateAlbum, id: number) {
     try {
+        console.log(id)
         return await prisma.album.update({
             where: { id },
             data,

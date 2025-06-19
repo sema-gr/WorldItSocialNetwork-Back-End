@@ -36,7 +36,7 @@ export type AlbumUpdateBody = {
     tags?: string[],
     images?: {
         id?: number;
-        url: string;
+        filename: string;
     }[],
     created_at?: Date
 }
