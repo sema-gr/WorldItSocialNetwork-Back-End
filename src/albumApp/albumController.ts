@@ -14,7 +14,7 @@ async function getAlbums(req: Request, res: Response) {
 
 async function createAlbum(req: Request, res: Response) {
 	let body = req.body
-	body.authorId = res.locals.userId
+	body.author_id = res.locals.userId
 	const result = await albumService.createAlbum(body)
 	if (result.status == "error") {
 		res.json(result)

@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { IError, IOkWithData } from "../types/types";
-import { Album, CreateAlbum, UpdateAlbum, CreateAlbumData } from "./types";
+import { Album, CreateAlbum, UpdateAlbum, CreateAlbumData, CreateAlbumBody, AlbumCorrect } from "./types";
 import fs from "fs/promises";
 import path from "path";
 import prisma from "../client/prismaClient";
@@ -16,8 +16,42 @@ async function getAlbums(): Promise<IOkWithData<Album[]> | IError> {
 	return { status: "success", data: albums };
 }
 
-async function createAlbum(data: CreateAlbum): Promise<IOkWithData<CreateAlbum> | IError> {
-	const result = await albumRepository.createAlbum(data)
+async function createAlbum(data: CreateAlbum): Promise<IOkWithData<AlbumCorrect> | IError> {
+
+	let topicInput: { create: { tag: { connect: { id: number, name: string } } }[] } | undefined;
+	if (Array.isArray(data.topic)) {
+		if (data.topic.length > 10) {
+			return { status: "error", message: "Максимум 10 тегів дозволено" };
+		}
+		for (const tag of data.topic) {
+			if (typeof tag !== "string" || tag.length > 50) {
+				return { status: "error", message: "Кожен тег має бути рядком не довшим за 50 символів" };
+			}
+		}
+
+		const tagConnections = await Promise.all(
+			data.topic.map(async (topicName: string) => {
+				let tag = await prisma.tags.findFirst({ where: { name: topicName } });
+				if (!tag) {
+					tag = await prisma.tags.create({ data: { name: topicName } });
+				}
+				return { tag: { connect: { id: tag.id, name: tag.name } } };
+			})
+		);
+
+		topicInput = {
+			create: tagConnections,
+		};
+	}
+
+	const albumData: CreateAlbum = {
+		name: data.name,
+		topic: topicInput,
+		author_id: data.author_id,
+	};
+
+	const result = await albumRepository.createAlbum(albumData)
+
 	console.log(result)
 	if (!result) {
 		return { status: "error", message: "album not created" }

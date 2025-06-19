@@ -27,7 +27,7 @@ async function saveBase64Image(base64: string): Promise<string> {
   try {
     await fs.writeFile(filePath, data, { encoding: "base64" });
     console.log(`File saved: ${filePath}`);
-    return `uploads${filename}`;
+    return `uploads/${filename}`;
   } catch (err) {
     console.error("Error saving file:", err);
     throw new Error("Failed to save image");

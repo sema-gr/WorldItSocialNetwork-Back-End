@@ -1,6 +1,6 @@
 import prisma from "../client/prismaClient";
 import { Prisma } from "../generated/prisma/client";
-import { CreateAlbum, UpdateAlbum } from "./types";
+import { CreateAlbum, CreateAlbumBody, UpdateAlbum } from "./types";
 
 
 async function getAlbums() {
@@ -45,6 +45,13 @@ async function createAlbum(data: CreateAlbum) {
     try {
         let createAlbum = await prisma.album.create({
             data: data,
+            include: {
+                topic: {
+                    select: {
+                        tag: true
+                    }
+                }
+            }
         })
         return createAlbum
     } catch (err) {
