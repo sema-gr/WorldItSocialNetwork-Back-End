@@ -27,7 +27,7 @@ export type AlbumCorrect = Prisma.AlbumGetPayload<{
 
 export type CreateAlbum = Prisma.AlbumUncheckedCreateInput
 
-export type UpdateAlbum = Prisma.AlbumUpdateInput
+export type UpdateAlbum = Prisma.AlbumUncheckedUpdateInput
 
 export type CreateAlbumData = Prisma.AlbumImagesUncheckedCreateNestedManyWithoutAlbumInput
 
@@ -35,8 +35,10 @@ export type AlbumUpdateBody = {
     name?: string,
     tags?: string[],
     images?: {
-        id?: number;
-        filename: string;
+        image: {
+            id?: number;
+            filename: string;
+        }
     }[],
     created_at?: Date
 }
@@ -50,5 +52,5 @@ export type CreateAlbumBody = {
     name: string,
     topic: string[],
     author_id: number,
-    images: undefined 
+    images: undefined
 }

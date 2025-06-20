@@ -1,6 +1,6 @@
 import prisma from "../client/prismaClient";
 import { Prisma } from "../generated/prisma/client";
-import { CreatePost } from "./types";
+import { CreatePost, Post } from "./types";
 
 async function getPosts() {
     try {
@@ -92,33 +92,44 @@ async function editPost(data: any, id: number) {
 
 async function deletePost(id: number) {
     try {
-        // Спочатку видаляємо зв'язані записи
-        // await prisma.userPostTags.deleteMany({
-        //     where: { userPostId: id }
-        // });
-
-        // await prisma.image.deleteMany({
-        //     where: { userPostId: id }
-        // });
-
-        // Потім видаляємо сам пост
-        const deletedPost = await prisma.post.delete({
+        const postToDelete = await prisma.post.findUnique({
             where: { id },
             include: {
                 images: {
-                    select: {
+                    include: {
                         image: true
                     }
                 },
                 tags: {
-                    select: {
+                    include: {
                         tag: true
                     }
                 }
             }
         });
 
-        return deletedPost;
+        if (!postToDelete) {
+            throw console.log("Post not found!")
+        }
+
+        await prisma.postImages.deleteMany({
+            where: { post_id: id }
+        });
+
+        const imageIds = postToDelete.images.map((img) => img.image.id);
+        await prisma.image.deleteMany({
+            where: { id: { in: imageIds } }
+        });
+
+        await prisma.postTags.deleteMany({
+            where: { post_id: id }
+        });
+
+        await prisma.post.delete({
+            where: { id }
+        });
+
+        return postToDelete;
     } catch (error) {
         console.error("Error deleting post:", error);
         throw error;

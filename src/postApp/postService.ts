@@ -103,14 +103,11 @@ async function editPost(data: IUpdatePost, id: number): Promise<IOkWithData<Post
     const API_BASE_URL = "http://192.168.1.104:3000";
     const uploadDir = path.join(__dirname, "..", "..", "public", "uploads");
 
-    // Логування вхідних даних
     console.log("[EditPost] Вхідні дані:", JSON.stringify(data, null, 2));
 
-    // Створюємо директорію для зображень
     await fs.mkdir(uploadDir, { recursive: true });
     console.log(`[EditPost] Директорія ${uploadDir} створена/існує`);
 
-    // Отримуємо поточний пост
     const currentPost = await prisma.post.findUnique({
       where: { id },
       include: {
@@ -134,7 +131,6 @@ async function editPost(data: IUpdatePost, id: number): Promise<IOkWithData<Post
       return { status: "error", message: "Пост не знайдено" };
     }
 
-    // Підготовка даних для оновлення
     const updateData: UpdateCreatePost = {
       title: typeof data.title === "string" ? data.title.trim() : data.title ?? currentPost.title,
       content: typeof data.content === "string" ? data.content.trim() : data.content ?? currentPost.content,
@@ -142,7 +138,6 @@ async function editPost(data: IUpdatePost, id: number): Promise<IOkWithData<Post
 
     // Обробка тегів
     if (data.tags && Array.isArray(data.tags)) {
-
       if (data.tags.length > 10) {
         console.error("[EditPost] Занадто багато тегів:", data.tags.length);
         return { status: "error", message: "Максимум 10 тегів дозволено" };
@@ -157,135 +152,123 @@ async function editPost(data: IUpdatePost, id: number): Promise<IOkWithData<Post
         return { status: "error", message: "Некоректні теги або занадто довгі (макс. 50 символів)" };
       }
 
-      // const currentTagNames: string[] = currentPost.tags.map((t) => t.tag.name);
-      // let correctTags: Prisma.PostTagsUpdateManyWithoutPostNestedInput[] = [];
+      const currentTagNames = currentPost.tags.map(t => t.tag.name);
+      const tagsToRemove = currentTagNames.filter(tag => !validTags.includes(tag));
+      const tagsToAdd = validTags.filter(tag => !currentTagNames.includes(tag));
 
-      // if (currentTagNames.length > 0) {
-      //   currentTagNames.forEach(async (tag) => {
-      //     let findUnique = await prisma.tags.findUnique({
-      //       where: { name: tag }
-      //     })
-      //     if (!findUnique) {
-      //       findUnique = await prisma.tags.delete({
-      //         where: { name: tag }
-      //       });
-      //     } else {
-      //       const tagsToAdd = {
-      //         create:{
-      //           tag: { connect: { id: findUnique.id, name: findUnique.name } }
-      //         }
-      //       }
-      //       correctTags.push(tagsToAdd);
-      //     }
-      //   });
-      // }
-
-      // updateData.tags = correctTags;
-
-      let tagsInput: { create: { tag: { connect: { id: number, name: string } } }[] } | undefined;
-      const tagConnections = await Promise.all(
-        data.tags.map(async (tagName: string) => {
-          let tag = await prisma.tags.findFirst({ where: { name: tagName } });
-          if (!tag) {
-            tag = await prisma.tags.create({ data: { name: tagName } });
+      await prisma.postTags.deleteMany({
+        where: {
+          post_id: id,
+          tag: {
+            name: { in: tagsToRemove }
           }
-          return { tag: { connect: { id: tag.id, name: tag.name } } };
-        })
-      );
+        }
+      });
 
-      tagsInput = {
-        create: tagConnections,
-      };
-      updateData.tags = tagsInput;
-    }
-
-    if (currentPost.images)
-      // Обробка зображень
-      if (data.images) {
-        console.log("[EditPost] Обробка зображень:", JSON.stringify(data.images, null, 2));
-        const allowedFormats = ["jpeg", "png", "gif"];
-        const maxSizeInBytes = 5 * 1024 * 1024; // 5 МБ
-        const maxImages = 10;
-
-        const currentImageIds = currentPost.images.map((img) => img.image.id);
-
-        // Обробка нових зображень (create)
-        let createImages: { url: string }[] = [];
-        data.images.forEach((img) => {
-          prisma.image.delete({
-            where: { id: img.id }
-          })
-        })
-
-        createImages = await Promise.all(
-          data.images.map(async (image, index) => {
-            if (typeof image !== "object" || !image.url) {
-              console.error("[EditPost] Некоректні дані зображення на позиції", index);
-              throw new Error(`Некоректні дані зображення на позиції ${index}: потрібен об’єкт із полем url`);
+      // Додаємо нові теги
+      if (tagsToAdd.length > 0) {
+        const tagConnections = await Promise.all(
+          tagsToAdd.map(async (tagName: string) => {
+            let tag = await prisma.tags.findFirst({ where: { name: tagName } });
+            if (!tag) {
+              tag = await prisma.tags.create({ data: { name: tagName } });
             }
-            if (image.url.startsWith("data:image")) {
-              const matches = image.url.match(/^data:image\/(\w+);base64,(.+)$/);
-              if (!matches) {
-                console.error("[EditPost] Невірний формат base64 на позиції", index);
-                throw new Error(`Невірний формат base64 зображення на позиції ${index}`);
-              }
-
-              const [, ext, base64Data] = matches;
-              if (!allowedFormats.includes(ext.toLowerCase())) {
-                console.error("[EditPost] Непідтримуваний формат зображення:", ext);
-                throw new Error(`Непідтримуваний формат: ${ext}. Дозволено: JPEG, PNG, GIF`);
-              }
-
-              const buffer = Buffer.from(base64Data, "base64");
-              if (buffer.length > maxSizeInBytes) {
-                console.error("[EditPost] Зображення занадто велике:", buffer.length);
-                throw new Error(`Зображення на позиції ${index} занадто велике: ${Math.round(buffer.length / 1024 / 1024)} MB. Максимум 5 MB`);
-              }
-
-              const filename = `${Date.now()}-${Math.round(Math.random() * 1000000)}.${ext}`;
-              const filePath = path.join(uploadDir, filename);
-
-              await fs.writeFile(filePath, buffer);
-              console.log("[EditPost] Зображення збережено:", filePath);
-
-              // Перевірка існування файлу
-              try {
-                await fs.access(filePath);
-                createdImageUrls.push(filename);
-                return { url: `uploads/${filename}` };
-              } catch {
-                console.error("[EditPost] Файл не знайдено після збереження:", filePath);
-                throw new Error(`Не вдалося зберегти зображення на позиції ${index}`);
-              }
-            }
-            return { url: image.url };
+            return { tag: { connect: { id: tag.id } } };
           })
         );
 
-        let imageInput: { create: { image: { connect: { id: number, filename: string, file: string } } }[] } | undefined;
-        if (Array.isArray(data.images)) {
-          if (data.images.length > 10) {
-            return { status: "error", message: "Максимум 10 зображень дозволено" };
+        updateData.tags = {
+          create: tagConnections,
+        };
+      }
+    }
+
+    // Обробка зображень
+    if (data.images) {
+      console.log("[EditPost] Обробка зображень:", JSON.stringify(data.images, null, 2));
+      const allowedFormats = ["jpeg", "png", "gif"];
+      const maxSizeInBytes = 5 * 1024 * 1024; // 5 МБ
+
+      const currentImages = currentPost.images;
+
+      const imagesToDelete = currentImages.filter(currentImg => {
+        if (data.images)
+          return data.images.some(newImg => newImg.id === currentImg.image.id);
+      });
+
+      if (imagesToDelete.length > 0) {
+        await prisma.postImages.deleteMany({
+          where: {
+            post_id: id,
+            image_id: { in: imagesToDelete.map(img => img.image.id) }
+          }
+        });
+
+        await prisma.image.deleteMany({
+          where: {
+            id: { in: imagesToDelete.map(img => img.image.id) }
+          }
+        });
+      }
+
+      const newImages = data.images.filter(img => !img.id);
+      const createImages: { url: string }[] = [];
+
+      for (const image of newImages) {
+        try {
+          if (typeof image !== "object" || !image.url) {
+            console.error("[EditPost] Некоректні дані зображення");
+            continue;
           }
 
-          const imageConnections = await Promise.all(
-            data.images.map(async (mapImage) => {
-              let image = await prisma.image.findFirst({ where: { file: mapImage.url } });
-              if (!image) {
-                image = await prisma.image.create({ data: { file: mapImage.url, filename: mapImage.url } });
-              }
-              return { image: { connect: { id: image.id, filename: image.filename, file: image.file } } };
-            })
-          );
+          if (image.url.startsWith("data:image")) {
+            const matches = image.url.match(/^data:image\/(\w+);base64,(.+)$/);
+            if (!matches) {
+              console.error("[EditPost] Невірний формат base64");
+              continue;
+            }
 
-          imageInput = {
-            create: imageConnections,
-          };
+            const [, ext, base64Data] = matches;
+            if (!allowedFormats.includes(ext.toLowerCase())) {
+              console.error("[EditPost] Непідтримуваний формат зображення:", ext);
+              continue;
+            }
+
+            const buffer = Buffer.from(base64Data, "base64");
+            if (buffer.length > maxSizeInBytes) {
+              console.error("[EditPost] Зображення занадто велике:", buffer.length);
+              continue;
+            }
+
+            const filename = `${Date.now()}-${Math.round(Math.random() * 1000000)}.${ext}`;
+            const filePath = path.join(uploadDir, filename);
+
+            await fs.writeFile(filePath, buffer);
+            console.log("[EditPost] Зображення збережено:", filePath);
+
+            await fs.access(filePath);
+            createdImageUrls.push(filename);
+            createImages.push({ url: `uploads/${filename}` });
+          } else {
+            createImages.push({ url: image.url });
+          }
+        } catch (error) {
+          console.error("[EditPost] Помилка обробки зображення:", error);
+          continue;
         }
-
-        updateData.images = imageInput;
-
       }
+
+      updateData.images = {
+        create: createImages.map(img => ({
+          image: {
+            create: {
+              filename: img.url,
+              file: img.url
+            }
+          }
+        }))
+      };
+    }
 
     // Оновлення поста
     console.log("[EditPost] Дані для оновлення:", JSON.stringify(updateData, null, 2));
@@ -344,20 +327,6 @@ async function editPost(data: IUpdatePost, id: number): Promise<IOkWithData<Post
 async function deletePost(id: number): Promise<IOkWithData<Post> | IError> {
   try {
     const deletedPost = await postRepository.deletePost(id);
-
-    // const result: Post = {
-    //   ...deletedPost,
-    //   tags: deletedPost.tags.map((t) => ({
-    //     userPostId: t.tag.userPostId,
-    //     tagId: t.tag.id,
-    //     tag: t.tag,
-    //   })),
-    //   images: deletedPost.images.map((img) => ({
-    //     id: img.id,
-    //     userPostId: img.userPostId,
-    //     url: img.image.filename,
-    //   })),
-    // };
 
     return { status: "success", data: deletedPost };
   } catch (error) {
