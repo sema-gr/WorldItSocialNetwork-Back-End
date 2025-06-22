@@ -25533,7 +25533,6 @@ export namespace Prisma {
   }
 
   export type FriendshipCreateInput = {
-    profile2_id: number
     accepted?: boolean
     profile1: ProfileCreateNestedOneWithoutFriendship_fromInput
     profile2: ProfileCreateNestedOneWithoutFriendship_toInput
@@ -25547,7 +25546,6 @@ export namespace Prisma {
   }
 
   export type FriendshipUpdateInput = {
-    profile2_id?: IntFieldUpdateOperationsInput | number
     accepted?: BoolFieldUpdateOperationsInput | boolean
     profile1?: ProfileUpdateOneRequiredWithoutFriendship_fromNestedInput
     profile2?: ProfileUpdateOneRequiredWithoutFriendship_toNestedInput
@@ -25568,7 +25566,6 @@ export namespace Prisma {
   }
 
   export type FriendshipUpdateManyMutationInput = {
-    profile2_id?: IntFieldUpdateOperationsInput | number
     accepted?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -30623,7 +30620,6 @@ export namespace Prisma {
   }
 
   export type FriendshipCreateWithoutProfile1Input = {
-    profile2_id: number
     accepted?: boolean
     profile2: ProfileCreateNestedOneWithoutFriendship_toInput
   }
@@ -30644,14 +30640,13 @@ export namespace Prisma {
   }
 
   export type FriendshipCreateWithoutProfile2Input = {
-    profile2_id: number
     accepted?: boolean
     profile1: ProfileCreateNestedOneWithoutFriendship_fromInput
   }
 
   export type FriendshipUncheckedCreateWithoutProfile2Input = {
     id?: number
-    profile2_id: number
+    profile1_id: number
     accepted?: boolean
   }
 
@@ -31538,7 +31533,7 @@ export namespace Prisma {
 
   export type FriendshipCreateManyProfile2Input = {
     id?: number
-    profile2_id: number
+    profile1_id: number
     accepted?: boolean
   }
 
@@ -31654,7 +31649,6 @@ export namespace Prisma {
   }
 
   export type FriendshipUpdateWithoutProfile1Input = {
-    profile2_id?: IntFieldUpdateOperationsInput | number
     accepted?: BoolFieldUpdateOperationsInput | boolean
     profile2?: ProfileUpdateOneRequiredWithoutFriendship_toNestedInput
   }
@@ -31672,20 +31666,19 @@ export namespace Prisma {
   }
 
   export type FriendshipUpdateWithoutProfile2Input = {
-    profile2_id?: IntFieldUpdateOperationsInput | number
     accepted?: BoolFieldUpdateOperationsInput | boolean
     profile1?: ProfileUpdateOneRequiredWithoutFriendship_fromNestedInput
   }
 
   export type FriendshipUncheckedUpdateWithoutProfile2Input = {
     id?: IntFieldUpdateOperationsInput | number
-    profile2_id?: IntFieldUpdateOperationsInput | number
+    profile1_id?: IntFieldUpdateOperationsInput | number
     accepted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FriendshipUncheckedUpdateManyWithoutProfile2Input = {
     id?: IntFieldUpdateOperationsInput | number
-    profile2_id?: IntFieldUpdateOperationsInput | number
+    profile1_id?: IntFieldUpdateOperationsInput | number
     accepted?: BoolFieldUpdateOperationsInput | boolean
   }
 

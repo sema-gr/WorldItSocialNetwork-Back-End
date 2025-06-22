@@ -53,8 +53,10 @@ async function getUserById(id: number){
                 signature: true,
                 image: true,
                 friendship_from: true,
+                friendship_to: true,
                 // about: true?
-            }
+            },
+            
         })
         return user;
     } catch(error){
@@ -125,8 +127,8 @@ async function getUsers() {
         const users = await client.profile.findMany({
             include: {
                 post: true,
-                friendship_from: true, 
-                friendship_to: true
+                friendship_from: {include: {profile1: true, profile2: true}}, 
+                friendship_to: {include: {profile1: true, profile2: true}}
             }
         });
         return users;

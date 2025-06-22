@@ -33,10 +33,24 @@ async function acceptFriendship(req: Request<{}, {}, AcceptedFriendshipBody >, r
 	}
 }
 
+async function deleteFriendship(req: Request<{}, {}, AcceptedFriendshipBody >, res: Response) {
+	console.log(req.body)
+	let data = req.body
+	const id = res.locals.userId
+	const where = {profile1_id: data.id, profile2_id: +id}
+	const result = await friendshipService.deleteFriendship(where);
+	if (result.status == "error") {
+		res.json("error");
+	} else {
+		res.json(result.data);
+	}
+}
+
 const friendshipController = {
 	createFriendship: createFriendship,
 	getFriendship: getFriendship,
-	acceptFriendship
+	acceptFriendship,
+	deleteFriendship
 }
 
 

@@ -98,25 +98,7 @@ async function editAlbum(data: UpdateAlbum, id: number) {
 
 async function deleteAlbum(id: number) {
     try {
-        // Спочатку видаляємо зв'язані записи
-        await prisma.albumImages.deleteMany({
-            where: { album_id: id }
-        });
-
-        await prisma.image.deleteMany({
-            where: { id: id }
-        });
-
-        await prisma.albumTags.deleteMany({
-            where: { album_id: id }
-        });
-
-        await prisma.tags.deleteMany({
-            where: { id: id }
-        });
-
-        // Потім видаляємо сам пост
-        const deletedAlbum = await prisma.album.delete({
+        const deletedAlbum = await prisma.album.findUnique({
             where: { id },
             include: {
                 images: {
@@ -130,6 +112,27 @@ async function deleteAlbum(id: number) {
                     }
                 }
             }
+        });
+
+        if (!deletedAlbum) {
+            throw console.log("Album not found!")
+        }
+
+        await prisma.albumImages.deleteMany({
+            where: { album_id: id }
+        });
+
+        const imageIds = deletedAlbum.images.map((img) => img.image.id);
+        await prisma.image.deleteMany({
+            where: { id: { in: imageIds } }
+        });
+
+        await prisma.albumTags.deleteMany({
+            where: { album_id: id }
+        });
+
+        await prisma.album.delete({
+            where: { id }
         });
 
         return deletedAlbum;

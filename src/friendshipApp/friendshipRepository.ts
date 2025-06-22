@@ -8,8 +8,8 @@ async function createFriendship(data: CreateFriendship) {
         console.log(data)
         const friendship = await client.friendship.create({
             data: {
+                profile1_id: data.profile1_id,
                 profile2_id: data.profile2_id,
-                profile1_id: data.profile1_id
             }
         })
         return friendship;
@@ -54,7 +54,18 @@ async function updateFriendship(data: UpdateFriendship, where: WhereFriendship) 
             data,
         });
     } catch (err) {
-        console.log("Error in editAlbum:", err);
+        console.log("Error in updateFriendship:", err);
+        throw err;
+    }
+}
+async function deleteFriendship(where: WhereFriendship) {
+    try {
+      
+        return await client.friendship.delete({
+            where: where,
+        });
+    } catch (err) {
+        console.log("Error in deleteFriendship:", err);
         throw err;
     }
 }
@@ -62,6 +73,7 @@ async function updateFriendship(data: UpdateFriendship, where: WhereFriendship) 
 const friendshipRepository = {
     createFriendship: createFriendship,
     getFriendship: getFriendship,
-    updateFriendship: updateFriendship
+    updateFriendship: updateFriendship,
+    deleteFriendship: deleteFriendship
 }
 export default friendshipRepository;
