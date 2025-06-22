@@ -49,6 +49,7 @@ async function createAlbum(data: CreateAlbum): Promise<IOkWithData<AlbumCorrect>
 		name: data.name,
 		topic: topicInput,
 		author_id: data.author_id,
+		images: data.images
 	};
 
 	const result = await albumRepository.createAlbum(albumData)
@@ -73,7 +74,6 @@ export async function editAlbum(
 
 		await fs.mkdir(uploadDir, { recursive: true });
 
-
 		const currentAlbum = await prisma.album.findUnique({
 			where: { id },
 			include: {
@@ -96,47 +96,36 @@ export async function editAlbum(
 
 		// Обробка тегів
 		if (data.tags && Array.isArray(data.tags)) {
-			if (data.tags.length > 10) {
-				console.error("[EditPost] Занадто багато тегів:", data.tags.length);
-				return { status: "error", message: "Максимум 10 тегів дозволено" };
-			}
 
 			const validTags = data.tags
 				.filter((tag): tag is string => typeof tag === "string" && tag.trim().length > 0)
 				.filter((tag) => tag.length <= 50);
 
 			if (validTags.length !== data.tags.length) {
-				console.error("[EditPost] Некоректні теги:", data.tags);
-				return { status: "error", message: "Некоректні теги або занадто довгі (макс. 50 символів)" };
+				console.error("[EditAlbum] Некоректні теги:", data.tags);
+				return { status: "error", message: "Некоректний тег або занадто довгий (макс. 50 символів)" };
 			}
 
-			const currentTagNames = currentAlbum?.topic.map(t => t.tag.name);
-			const tagsToRemove = currentTagNames?.filter(topic => !validTags.includes(topic));
-			const tagsToAdd = validTags.filter(topic => !currentTagNames?.includes(topic));
-
-			await prisma.albumTags.deleteMany({
-				where: {
-					album_id: id,
-					tag: {
-						name: { in: tagsToRemove }
-					}
-				}
+			const currentTags = await prisma.albumTags.findMany({
+				where: { album_id: id },
+				include: { tag: true }
 			});
 
-			// Додаємо нові теги
-			if (tagsToAdd.length > 0) {
-				const tagConnections = await Promise.all(
-					tagsToAdd.map(async (tagName: string) => {
-						let tag = await prisma.tags.findFirst({ where: { name: tagName } });
-						if (!tag) {
-							tag = await prisma.tags.create({ data: { name: tagName } });
-						}
-						return { tag: { connect: { id: tag.id } } };
-					})
-				);
+			if (validTags.length > 0) {
+				await prisma.albumTags.deleteMany({
+					where: { album_id: id }
+				});
+
+				const lastTag = validTags[validTags.length - 1];
+				let tag = await prisma.tags.findFirst({ where: { name: lastTag } });
+				if (!tag) {
+					tag = await prisma.tags.create({ data: { name: lastTag } });
+				}
 
 				updateData.topic = {
-					create: tagConnections,
+					create: {
+						tag: { connect: { id: tag.id } }
+					}
 				};
 			}
 		}
@@ -147,7 +136,7 @@ export async function editAlbum(
 			const maxSizeInBytes = 5 * 1024 * 1024; // 5 МБ
 
 			const currentImages = currentAlbum?.images;
-			console.log("++++++++++++++++++++++")
+
 			console.log(currentImages)
 
 			const imagesToDelete = currentImages?.filter(currentImg => {

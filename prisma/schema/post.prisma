@@ -30,19 +30,19 @@ model PostTags {
     tag_id Int
     post Post @relation(fields: [post_id], references: [id])
     tag Tags @relation(fields: [tag_id], references: [id])
-    @@id([post_id, tag_id])
+    id Int @id @default(autoincrement())
 }
 
 model PostLikes {
     post_id Int
     post Post @relation(fields: [post_id], references: [id])
-    @@id([post_id])
+    id Int @id @default(autoincrement())
 }
 
 model PostViews {
     post_id Int
     post Post @relation(fields: [post_id], references: [id])
-    @@id([post_id])
+    id Int @id @default(autoincrement())
 }
 
 model PostImages {
@@ -50,5 +50,5 @@ model PostImages {
     image_id Int
     post Post @relation(fields: [post_id], references: [id])
     image Image @relation(fields: [image_id], references: [id])
-    @@id([post_id, image_id])
+    id Int @id @default(autoincrement())
 }

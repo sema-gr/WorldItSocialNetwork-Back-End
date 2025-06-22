@@ -126,13 +126,15 @@ exports.Prisma.AlbumScalarFieldEnum = {
 };
 
 exports.Prisma.AlbumImagesScalarFieldEnum = {
+  id: 'id',
   album_id: 'album_id',
   image_id: 'image_id'
 };
 
 exports.Prisma.AlbumTagsScalarFieldEnum = {
   album_id: 'album_id',
-  tag_id: 'tag_id'
+  tag_id: 'tag_id',
+  id: 'id'
 };
 
 exports.Prisma.ChatGroupScalarFieldEnum = {
@@ -191,20 +193,24 @@ exports.Prisma.LinkScalarFieldEnum = {
 
 exports.Prisma.PostTagsScalarFieldEnum = {
   post_id: 'post_id',
-  tag_id: 'tag_id'
+  tag_id: 'tag_id',
+  id: 'id'
 };
 
 exports.Prisma.PostLikesScalarFieldEnum = {
-  post_id: 'post_id'
+  post_id: 'post_id',
+  id: 'id'
 };
 
 exports.Prisma.PostViewsScalarFieldEnum = {
-  post_id: 'post_id'
+  post_id: 'post_id',
+  id: 'id'
 };
 
 exports.Prisma.PostImagesScalarFieldEnum = {
   post_id: 'post_id',
-  image_id: 'image_id'
+  image_id: 'image_id',
+  id: 'id'
 };
 
 exports.Prisma.ProfileScalarFieldEnum = {

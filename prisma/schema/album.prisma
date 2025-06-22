@@ -12,11 +12,12 @@ model Album {
 }
 
 model AlbumImages {
+    id Int @id @default(autoincrement())
     album_id Int
     image_id Int
     album Album @relation(fields: [album_id], references: [id])
     image Image @relation(fields: [image_id], references: [id])
-    @@id([album_id, image_id])
+    // @@id([album_id, image_id])
 }
 
 model AlbumTags {
@@ -24,5 +25,5 @@ model AlbumTags {
     tag_id Int
     album Album @relation(fields: [album_id], references: [id])
     tag Tags @relation(fields: [tag_id], references: [id])
-    @@id([album_id, tag_id])
+    id Int @id @default(autoincrement())
 }

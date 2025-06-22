@@ -40,7 +40,6 @@ async function getAlbums() {
 }
 
 async function createAlbum(data: CreateAlbum) {
-    console.log("beeeeeeee")
     console.log(data)
     try {
         let createAlbum = await prisma.album.create({
@@ -49,6 +48,11 @@ async function createAlbum(data: CreateAlbum) {
                 topic: {
                     select: {
                         tag: true
+                    }
+                },
+                images: {
+                    select: {
+                        image: true
                     }
                 }
             }
@@ -95,13 +99,21 @@ async function editAlbum(data: UpdateAlbum, id: number) {
 async function deleteAlbum(id: number) {
     try {
         // Спочатку видаляємо зв'язані записи
-        // await prisma.userPostTags.deleteMany({
-        //     where: { userPostId: id }
-        // });
+        await prisma.albumImages.deleteMany({
+            where: { album_id: id }
+        });
 
-        // await prisma.image.deleteMany({
-        //     where: { id: id }
-        // });
+        await prisma.image.deleteMany({
+            where: { id: id }
+        });
+
+        await prisma.albumTags.deleteMany({
+            where: { album_id: id }
+        });
+
+        await prisma.tags.deleteMany({
+            where: { id: id }
+        });
 
         // Потім видаляємо сам пост
         const deletedAlbum = await prisma.album.delete({

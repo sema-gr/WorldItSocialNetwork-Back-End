@@ -125,6 +125,8 @@ async function getUsers() {
         const users = await client.profile.findMany({
             include: {
                 post: true,
+                friendship_from: true, 
+                friendship_to: true
             }
         });
         return users;

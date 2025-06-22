@@ -4023,26 +4023,31 @@ export namespace Prisma {
   }
 
   export type AlbumImagesAvgAggregateOutputType = {
+    id: number | null
     album_id: number | null
     image_id: number | null
   }
 
   export type AlbumImagesSumAggregateOutputType = {
+    id: number | null
     album_id: number | null
     image_id: number | null
   }
 
   export type AlbumImagesMinAggregateOutputType = {
+    id: number | null
     album_id: number | null
     image_id: number | null
   }
 
   export type AlbumImagesMaxAggregateOutputType = {
+    id: number | null
     album_id: number | null
     image_id: number | null
   }
 
   export type AlbumImagesCountAggregateOutputType = {
+    id: number
     album_id: number
     image_id: number
     _all: number
@@ -4050,26 +4055,31 @@ export namespace Prisma {
 
 
   export type AlbumImagesAvgAggregateInputType = {
+    id?: true
     album_id?: true
     image_id?: true
   }
 
   export type AlbumImagesSumAggregateInputType = {
+    id?: true
     album_id?: true
     image_id?: true
   }
 
   export type AlbumImagesMinAggregateInputType = {
+    id?: true
     album_id?: true
     image_id?: true
   }
 
   export type AlbumImagesMaxAggregateInputType = {
+    id?: true
     album_id?: true
     image_id?: true
   }
 
   export type AlbumImagesCountAggregateInputType = {
+    id?: true
     album_id?: true
     image_id?: true
     _all?: true
@@ -4162,6 +4172,7 @@ export namespace Prisma {
   }
 
   export type AlbumImagesGroupByOutputType = {
+    id: number
     album_id: number
     image_id: number
     _count: AlbumImagesCountAggregateOutputType | null
@@ -4186,6 +4197,7 @@ export namespace Prisma {
 
 
   export type AlbumImagesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
     album_id?: boolean
     image_id?: boolean
     album?: boolean | AlbumDefaultArgs<ExtArgs>
@@ -4193,6 +4205,7 @@ export namespace Prisma {
   }, ExtArgs["result"]["albumImages"]>
 
   export type AlbumImagesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
     album_id?: boolean
     image_id?: boolean
     album?: boolean | AlbumDefaultArgs<ExtArgs>
@@ -4200,6 +4213,7 @@ export namespace Prisma {
   }, ExtArgs["result"]["albumImages"]>
 
   export type AlbumImagesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
     album_id?: boolean
     image_id?: boolean
     album?: boolean | AlbumDefaultArgs<ExtArgs>
@@ -4207,11 +4221,12 @@ export namespace Prisma {
   }, ExtArgs["result"]["albumImages"]>
 
   export type AlbumImagesSelectScalar = {
+    id?: boolean
     album_id?: boolean
     image_id?: boolean
   }
 
-  export type AlbumImagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"album_id" | "image_id", ExtArgs["result"]["albumImages"]>
+  export type AlbumImagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "album_id" | "image_id", ExtArgs["result"]["albumImages"]>
   export type AlbumImagesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     album?: boolean | AlbumDefaultArgs<ExtArgs>
     image?: boolean | ImageDefaultArgs<ExtArgs>
@@ -4232,6 +4247,7 @@ export namespace Prisma {
       image: Prisma.$ImagePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
+      id: number
       album_id: number
       image_id: number
     }, ExtArgs["result"]["albumImages"]>
@@ -4317,8 +4333,8 @@ export namespace Prisma {
      * // Get first 10 AlbumImages
      * const albumImages = await prisma.albumImages.findMany({ take: 10 })
      * 
-     * // Only select the `album_id`
-     * const albumImagesWithAlbum_idOnly = await prisma.albumImages.findMany({ select: { album_id: true } })
+     * // Only select the `id`
+     * const albumImagesWithIdOnly = await prisma.albumImages.findMany({ select: { id: true } })
      * 
      */
     findMany<T extends AlbumImagesFindManyArgs>(args?: SelectSubset<T, AlbumImagesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlbumImagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -4362,9 +4378,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many AlbumImages and only return the `album_id`
-     * const albumImagesWithAlbum_idOnly = await prisma.albumImages.createManyAndReturn({
-     *   select: { album_id: true },
+     * // Create many AlbumImages and only return the `id`
+     * const albumImagesWithIdOnly = await prisma.albumImages.createManyAndReturn({
+     *   select: { id: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -4453,9 +4469,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more AlbumImages and only return the `album_id`
-     * const albumImagesWithAlbum_idOnly = await prisma.albumImages.updateManyAndReturn({
-     *   select: { album_id: true },
+     * // Update zero or more AlbumImages and only return the `id`
+     * const albumImagesWithIdOnly = await prisma.albumImages.updateManyAndReturn({
+     *   select: { id: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -4659,6 +4675,7 @@ export namespace Prisma {
    * Fields of the AlbumImages model
    */
   interface AlbumImagesFieldRefs {
+    readonly id: FieldRef<"AlbumImages", 'Int'>
     readonly album_id: FieldRef<"AlbumImages", 'Int'>
     readonly image_id: FieldRef<"AlbumImages", 'Int'>
   }
@@ -5088,26 +5105,31 @@ export namespace Prisma {
   export type AlbumTagsAvgAggregateOutputType = {
     album_id: number | null
     tag_id: number | null
+    id: number | null
   }
 
   export type AlbumTagsSumAggregateOutputType = {
     album_id: number | null
     tag_id: number | null
+    id: number | null
   }
 
   export type AlbumTagsMinAggregateOutputType = {
     album_id: number | null
     tag_id: number | null
+    id: number | null
   }
 
   export type AlbumTagsMaxAggregateOutputType = {
     album_id: number | null
     tag_id: number | null
+    id: number | null
   }
 
   export type AlbumTagsCountAggregateOutputType = {
     album_id: number
     tag_id: number
+    id: number
     _all: number
   }
 
@@ -5115,26 +5137,31 @@ export namespace Prisma {
   export type AlbumTagsAvgAggregateInputType = {
     album_id?: true
     tag_id?: true
+    id?: true
   }
 
   export type AlbumTagsSumAggregateInputType = {
     album_id?: true
     tag_id?: true
+    id?: true
   }
 
   export type AlbumTagsMinAggregateInputType = {
     album_id?: true
     tag_id?: true
+    id?: true
   }
 
   export type AlbumTagsMaxAggregateInputType = {
     album_id?: true
     tag_id?: true
+    id?: true
   }
 
   export type AlbumTagsCountAggregateInputType = {
     album_id?: true
     tag_id?: true
+    id?: true
     _all?: true
   }
 
@@ -5227,6 +5254,7 @@ export namespace Prisma {
   export type AlbumTagsGroupByOutputType = {
     album_id: number
     tag_id: number
+    id: number
     _count: AlbumTagsCountAggregateOutputType | null
     _avg: AlbumTagsAvgAggregateOutputType | null
     _sum: AlbumTagsSumAggregateOutputType | null
@@ -5251,6 +5279,7 @@ export namespace Prisma {
   export type AlbumTagsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     album_id?: boolean
     tag_id?: boolean
+    id?: boolean
     album?: boolean | AlbumDefaultArgs<ExtArgs>
     tag?: boolean | TagsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["albumTags"]>
@@ -5258,6 +5287,7 @@ export namespace Prisma {
   export type AlbumTagsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     album_id?: boolean
     tag_id?: boolean
+    id?: boolean
     album?: boolean | AlbumDefaultArgs<ExtArgs>
     tag?: boolean | TagsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["albumTags"]>
@@ -5265,6 +5295,7 @@ export namespace Prisma {
   export type AlbumTagsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     album_id?: boolean
     tag_id?: boolean
+    id?: boolean
     album?: boolean | AlbumDefaultArgs<ExtArgs>
     tag?: boolean | TagsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["albumTags"]>
@@ -5272,9 +5303,10 @@ export namespace Prisma {
   export type AlbumTagsSelectScalar = {
     album_id?: boolean
     tag_id?: boolean
+    id?: boolean
   }
 
-  export type AlbumTagsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"album_id" | "tag_id", ExtArgs["result"]["albumTags"]>
+  export type AlbumTagsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"album_id" | "tag_id" | "id", ExtArgs["result"]["albumTags"]>
   export type AlbumTagsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     album?: boolean | AlbumDefaultArgs<ExtArgs>
     tag?: boolean | TagsDefaultArgs<ExtArgs>
@@ -5297,6 +5329,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       album_id: number
       tag_id: number
+      id: number
     }, ExtArgs["result"]["albumTags"]>
     composites: {}
   }
@@ -5724,6 +5757,7 @@ export namespace Prisma {
   interface AlbumTagsFieldRefs {
     readonly album_id: FieldRef<"AlbumTags", 'Int'>
     readonly tag_id: FieldRef<"AlbumTags", 'Int'>
+    readonly id: FieldRef<"AlbumTags", 'Int'>
   }
     
 
@@ -15088,26 +15122,31 @@ export namespace Prisma {
   export type PostTagsAvgAggregateOutputType = {
     post_id: number | null
     tag_id: number | null
+    id: number | null
   }
 
   export type PostTagsSumAggregateOutputType = {
     post_id: number | null
     tag_id: number | null
+    id: number | null
   }
 
   export type PostTagsMinAggregateOutputType = {
     post_id: number | null
     tag_id: number | null
+    id: number | null
   }
 
   export type PostTagsMaxAggregateOutputType = {
     post_id: number | null
     tag_id: number | null
+    id: number | null
   }
 
   export type PostTagsCountAggregateOutputType = {
     post_id: number
     tag_id: number
+    id: number
     _all: number
   }
 
@@ -15115,26 +15154,31 @@ export namespace Prisma {
   export type PostTagsAvgAggregateInputType = {
     post_id?: true
     tag_id?: true
+    id?: true
   }
 
   export type PostTagsSumAggregateInputType = {
     post_id?: true
     tag_id?: true
+    id?: true
   }
 
   export type PostTagsMinAggregateInputType = {
     post_id?: true
     tag_id?: true
+    id?: true
   }
 
   export type PostTagsMaxAggregateInputType = {
     post_id?: true
     tag_id?: true
+    id?: true
   }
 
   export type PostTagsCountAggregateInputType = {
     post_id?: true
     tag_id?: true
+    id?: true
     _all?: true
   }
 
@@ -15227,6 +15271,7 @@ export namespace Prisma {
   export type PostTagsGroupByOutputType = {
     post_id: number
     tag_id: number
+    id: number
     _count: PostTagsCountAggregateOutputType | null
     _avg: PostTagsAvgAggregateOutputType | null
     _sum: PostTagsSumAggregateOutputType | null
@@ -15251,6 +15296,7 @@ export namespace Prisma {
   export type PostTagsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     post_id?: boolean
     tag_id?: boolean
+    id?: boolean
     post?: boolean | PostDefaultArgs<ExtArgs>
     tag?: boolean | TagsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postTags"]>
@@ -15258,6 +15304,7 @@ export namespace Prisma {
   export type PostTagsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     post_id?: boolean
     tag_id?: boolean
+    id?: boolean
     post?: boolean | PostDefaultArgs<ExtArgs>
     tag?: boolean | TagsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postTags"]>
@@ -15265,6 +15312,7 @@ export namespace Prisma {
   export type PostTagsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     post_id?: boolean
     tag_id?: boolean
+    id?: boolean
     post?: boolean | PostDefaultArgs<ExtArgs>
     tag?: boolean | TagsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postTags"]>
@@ -15272,9 +15320,10 @@ export namespace Prisma {
   export type PostTagsSelectScalar = {
     post_id?: boolean
     tag_id?: boolean
+    id?: boolean
   }
 
-  export type PostTagsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"post_id" | "tag_id", ExtArgs["result"]["postTags"]>
+  export type PostTagsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"post_id" | "tag_id" | "id", ExtArgs["result"]["postTags"]>
   export type PostTagsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     post?: boolean | PostDefaultArgs<ExtArgs>
     tag?: boolean | TagsDefaultArgs<ExtArgs>
@@ -15297,6 +15346,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       post_id: number
       tag_id: number
+      id: number
     }, ExtArgs["result"]["postTags"]>
     composites: {}
   }
@@ -15724,6 +15774,7 @@ export namespace Prisma {
   interface PostTagsFieldRefs {
     readonly post_id: FieldRef<"PostTags", 'Int'>
     readonly tag_id: FieldRef<"PostTags", 'Int'>
+    readonly id: FieldRef<"PostTags", 'Int'>
   }
     
 
@@ -16150,44 +16201,54 @@ export namespace Prisma {
 
   export type PostLikesAvgAggregateOutputType = {
     post_id: number | null
+    id: number | null
   }
 
   export type PostLikesSumAggregateOutputType = {
     post_id: number | null
+    id: number | null
   }
 
   export type PostLikesMinAggregateOutputType = {
     post_id: number | null
+    id: number | null
   }
 
   export type PostLikesMaxAggregateOutputType = {
     post_id: number | null
+    id: number | null
   }
 
   export type PostLikesCountAggregateOutputType = {
     post_id: number
+    id: number
     _all: number
   }
 
 
   export type PostLikesAvgAggregateInputType = {
     post_id?: true
+    id?: true
   }
 
   export type PostLikesSumAggregateInputType = {
     post_id?: true
+    id?: true
   }
 
   export type PostLikesMinAggregateInputType = {
     post_id?: true
+    id?: true
   }
 
   export type PostLikesMaxAggregateInputType = {
     post_id?: true
+    id?: true
   }
 
   export type PostLikesCountAggregateInputType = {
     post_id?: true
+    id?: true
     _all?: true
   }
 
@@ -16279,6 +16340,7 @@ export namespace Prisma {
 
   export type PostLikesGroupByOutputType = {
     post_id: number
+    id: number
     _count: PostLikesCountAggregateOutputType | null
     _avg: PostLikesAvgAggregateOutputType | null
     _sum: PostLikesSumAggregateOutputType | null
@@ -16302,24 +16364,28 @@ export namespace Prisma {
 
   export type PostLikesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     post_id?: boolean
+    id?: boolean
     post?: boolean | PostDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postLikes"]>
 
   export type PostLikesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     post_id?: boolean
+    id?: boolean
     post?: boolean | PostDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postLikes"]>
 
   export type PostLikesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     post_id?: boolean
+    id?: boolean
     post?: boolean | PostDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postLikes"]>
 
   export type PostLikesSelectScalar = {
     post_id?: boolean
+    id?: boolean
   }
 
-  export type PostLikesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"post_id", ExtArgs["result"]["postLikes"]>
+  export type PostLikesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"post_id" | "id", ExtArgs["result"]["postLikes"]>
   export type PostLikesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     post?: boolean | PostDefaultArgs<ExtArgs>
   }
@@ -16337,6 +16403,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       post_id: number
+      id: number
     }, ExtArgs["result"]["postLikes"]>
     composites: {}
   }
@@ -16762,6 +16829,7 @@ export namespace Prisma {
    */
   interface PostLikesFieldRefs {
     readonly post_id: FieldRef<"PostLikes", 'Int'>
+    readonly id: FieldRef<"PostLikes", 'Int'>
   }
     
 
@@ -17188,44 +17256,54 @@ export namespace Prisma {
 
   export type PostViewsAvgAggregateOutputType = {
     post_id: number | null
+    id: number | null
   }
 
   export type PostViewsSumAggregateOutputType = {
     post_id: number | null
+    id: number | null
   }
 
   export type PostViewsMinAggregateOutputType = {
     post_id: number | null
+    id: number | null
   }
 
   export type PostViewsMaxAggregateOutputType = {
     post_id: number | null
+    id: number | null
   }
 
   export type PostViewsCountAggregateOutputType = {
     post_id: number
+    id: number
     _all: number
   }
 
 
   export type PostViewsAvgAggregateInputType = {
     post_id?: true
+    id?: true
   }
 
   export type PostViewsSumAggregateInputType = {
     post_id?: true
+    id?: true
   }
 
   export type PostViewsMinAggregateInputType = {
     post_id?: true
+    id?: true
   }
 
   export type PostViewsMaxAggregateInputType = {
     post_id?: true
+    id?: true
   }
 
   export type PostViewsCountAggregateInputType = {
     post_id?: true
+    id?: true
     _all?: true
   }
 
@@ -17317,6 +17395,7 @@ export namespace Prisma {
 
   export type PostViewsGroupByOutputType = {
     post_id: number
+    id: number
     _count: PostViewsCountAggregateOutputType | null
     _avg: PostViewsAvgAggregateOutputType | null
     _sum: PostViewsSumAggregateOutputType | null
@@ -17340,24 +17419,28 @@ export namespace Prisma {
 
   export type PostViewsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     post_id?: boolean
+    id?: boolean
     post?: boolean | PostDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postViews"]>
 
   export type PostViewsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     post_id?: boolean
+    id?: boolean
     post?: boolean | PostDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postViews"]>
 
   export type PostViewsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     post_id?: boolean
+    id?: boolean
     post?: boolean | PostDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postViews"]>
 
   export type PostViewsSelectScalar = {
     post_id?: boolean
+    id?: boolean
   }
 
-  export type PostViewsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"post_id", ExtArgs["result"]["postViews"]>
+  export type PostViewsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"post_id" | "id", ExtArgs["result"]["postViews"]>
   export type PostViewsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     post?: boolean | PostDefaultArgs<ExtArgs>
   }
@@ -17375,6 +17458,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       post_id: number
+      id: number
     }, ExtArgs["result"]["postViews"]>
     composites: {}
   }
@@ -17800,6 +17884,7 @@ export namespace Prisma {
    */
   interface PostViewsFieldRefs {
     readonly post_id: FieldRef<"PostViews", 'Int'>
+    readonly id: FieldRef<"PostViews", 'Int'>
   }
     
 
@@ -18227,26 +18312,31 @@ export namespace Prisma {
   export type PostImagesAvgAggregateOutputType = {
     post_id: number | null
     image_id: number | null
+    id: number | null
   }
 
   export type PostImagesSumAggregateOutputType = {
     post_id: number | null
     image_id: number | null
+    id: number | null
   }
 
   export type PostImagesMinAggregateOutputType = {
     post_id: number | null
     image_id: number | null
+    id: number | null
   }
 
   export type PostImagesMaxAggregateOutputType = {
     post_id: number | null
     image_id: number | null
+    id: number | null
   }
 
   export type PostImagesCountAggregateOutputType = {
     post_id: number
     image_id: number
+    id: number
     _all: number
   }
 
@@ -18254,26 +18344,31 @@ export namespace Prisma {
   export type PostImagesAvgAggregateInputType = {
     post_id?: true
     image_id?: true
+    id?: true
   }
 
   export type PostImagesSumAggregateInputType = {
     post_id?: true
     image_id?: true
+    id?: true
   }
 
   export type PostImagesMinAggregateInputType = {
     post_id?: true
     image_id?: true
+    id?: true
   }
 
   export type PostImagesMaxAggregateInputType = {
     post_id?: true
     image_id?: true
+    id?: true
   }
 
   export type PostImagesCountAggregateInputType = {
     post_id?: true
     image_id?: true
+    id?: true
     _all?: true
   }
 
@@ -18366,6 +18461,7 @@ export namespace Prisma {
   export type PostImagesGroupByOutputType = {
     post_id: number
     image_id: number
+    id: number
     _count: PostImagesCountAggregateOutputType | null
     _avg: PostImagesAvgAggregateOutputType | null
     _sum: PostImagesSumAggregateOutputType | null
@@ -18390,6 +18486,7 @@ export namespace Prisma {
   export type PostImagesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     post_id?: boolean
     image_id?: boolean
+    id?: boolean
     post?: boolean | PostDefaultArgs<ExtArgs>
     image?: boolean | ImageDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postImages"]>
@@ -18397,6 +18494,7 @@ export namespace Prisma {
   export type PostImagesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     post_id?: boolean
     image_id?: boolean
+    id?: boolean
     post?: boolean | PostDefaultArgs<ExtArgs>
     image?: boolean | ImageDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postImages"]>
@@ -18404,6 +18502,7 @@ export namespace Prisma {
   export type PostImagesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     post_id?: boolean
     image_id?: boolean
+    id?: boolean
     post?: boolean | PostDefaultArgs<ExtArgs>
     image?: boolean | ImageDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postImages"]>
@@ -18411,9 +18510,10 @@ export namespace Prisma {
   export type PostImagesSelectScalar = {
     post_id?: boolean
     image_id?: boolean
+    id?: boolean
   }
 
-  export type PostImagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"post_id" | "image_id", ExtArgs["result"]["postImages"]>
+  export type PostImagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"post_id" | "image_id" | "id", ExtArgs["result"]["postImages"]>
   export type PostImagesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     post?: boolean | PostDefaultArgs<ExtArgs>
     image?: boolean | ImageDefaultArgs<ExtArgs>
@@ -18436,6 +18536,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       post_id: number
       image_id: number
+      id: number
     }, ExtArgs["result"]["postImages"]>
     composites: {}
   }
@@ -18863,6 +18964,7 @@ export namespace Prisma {
   interface PostImagesFieldRefs {
     readonly post_id: FieldRef<"PostImages", 'Int'>
     readonly image_id: FieldRef<"PostImages", 'Int'>
+    readonly id: FieldRef<"PostImages", 'Int'>
   }
     
 
@@ -23882,6 +23984,7 @@ export namespace Prisma {
 
 
   export const AlbumImagesScalarFieldEnum: {
+    id: 'id',
     album_id: 'album_id',
     image_id: 'image_id'
   };
@@ -23891,7 +23994,8 @@ export namespace Prisma {
 
   export const AlbumTagsScalarFieldEnum: {
     album_id: 'album_id',
-    tag_id: 'tag_id'
+    tag_id: 'tag_id',
+    id: 'id'
   };
 
   export type AlbumTagsScalarFieldEnum = (typeof AlbumTagsScalarFieldEnum)[keyof typeof AlbumTagsScalarFieldEnum]
@@ -23977,21 +24081,24 @@ export namespace Prisma {
 
   export const PostTagsScalarFieldEnum: {
     post_id: 'post_id',
-    tag_id: 'tag_id'
+    tag_id: 'tag_id',
+    id: 'id'
   };
 
   export type PostTagsScalarFieldEnum = (typeof PostTagsScalarFieldEnum)[keyof typeof PostTagsScalarFieldEnum]
 
 
   export const PostLikesScalarFieldEnum: {
-    post_id: 'post_id'
+    post_id: 'post_id',
+    id: 'id'
   };
 
   export type PostLikesScalarFieldEnum = (typeof PostLikesScalarFieldEnum)[keyof typeof PostLikesScalarFieldEnum]
 
 
   export const PostViewsScalarFieldEnum: {
-    post_id: 'post_id'
+    post_id: 'post_id',
+    id: 'id'
   };
 
   export type PostViewsScalarFieldEnum = (typeof PostViewsScalarFieldEnum)[keyof typeof PostViewsScalarFieldEnum]
@@ -23999,7 +24106,8 @@ export namespace Prisma {
 
   export const PostImagesScalarFieldEnum: {
     post_id: 'post_id',
-    image_id: 'image_id'
+    image_id: 'image_id',
+    id: 'id'
   };
 
   export type PostImagesScalarFieldEnum = (typeof PostImagesScalarFieldEnum)[keyof typeof PostImagesScalarFieldEnum]
@@ -24172,6 +24280,7 @@ export namespace Prisma {
     AND?: AlbumImagesWhereInput | AlbumImagesWhereInput[]
     OR?: AlbumImagesWhereInput[]
     NOT?: AlbumImagesWhereInput | AlbumImagesWhereInput[]
+    id?: IntFilter<"AlbumImages"> | number
     album_id?: IntFilter<"AlbumImages"> | number
     image_id?: IntFilter<"AlbumImages"> | number
     album?: XOR<AlbumScalarRelationFilter, AlbumWhereInput>
@@ -24179,6 +24288,7 @@ export namespace Prisma {
   }
 
   export type AlbumImagesOrderByWithRelationInput = {
+    id?: SortOrder
     album_id?: SortOrder
     image_id?: SortOrder
     album?: AlbumOrderByWithRelationInput
@@ -24186,7 +24296,7 @@ export namespace Prisma {
   }
 
   export type AlbumImagesWhereUniqueInput = Prisma.AtLeast<{
-    album_id_image_id?: AlbumImagesAlbum_idImage_idCompoundUniqueInput
+    id?: number
     AND?: AlbumImagesWhereInput | AlbumImagesWhereInput[]
     OR?: AlbumImagesWhereInput[]
     NOT?: AlbumImagesWhereInput | AlbumImagesWhereInput[]
@@ -24194,9 +24304,10 @@ export namespace Prisma {
     image_id?: IntFilter<"AlbumImages"> | number
     album?: XOR<AlbumScalarRelationFilter, AlbumWhereInput>
     image?: XOR<ImageScalarRelationFilter, ImageWhereInput>
-  }, "album_id_image_id">
+  }, "id">
 
   export type AlbumImagesOrderByWithAggregationInput = {
+    id?: SortOrder
     album_id?: SortOrder
     image_id?: SortOrder
     _count?: AlbumImagesCountOrderByAggregateInput
@@ -24210,6 +24321,7 @@ export namespace Prisma {
     AND?: AlbumImagesScalarWhereWithAggregatesInput | AlbumImagesScalarWhereWithAggregatesInput[]
     OR?: AlbumImagesScalarWhereWithAggregatesInput[]
     NOT?: AlbumImagesScalarWhereWithAggregatesInput | AlbumImagesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"AlbumImages"> | number
     album_id?: IntWithAggregatesFilter<"AlbumImages"> | number
     image_id?: IntWithAggregatesFilter<"AlbumImages"> | number
   }
@@ -24220,6 +24332,7 @@ export namespace Prisma {
     NOT?: AlbumTagsWhereInput | AlbumTagsWhereInput[]
     album_id?: IntFilter<"AlbumTags"> | number
     tag_id?: IntFilter<"AlbumTags"> | number
+    id?: IntFilter<"AlbumTags"> | number
     album?: XOR<AlbumScalarRelationFilter, AlbumWhereInput>
     tag?: XOR<TagsScalarRelationFilter, TagsWhereInput>
   }
@@ -24227,12 +24340,13 @@ export namespace Prisma {
   export type AlbumTagsOrderByWithRelationInput = {
     album_id?: SortOrder
     tag_id?: SortOrder
+    id?: SortOrder
     album?: AlbumOrderByWithRelationInput
     tag?: TagsOrderByWithRelationInput
   }
 
   export type AlbumTagsWhereUniqueInput = Prisma.AtLeast<{
-    album_id_tag_id?: AlbumTagsAlbum_idTag_idCompoundUniqueInput
+    id?: number
     AND?: AlbumTagsWhereInput | AlbumTagsWhereInput[]
     OR?: AlbumTagsWhereInput[]
     NOT?: AlbumTagsWhereInput | AlbumTagsWhereInput[]
@@ -24240,11 +24354,12 @@ export namespace Prisma {
     tag_id?: IntFilter<"AlbumTags"> | number
     album?: XOR<AlbumScalarRelationFilter, AlbumWhereInput>
     tag?: XOR<TagsScalarRelationFilter, TagsWhereInput>
-  }, "album_id_tag_id">
+  }, "id">
 
   export type AlbumTagsOrderByWithAggregationInput = {
     album_id?: SortOrder
     tag_id?: SortOrder
+    id?: SortOrder
     _count?: AlbumTagsCountOrderByAggregateInput
     _avg?: AlbumTagsAvgOrderByAggregateInput
     _max?: AlbumTagsMaxOrderByAggregateInput
@@ -24258,6 +24373,7 @@ export namespace Prisma {
     NOT?: AlbumTagsScalarWhereWithAggregatesInput | AlbumTagsScalarWhereWithAggregatesInput[]
     album_id?: IntWithAggregatesFilter<"AlbumTags"> | number
     tag_id?: IntWithAggregatesFilter<"AlbumTags"> | number
+    id?: IntWithAggregatesFilter<"AlbumTags"> | number
   }
 
   export type ChatGroupWhereInput = {
@@ -24457,6 +24573,7 @@ export namespace Prisma {
 
   export type FriendshipWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    profile1_id_profile2_id?: FriendshipProfile1_idProfile2_idCompoundUniqueInput
     AND?: FriendshipWhereInput | FriendshipWhereInput[]
     OR?: FriendshipWhereInput[]
     NOT?: FriendshipWhereInput | FriendshipWhereInput[]
@@ -24465,7 +24582,7 @@ export namespace Prisma {
     accepted?: BoolFilter<"Friendship"> | boolean
     profile1?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
     profile2?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
-  }, "id">
+  }, "id" | "profile1_id_profile2_id">
 
   export type FriendshipOrderByWithAggregationInput = {
     id?: SortOrder
@@ -24709,6 +24826,7 @@ export namespace Prisma {
     NOT?: PostTagsWhereInput | PostTagsWhereInput[]
     post_id?: IntFilter<"PostTags"> | number
     tag_id?: IntFilter<"PostTags"> | number
+    id?: IntFilter<"PostTags"> | number
     post?: XOR<PostScalarRelationFilter, PostWhereInput>
     tag?: XOR<TagsScalarRelationFilter, TagsWhereInput>
   }
@@ -24716,12 +24834,13 @@ export namespace Prisma {
   export type PostTagsOrderByWithRelationInput = {
     post_id?: SortOrder
     tag_id?: SortOrder
+    id?: SortOrder
     post?: PostOrderByWithRelationInput
     tag?: TagsOrderByWithRelationInput
   }
 
   export type PostTagsWhereUniqueInput = Prisma.AtLeast<{
-    post_id_tag_id?: PostTagsPost_idTag_idCompoundUniqueInput
+    id?: number
     AND?: PostTagsWhereInput | PostTagsWhereInput[]
     OR?: PostTagsWhereInput[]
     NOT?: PostTagsWhereInput | PostTagsWhereInput[]
@@ -24729,11 +24848,12 @@ export namespace Prisma {
     tag_id?: IntFilter<"PostTags"> | number
     post?: XOR<PostScalarRelationFilter, PostWhereInput>
     tag?: XOR<TagsScalarRelationFilter, TagsWhereInput>
-  }, "post_id_tag_id">
+  }, "id">
 
   export type PostTagsOrderByWithAggregationInput = {
     post_id?: SortOrder
     tag_id?: SortOrder
+    id?: SortOrder
     _count?: PostTagsCountOrderByAggregateInput
     _avg?: PostTagsAvgOrderByAggregateInput
     _max?: PostTagsMaxOrderByAggregateInput
@@ -24747,6 +24867,7 @@ export namespace Prisma {
     NOT?: PostTagsScalarWhereWithAggregatesInput | PostTagsScalarWhereWithAggregatesInput[]
     post_id?: IntWithAggregatesFilter<"PostTags"> | number
     tag_id?: IntWithAggregatesFilter<"PostTags"> | number
+    id?: IntWithAggregatesFilter<"PostTags"> | number
   }
 
   export type PostLikesWhereInput = {
@@ -24754,24 +24875,28 @@ export namespace Prisma {
     OR?: PostLikesWhereInput[]
     NOT?: PostLikesWhereInput | PostLikesWhereInput[]
     post_id?: IntFilter<"PostLikes"> | number
+    id?: IntFilter<"PostLikes"> | number
     post?: XOR<PostScalarRelationFilter, PostWhereInput>
   }
 
   export type PostLikesOrderByWithRelationInput = {
     post_id?: SortOrder
+    id?: SortOrder
     post?: PostOrderByWithRelationInput
   }
 
   export type PostLikesWhereUniqueInput = Prisma.AtLeast<{
-    post_id?: number
+    id?: number
     AND?: PostLikesWhereInput | PostLikesWhereInput[]
     OR?: PostLikesWhereInput[]
     NOT?: PostLikesWhereInput | PostLikesWhereInput[]
+    post_id?: IntFilter<"PostLikes"> | number
     post?: XOR<PostScalarRelationFilter, PostWhereInput>
-  }, "post_id">
+  }, "id">
 
   export type PostLikesOrderByWithAggregationInput = {
     post_id?: SortOrder
+    id?: SortOrder
     _count?: PostLikesCountOrderByAggregateInput
     _avg?: PostLikesAvgOrderByAggregateInput
     _max?: PostLikesMaxOrderByAggregateInput
@@ -24784,6 +24909,7 @@ export namespace Prisma {
     OR?: PostLikesScalarWhereWithAggregatesInput[]
     NOT?: PostLikesScalarWhereWithAggregatesInput | PostLikesScalarWhereWithAggregatesInput[]
     post_id?: IntWithAggregatesFilter<"PostLikes"> | number
+    id?: IntWithAggregatesFilter<"PostLikes"> | number
   }
 
   export type PostViewsWhereInput = {
@@ -24791,24 +24917,28 @@ export namespace Prisma {
     OR?: PostViewsWhereInput[]
     NOT?: PostViewsWhereInput | PostViewsWhereInput[]
     post_id?: IntFilter<"PostViews"> | number
+    id?: IntFilter<"PostViews"> | number
     post?: XOR<PostScalarRelationFilter, PostWhereInput>
   }
 
   export type PostViewsOrderByWithRelationInput = {
     post_id?: SortOrder
+    id?: SortOrder
     post?: PostOrderByWithRelationInput
   }
 
   export type PostViewsWhereUniqueInput = Prisma.AtLeast<{
-    post_id?: number
+    id?: number
     AND?: PostViewsWhereInput | PostViewsWhereInput[]
     OR?: PostViewsWhereInput[]
     NOT?: PostViewsWhereInput | PostViewsWhereInput[]
+    post_id?: IntFilter<"PostViews"> | number
     post?: XOR<PostScalarRelationFilter, PostWhereInput>
-  }, "post_id">
+  }, "id">
 
   export type PostViewsOrderByWithAggregationInput = {
     post_id?: SortOrder
+    id?: SortOrder
     _count?: PostViewsCountOrderByAggregateInput
     _avg?: PostViewsAvgOrderByAggregateInput
     _max?: PostViewsMaxOrderByAggregateInput
@@ -24821,6 +24951,7 @@ export namespace Prisma {
     OR?: PostViewsScalarWhereWithAggregatesInput[]
     NOT?: PostViewsScalarWhereWithAggregatesInput | PostViewsScalarWhereWithAggregatesInput[]
     post_id?: IntWithAggregatesFilter<"PostViews"> | number
+    id?: IntWithAggregatesFilter<"PostViews"> | number
   }
 
   export type PostImagesWhereInput = {
@@ -24829,6 +24960,7 @@ export namespace Prisma {
     NOT?: PostImagesWhereInput | PostImagesWhereInput[]
     post_id?: IntFilter<"PostImages"> | number
     image_id?: IntFilter<"PostImages"> | number
+    id?: IntFilter<"PostImages"> | number
     post?: XOR<PostScalarRelationFilter, PostWhereInput>
     image?: XOR<ImageScalarRelationFilter, ImageWhereInput>
   }
@@ -24836,12 +24968,13 @@ export namespace Prisma {
   export type PostImagesOrderByWithRelationInput = {
     post_id?: SortOrder
     image_id?: SortOrder
+    id?: SortOrder
     post?: PostOrderByWithRelationInput
     image?: ImageOrderByWithRelationInput
   }
 
   export type PostImagesWhereUniqueInput = Prisma.AtLeast<{
-    post_id_image_id?: PostImagesPost_idImage_idCompoundUniqueInput
+    id?: number
     AND?: PostImagesWhereInput | PostImagesWhereInput[]
     OR?: PostImagesWhereInput[]
     NOT?: PostImagesWhereInput | PostImagesWhereInput[]
@@ -24849,11 +24982,12 @@ export namespace Prisma {
     image_id?: IntFilter<"PostImages"> | number
     post?: XOR<PostScalarRelationFilter, PostWhereInput>
     image?: XOR<ImageScalarRelationFilter, ImageWhereInput>
-  }, "post_id_image_id">
+  }, "id">
 
   export type PostImagesOrderByWithAggregationInput = {
     post_id?: SortOrder
     image_id?: SortOrder
+    id?: SortOrder
     _count?: PostImagesCountOrderByAggregateInput
     _avg?: PostImagesAvgOrderByAggregateInput
     _max?: PostImagesMaxOrderByAggregateInput
@@ -24867,6 +25001,7 @@ export namespace Prisma {
     NOT?: PostImagesScalarWhereWithAggregatesInput | PostImagesScalarWhereWithAggregatesInput[]
     post_id?: IntWithAggregatesFilter<"PostImages"> | number
     image_id?: IntWithAggregatesFilter<"PostImages"> | number
+    id?: IntWithAggregatesFilter<"PostImages"> | number
   }
 
   export type ProfileWhereInput = {
@@ -25175,6 +25310,7 @@ export namespace Prisma {
   }
 
   export type AlbumImagesUncheckedCreateInput = {
+    id?: number
     album_id: number
     image_id: number
   }
@@ -25185,11 +25321,13 @@ export namespace Prisma {
   }
 
   export type AlbumImagesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
     album_id?: IntFieldUpdateOperationsInput | number
     image_id?: IntFieldUpdateOperationsInput | number
   }
 
   export type AlbumImagesCreateManyInput = {
+    id?: number
     album_id: number
     image_id: number
   }
@@ -25199,6 +25337,7 @@ export namespace Prisma {
   }
 
   export type AlbumImagesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
     album_id?: IntFieldUpdateOperationsInput | number
     image_id?: IntFieldUpdateOperationsInput | number
   }
@@ -25211,6 +25350,7 @@ export namespace Prisma {
   export type AlbumTagsUncheckedCreateInput = {
     album_id: number
     tag_id: number
+    id?: number
   }
 
   export type AlbumTagsUpdateInput = {
@@ -25221,11 +25361,13 @@ export namespace Prisma {
   export type AlbumTagsUncheckedUpdateInput = {
     album_id?: IntFieldUpdateOperationsInput | number
     tag_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type AlbumTagsCreateManyInput = {
     album_id: number
     tag_id: number
+    id?: number
   }
 
   export type AlbumTagsUpdateManyMutationInput = {
@@ -25235,6 +25377,7 @@ export namespace Prisma {
   export type AlbumTagsUncheckedUpdateManyInput = {
     album_id?: IntFieldUpdateOperationsInput | number
     tag_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type ChatGroupCreateInput = {
@@ -25641,6 +25784,7 @@ export namespace Prisma {
   export type PostTagsUncheckedCreateInput = {
     post_id: number
     tag_id: number
+    id?: number
   }
 
   export type PostTagsUpdateInput = {
@@ -25651,11 +25795,13 @@ export namespace Prisma {
   export type PostTagsUncheckedUpdateInput = {
     post_id?: IntFieldUpdateOperationsInput | number
     tag_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostTagsCreateManyInput = {
     post_id: number
     tag_id: number
+    id?: number
   }
 
   export type PostTagsUpdateManyMutationInput = {
@@ -25665,6 +25811,7 @@ export namespace Prisma {
   export type PostTagsUncheckedUpdateManyInput = {
     post_id?: IntFieldUpdateOperationsInput | number
     tag_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostLikesCreateInput = {
@@ -25673,6 +25820,7 @@ export namespace Prisma {
 
   export type PostLikesUncheckedCreateInput = {
     post_id: number
+    id?: number
   }
 
   export type PostLikesUpdateInput = {
@@ -25681,10 +25829,12 @@ export namespace Prisma {
 
   export type PostLikesUncheckedUpdateInput = {
     post_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostLikesCreateManyInput = {
     post_id: number
+    id?: number
   }
 
   export type PostLikesUpdateManyMutationInput = {
@@ -25693,6 +25843,7 @@ export namespace Prisma {
 
   export type PostLikesUncheckedUpdateManyInput = {
     post_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostViewsCreateInput = {
@@ -25701,6 +25852,7 @@ export namespace Prisma {
 
   export type PostViewsUncheckedCreateInput = {
     post_id: number
+    id?: number
   }
 
   export type PostViewsUpdateInput = {
@@ -25709,10 +25861,12 @@ export namespace Prisma {
 
   export type PostViewsUncheckedUpdateInput = {
     post_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostViewsCreateManyInput = {
     post_id: number
+    id?: number
   }
 
   export type PostViewsUpdateManyMutationInput = {
@@ -25721,6 +25875,7 @@ export namespace Prisma {
 
   export type PostViewsUncheckedUpdateManyInput = {
     post_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostImagesCreateInput = {
@@ -25731,6 +25886,7 @@ export namespace Prisma {
   export type PostImagesUncheckedCreateInput = {
     post_id: number
     image_id: number
+    id?: number
   }
 
   export type PostImagesUpdateInput = {
@@ -25741,11 +25897,13 @@ export namespace Prisma {
   export type PostImagesUncheckedUpdateInput = {
     post_id?: IntFieldUpdateOperationsInput | number
     image_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostImagesCreateManyInput = {
     post_id: number
     image_id: number
+    id?: number
   }
 
   export type PostImagesUpdateManyMutationInput = {
@@ -25755,6 +25913,7 @@ export namespace Prisma {
   export type PostImagesUncheckedUpdateManyInput = {
     post_id?: IntFieldUpdateOperationsInput | number
     image_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProfileCreateInput = {
@@ -26158,32 +26317,32 @@ export namespace Prisma {
     isNot?: ImageWhereInput
   }
 
-  export type AlbumImagesAlbum_idImage_idCompoundUniqueInput = {
-    album_id: number
-    image_id: number
-  }
-
   export type AlbumImagesCountOrderByAggregateInput = {
+    id?: SortOrder
     album_id?: SortOrder
     image_id?: SortOrder
   }
 
   export type AlbumImagesAvgOrderByAggregateInput = {
+    id?: SortOrder
     album_id?: SortOrder
     image_id?: SortOrder
   }
 
   export type AlbumImagesMaxOrderByAggregateInput = {
+    id?: SortOrder
     album_id?: SortOrder
     image_id?: SortOrder
   }
 
   export type AlbumImagesMinOrderByAggregateInput = {
+    id?: SortOrder
     album_id?: SortOrder
     image_id?: SortOrder
   }
 
   export type AlbumImagesSumOrderByAggregateInput = {
+    id?: SortOrder
     album_id?: SortOrder
     image_id?: SortOrder
   }
@@ -26193,34 +26352,34 @@ export namespace Prisma {
     isNot?: TagsWhereInput
   }
 
-  export type AlbumTagsAlbum_idTag_idCompoundUniqueInput = {
-    album_id: number
-    tag_id: number
-  }
-
   export type AlbumTagsCountOrderByAggregateInput = {
     album_id?: SortOrder
     tag_id?: SortOrder
+    id?: SortOrder
   }
 
   export type AlbumTagsAvgOrderByAggregateInput = {
     album_id?: SortOrder
     tag_id?: SortOrder
+    id?: SortOrder
   }
 
   export type AlbumTagsMaxOrderByAggregateInput = {
     album_id?: SortOrder
     tag_id?: SortOrder
+    id?: SortOrder
   }
 
   export type AlbumTagsMinOrderByAggregateInput = {
     album_id?: SortOrder
     tag_id?: SortOrder
+    id?: SortOrder
   }
 
   export type AlbumTagsSumOrderByAggregateInput = {
     album_id?: SortOrder
     tag_id?: SortOrder
+    id?: SortOrder
   }
 
   export type ChatGroupMembersListRelationFilter = {
@@ -26349,6 +26508,11 @@ export namespace Prisma {
   export type ChatGroupMembersSumOrderByAggregateInput = {
     chat_groupId?: SortOrder
     profile_id?: SortOrder
+  }
+
+  export type FriendshipProfile1_idProfile2_idCompoundUniqueInput = {
+    profile1_id: number
+    profile2_id: number
   }
 
   export type FriendshipCountOrderByAggregateInput = {
@@ -26587,104 +26751,114 @@ export namespace Prisma {
     isNot?: PostWhereInput
   }
 
-  export type PostTagsPost_idTag_idCompoundUniqueInput = {
-    post_id: number
-    tag_id: number
-  }
-
   export type PostTagsCountOrderByAggregateInput = {
     post_id?: SortOrder
     tag_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostTagsAvgOrderByAggregateInput = {
     post_id?: SortOrder
     tag_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostTagsMaxOrderByAggregateInput = {
     post_id?: SortOrder
     tag_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostTagsMinOrderByAggregateInput = {
     post_id?: SortOrder
     tag_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostTagsSumOrderByAggregateInput = {
     post_id?: SortOrder
     tag_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostLikesCountOrderByAggregateInput = {
     post_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostLikesAvgOrderByAggregateInput = {
     post_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostLikesMaxOrderByAggregateInput = {
     post_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostLikesMinOrderByAggregateInput = {
     post_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostLikesSumOrderByAggregateInput = {
     post_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostViewsCountOrderByAggregateInput = {
     post_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostViewsAvgOrderByAggregateInput = {
     post_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostViewsMaxOrderByAggregateInput = {
     post_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostViewsMinOrderByAggregateInput = {
     post_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostViewsSumOrderByAggregateInput = {
     post_id?: SortOrder
-  }
-
-  export type PostImagesPost_idImage_idCompoundUniqueInput = {
-    post_id: number
-    image_id: number
+    id?: SortOrder
   }
 
   export type PostImagesCountOrderByAggregateInput = {
     post_id?: SortOrder
     image_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostImagesAvgOrderByAggregateInput = {
     post_id?: SortOrder
     image_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostImagesMaxOrderByAggregateInput = {
     post_id?: SortOrder
     image_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostImagesMinOrderByAggregateInput = {
     post_id?: SortOrder
     image_id?: SortOrder
+    id?: SortOrder
   }
 
   export type PostImagesSumOrderByAggregateInput = {
     post_id?: SortOrder
     image_id?: SortOrder
+    id?: SortOrder
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -28441,6 +28615,7 @@ export namespace Prisma {
   }
 
   export type AlbumImagesUncheckedCreateWithoutAlbumInput = {
+    id?: number
     image_id: number
   }
 
@@ -28459,6 +28634,7 @@ export namespace Prisma {
 
   export type AlbumTagsUncheckedCreateWithoutAlbumInput = {
     tag_id: number
+    id?: number
   }
 
   export type AlbumTagsCreateOrConnectWithoutAlbumInput = {
@@ -28538,6 +28714,7 @@ export namespace Prisma {
     AND?: AlbumImagesScalarWhereInput | AlbumImagesScalarWhereInput[]
     OR?: AlbumImagesScalarWhereInput[]
     NOT?: AlbumImagesScalarWhereInput | AlbumImagesScalarWhereInput[]
+    id?: IntFilter<"AlbumImages"> | number
     album_id?: IntFilter<"AlbumImages"> | number
     image_id?: IntFilter<"AlbumImages"> | number
   }
@@ -28564,6 +28741,7 @@ export namespace Prisma {
     NOT?: AlbumTagsScalarWhereInput | AlbumTagsScalarWhereInput[]
     album_id?: IntFilter<"AlbumTags"> | number
     tag_id?: IntFilter<"AlbumTags"> | number
+    id?: IntFilter<"AlbumTags"> | number
   }
 
   export type ProfileUpsertWithoutAlbumInput = {
@@ -29512,6 +29690,7 @@ export namespace Prisma {
   }
 
   export type AlbumImagesUncheckedCreateWithoutImageInput = {
+    id?: number
     album_id: number
   }
 
@@ -29530,6 +29709,7 @@ export namespace Prisma {
 
   export type PostImagesUncheckedCreateWithoutImageInput = {
     post_id: number
+    id?: number
   }
 
   export type PostImagesCreateOrConnectWithoutImageInput = {
@@ -29579,6 +29759,7 @@ export namespace Prisma {
     NOT?: PostImagesScalarWhereInput | PostImagesScalarWhereInput[]
     post_id?: IntFilter<"PostImages"> | number
     image_id?: IntFilter<"PostImages"> | number
+    id?: IntFilter<"PostImages"> | number
   }
 
   export type PostTagsCreateWithoutPostInput = {
@@ -29587,6 +29768,7 @@ export namespace Prisma {
 
   export type PostTagsUncheckedCreateWithoutPostInput = {
     tag_id: number
+    id?: number
   }
 
   export type PostTagsCreateOrConnectWithoutPostInput = {
@@ -29604,6 +29786,7 @@ export namespace Prisma {
 
   export type PostImagesUncheckedCreateWithoutPostInput = {
     image_id: number
+    id?: number
   }
 
   export type PostImagesCreateOrConnectWithoutPostInput = {
@@ -29620,7 +29803,7 @@ export namespace Prisma {
   }
 
   export type PostViewsUncheckedCreateWithoutPostInput = {
-
+    id?: number
   }
 
   export type PostViewsCreateOrConnectWithoutPostInput = {
@@ -29637,7 +29820,7 @@ export namespace Prisma {
   }
 
   export type PostLikesUncheckedCreateWithoutPostInput = {
-
+    id?: number
   }
 
   export type PostLikesCreateOrConnectWithoutPostInput = {
@@ -29733,6 +29916,7 @@ export namespace Prisma {
     NOT?: PostTagsScalarWhereInput | PostTagsScalarWhereInput[]
     post_id?: IntFilter<"PostTags"> | number
     tag_id?: IntFilter<"PostTags"> | number
+    id?: IntFilter<"PostTags"> | number
   }
 
   export type PostImagesUpsertWithWhereUniqueWithoutPostInput = {
@@ -29772,6 +29956,7 @@ export namespace Prisma {
     OR?: PostViewsScalarWhereInput[]
     NOT?: PostViewsScalarWhereInput | PostViewsScalarWhereInput[]
     post_id?: IntFilter<"PostViews"> | number
+    id?: IntFilter<"PostViews"> | number
   }
 
   export type PostLikesUpsertWithWhereUniqueWithoutPostInput = {
@@ -29795,6 +29980,7 @@ export namespace Prisma {
     OR?: PostLikesScalarWhereInput[]
     NOT?: PostLikesScalarWhereInput | PostLikesScalarWhereInput[]
     post_id?: IntFilter<"PostLikes"> | number
+    id?: IntFilter<"PostLikes"> | number
   }
 
   export type ProfileUpsertWithoutPostInput = {
@@ -29877,6 +30063,7 @@ export namespace Prisma {
 
   export type PostTagsUncheckedCreateWithoutTagInput = {
     post_id: number
+    id?: number
   }
 
   export type PostTagsCreateOrConnectWithoutTagInput = {
@@ -29894,6 +30081,7 @@ export namespace Prisma {
 
   export type AlbumTagsUncheckedCreateWithoutTagInput = {
     album_id: number
+    id?: number
   }
 
   export type AlbumTagsCreateOrConnectWithoutTagInput = {
@@ -31048,11 +31236,13 @@ export namespace Prisma {
   }
 
   export type AlbumImagesCreateManyAlbumInput = {
+    id?: number
     image_id: number
   }
 
   export type AlbumTagsCreateManyAlbumInput = {
     tag_id: number
+    id?: number
   }
 
   export type AlbumImagesUpdateWithoutAlbumInput = {
@@ -31060,10 +31250,12 @@ export namespace Prisma {
   }
 
   export type AlbumImagesUncheckedUpdateWithoutAlbumInput = {
+    id?: IntFieldUpdateOperationsInput | number
     image_id?: IntFieldUpdateOperationsInput | number
   }
 
   export type AlbumImagesUncheckedUpdateManyWithoutAlbumInput = {
+    id?: IntFieldUpdateOperationsInput | number
     image_id?: IntFieldUpdateOperationsInput | number
   }
 
@@ -31073,10 +31265,12 @@ export namespace Prisma {
 
   export type AlbumTagsUncheckedUpdateWithoutAlbumInput = {
     tag_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type AlbumTagsUncheckedUpdateManyWithoutAlbumInput = {
     tag_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type ChatGroupMembersCreateManyChat_groupInput = {
@@ -31127,11 +31321,13 @@ export namespace Prisma {
   }
 
   export type AlbumImagesCreateManyImageInput = {
+    id?: number
     album_id: number
   }
 
   export type PostImagesCreateManyImageInput = {
     post_id: number
+    id?: number
   }
 
   export type AlbumImagesUpdateWithoutImageInput = {
@@ -31139,10 +31335,12 @@ export namespace Prisma {
   }
 
   export type AlbumImagesUncheckedUpdateWithoutImageInput = {
+    id?: IntFieldUpdateOperationsInput | number
     album_id?: IntFieldUpdateOperationsInput | number
   }
 
   export type AlbumImagesUncheckedUpdateManyWithoutImageInput = {
+    id?: IntFieldUpdateOperationsInput | number
     album_id?: IntFieldUpdateOperationsInput | number
   }
 
@@ -31152,26 +31350,30 @@ export namespace Prisma {
 
   export type PostImagesUncheckedUpdateWithoutImageInput = {
     post_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostImagesUncheckedUpdateManyWithoutImageInput = {
     post_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostTagsCreateManyPostInput = {
     tag_id: number
+    id?: number
   }
 
   export type PostImagesCreateManyPostInput = {
     image_id: number
+    id?: number
   }
 
   export type PostViewsCreateManyPostInput = {
-
+    id?: number
   }
 
   export type PostLikesCreateManyPostInput = {
-
+    id?: number
   }
 
   export type PostTagsUpdateWithoutPostInput = {
@@ -31180,10 +31382,12 @@ export namespace Prisma {
 
   export type PostTagsUncheckedUpdateWithoutPostInput = {
     tag_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostTagsUncheckedUpdateManyWithoutPostInput = {
     tag_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostImagesUpdateWithoutPostInput = {
@@ -31192,10 +31396,12 @@ export namespace Prisma {
 
   export type PostImagesUncheckedUpdateWithoutPostInput = {
     image_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostImagesUncheckedUpdateManyWithoutPostInput = {
     image_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostViewsUpdateWithoutPostInput = {
@@ -31203,11 +31409,11 @@ export namespace Prisma {
   }
 
   export type PostViewsUncheckedUpdateWithoutPostInput = {
-
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostViewsUncheckedUpdateManyWithoutPostInput = {
-
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostLikesUpdateWithoutPostInput = {
@@ -31215,19 +31421,21 @@ export namespace Prisma {
   }
 
   export type PostLikesUncheckedUpdateWithoutPostInput = {
-
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostLikesUncheckedUpdateManyWithoutPostInput = {
-
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostTagsCreateManyTagInput = {
     post_id: number
+    id?: number
   }
 
   export type AlbumTagsCreateManyTagInput = {
     album_id: number
+    id?: number
   }
 
   export type PostTagsUpdateWithoutTagInput = {
@@ -31236,10 +31444,12 @@ export namespace Prisma {
 
   export type PostTagsUncheckedUpdateWithoutTagInput = {
     post_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostTagsUncheckedUpdateManyWithoutTagInput = {
     post_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type AlbumTagsUpdateWithoutTagInput = {
@@ -31248,10 +31458,12 @@ export namespace Prisma {
 
   export type AlbumTagsUncheckedUpdateWithoutTagInput = {
     album_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type AlbumTagsUncheckedUpdateManyWithoutTagInput = {
     album_id?: IntFieldUpdateOperationsInput | number
+    id?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostCreateManyLinkInput = {
