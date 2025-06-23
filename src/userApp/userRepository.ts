@@ -3,7 +3,7 @@ import { IErrors, errors } from "../config/errorCodes"
 import { Prisma } from "../generated/prisma";
 import { CreateUser, UpdateUser } from "./types"
 
-async function findUserByEmail(email: string){
+async function findUserByEmail(email: string) {
     try {
         let user = await client.profile.findUnique({
             where: {
@@ -11,38 +11,39 @@ async function findUserByEmail(email: string){
             }
         })
         return user;
-    } catch(error){
-        if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code in Object.keys(errors)){
+    } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code in Object.keys(errors)) {
                 const errorKey: keyof IErrors = error.code
                 console.log(errors[errorKey])
             }
         }
     }
 }
-async function createUser(data: CreateUser){
-    try{
+async function createUser(data: CreateUser) {
+    try {
         const user = await client.profile.create({
             data: data
         })
         return user;
-    } catch(error){
-        if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code in Object.keys(errors)){
+    } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code in Object.keys(errors)) {
                 const errorKey: keyof IErrors = error.code
                 console.log(errors[errorKey])
             }
         }
-    }}
+    }
+}
 
 
-async function getUserById(id: number){
+async function getUserById(id: number) {
     try {
         let user = await client.profile.findUnique({
             where: {
                 id: id
             },
-            select:{
+            select: {
                 id: true,
                 name: true,
                 username: true,
@@ -55,14 +56,16 @@ async function getUserById(id: number){
                 friendship_from: true,
                 friendship_to: true,
                 chat_messages: true,
+                chat_group_members: true,
+                administered_groups: true,
                 // about: true?
             },
-            
+
         })
         return user;
-    } catch(error){
-        if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code in Object.keys(errors)){
+    } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code in Object.keys(errors)) {
                 const errorKey: keyof IErrors = error.code
                 console.log(errors[errorKey])
             }
@@ -106,16 +109,16 @@ async function updateUserById(data: UpdateUser, id: number) {
 
     } catch (err) {
         console.log(err);
-        if (err instanceof Prisma.PrismaClientKnownRequestError){
-            if (err.code == 'P2002'){
+        if (err instanceof Prisma.PrismaClientKnownRequestError) {
+            if (err.code == 'P2002') {
                 console.log(err.message);
                 throw err;
             }
-            if (err.code == 'P2015'){
+            if (err.code == 'P2015') {
                 console.log(err.message);
                 throw err;
             }
-            if (err.code == 'P20019'){
+            if (err.code == 'P20019') {
                 console.log(err.message);
                 throw err;
             }
@@ -128,8 +131,11 @@ async function getUsers() {
         const users = await client.profile.findMany({
             include: {
                 post: true,
-                friendship_from: {include: {profile1: true, profile2: true}}, 
-                friendship_to: {include: {profile1: true, profile2: true}}
+                friendship_from: { include: { profile1: true, profile2: true } },
+                friendship_to: { include: { profile1: true, profile2: true } },
+                chat_group_members: true,
+                administered_groups: true,
+                chat_messages: true
             }
         });
         return users;

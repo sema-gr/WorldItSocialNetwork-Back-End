@@ -11,7 +11,10 @@ export type User = Prisma.ProfileGetPayload<{
         password: true,
         signature: true,
         image: true,
-    }
+        chat_group_members: true, 
+        chat_messages: true,
+        administered_groups: true
+    } 
 }>
 
 

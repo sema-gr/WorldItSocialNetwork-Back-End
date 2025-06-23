@@ -2,6 +2,11 @@ import { NextFunction } from "express";
 import { chatService } from "./chat.service";
 import { Request, Response } from 'express'
 
+async function getChats(req: Request, res: Response, next: NextFunction) {
+    const chat = await chatService.getChats()
+    res.json(chat)
+}
+
 async function getChat(req: Request, res: Response, next: NextFunction) {
     let id = req.params.id
     const chat = await chatService.getChat(+id)
@@ -16,9 +21,8 @@ async function createChat(req: Request, res: Response){
     
 }
 
-
-
 export const chatController = {
     createChat,
-    getChat
+    getChat,
+    getChats
 }

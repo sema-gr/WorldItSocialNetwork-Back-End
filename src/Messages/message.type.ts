@@ -1,4 +1,3 @@
-// ayo
 import { Prisma } from "../generated/prisma";
 import { IOkWithData } from "../types/types";
 
@@ -7,8 +6,7 @@ export type MessageWhereUnique = Prisma.ChatMessageWhereUniqueInput
 export type CreateMessage = Prisma.ChatMessageUncheckedCreateInput
 export type MessageInclude = Prisma.ChatMessageInclude
 
-type MessagePayload = Omit<Message, "id" | "chatAsLastMessageId">
-
+export type MessagePayload = Omit<Message, "id" | "chatAsLastMessageId">
 
 export interface IMessageServerEvents {
     newMessage: (
