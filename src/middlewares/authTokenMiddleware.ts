@@ -2,11 +2,12 @@ import { Request, Response, NextFunction } from 'express'
 import { verify } from 'jsonwebtoken'
 import { SECRET_KEY } from '../config/token'
 
-interface IToken {
+export interface IToken {
     iat: number
     exp: number
     id: number
 }
+
 
 export function authTokenMiddleware(req: Request, res: Response, next: NextFunction) {
     

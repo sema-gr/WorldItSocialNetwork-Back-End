@@ -54,6 +54,7 @@ async function getUserById(id: number){
                 image: true,
                 friendship_from: true,
                 friendship_to: true,
+                chat_messages: true,
                 // about: true?
             },
             

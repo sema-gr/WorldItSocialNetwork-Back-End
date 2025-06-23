@@ -3,11 +3,16 @@ import cors from 'cors'
 import userRouter from './userApp/userRouter';
 import postRouter from './postApp/postRouter';
 import albumRouter from './albumApp/albumRouter';
+import chatsRouter from './Chats/chat.router';
 import path from 'path';
 import friendshipRouter from './friendshipApp/friendshipRouter';
+import { createServer } from 'http';
+import { initSocketServer } from './socket';
 
+const app: Express = express();
+const httpServer = createServer(app)
+initSocketServer(httpServer)
 
-const app: Express = express()
 const PORT = 3000
 const HOST = '192.168.1.104'
 
@@ -26,7 +31,9 @@ app.use('/uploads', express.static(path.join(__dirname, '..', 'public', 'uploads
 
 app.use("/friendship", friendshipRouter)
 
+app.use("/chats", chatsRouter)
 
-app.listen(PORT, HOST, () => {
-    console.log(`Server is running at http://${HOST}:${PORT}`)
-})
+
+httpServer.listen(PORT, HOST, () => {
+	console.log(`server is running at http://${HOST}:${PORT}`);
+});
