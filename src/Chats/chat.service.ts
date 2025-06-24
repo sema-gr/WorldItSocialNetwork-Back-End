@@ -14,7 +14,6 @@ async function createChat(data: CreateChat): Promise<IOkWithData<CorrectChatForC
         }
     })
 
-
     const result = await chatRepository.createChat(data);
 
     if (!result) {
