@@ -5,7 +5,7 @@ import { IChatUpdatePayload, IJoinChatCallback, IJoinChatPayload, ILeaveChatPayl
 
 import { Server } from "socket.io";
 
-let io: Server; // переменная для доступа к io в sendMessage
+let io: Server;
 
 function leaveChat(socket: AuthenticatedSocket, data: ILeaveChatPayload) {
     const chatRoomName = `chat_${data.chatId}`;
