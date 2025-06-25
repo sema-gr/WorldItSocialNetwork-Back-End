@@ -156,7 +156,7 @@ async function editPost(data: IUpdatePost, id: number): Promise<IOkWithData<Post
       const tagsToRemove = currentTagNames.filter(tag => !validTags.includes(tag));
       const tagsToAdd = validTags.filter(tag => !currentTagNames.includes(tag));
 
-      await prisma.postTags.deleteMany({
+      await prisma.post_app_post_tag.deleteMany({
         where: {
           post_id: id,
           tag: {
@@ -197,7 +197,7 @@ async function editPost(data: IUpdatePost, id: number): Promise<IOkWithData<Post
       });
 
       if (imagesToDelete.length > 0) {
-        await prisma.postImages.deleteMany({
+        await prisma.post_app_post_image.deleteMany({
           where: {
             post_id: id,
             image_id: { in: imagesToDelete.map(img => img.image.id) }

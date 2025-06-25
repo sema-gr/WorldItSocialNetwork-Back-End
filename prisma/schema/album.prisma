@@ -3,15 +3,15 @@ model Album {
     name String
     // theme String?
     // year String?
-    images AlbumImages[]
+    images post_app_album_images[]
     created_at DateTime @default(now())
     shown Boolean @default(false)
-    topic AlbumTags[]
+    topic post_app_album_tags[]
     author Profile @relation(fields: [author_id], references: [id])
     author_id Int
 }
 
-model AlbumImages {
+model post_app_album_images {
     id Int @id @default(autoincrement())
     album_id Int
     image_id Int
@@ -20,7 +20,7 @@ model AlbumImages {
     // @@id([album_id, image_id])
 }
 
-model AlbumTags {
+model post_app_album_tags { 
     album_id Int
     tag_id Int
     album Album @relation(fields: [album_id], references: [id])

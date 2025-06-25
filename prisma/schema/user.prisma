@@ -16,9 +16,9 @@ model Profile {
     avatar             Avatar?
     friendship_from    Friendship[] @relation("friendshipFrom")
     friendship_to      Friendship[] @relation("friendshipTo")
-    profile_views       ProfileViews[]
-    profile_likes       ProfileLikes[]
-    chat_group_members  ChatGroupMembers[]
+    // profile_views       ProfileViews[]
+    // profile_likes       ProfileLikes[]
+    chat_group_members  chat_app_chatgroup_members[]
 }
 
 model Avatar {
@@ -30,14 +30,14 @@ model Avatar {
     active    Boolean @default(true)
 }
 
-model ProfileViews {
-    profile_id Int
-    profile   Profile @relation(fields: [profile_id], references: [id])
-    @@id([profile_id])
-}
+// model ProfileViews {
+//     profile_id Int
+//     profile   user_app_profile @relation(fields: [profile_id], references: [id])
+//     @@id([profile_id])
+// }
 
-model ProfileLikes {
-    profile_id Int
-    profile Profile @relation(fields: [profile_id], references: [id])
-    @@id([profile_id])
-}
+// model ProfileLikes {
+//     profile_id Int
+//     profile user_app_profile @relation(fields: [profile_id], references: [id])
+//     @@id([profile_id])
+// }

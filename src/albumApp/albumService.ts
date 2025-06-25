@@ -106,13 +106,13 @@ export async function editAlbum(
 				return { status: "error", message: "Некоректний тег або занадто довгий (макс. 50 символів)" };
 			}
 
-			const currentTags = await prisma.albumTags.findMany({
+			const currentTags = await prisma.post_app_album_tags.findMany({
 				where: { album_id: id },
 				include: { tag: true }
 			});
 
 			if (validTags.length > 0) {
-				await prisma.albumTags.deleteMany({
+				await prisma.post_app_album_tags.deleteMany({
 					where: { album_id: id }
 				});
 
@@ -146,7 +146,7 @@ export async function editAlbum(
 
 			if (imagesToDelete) {
 				if (imagesToDelete.length > 0) {
-					await prisma.albumImages.deleteMany({
+					await prisma.post_app_album_images.deleteMany({
 						where: {
 							album_id: id,
 							image_id: { in: imagesToDelete.map(img => img.image.id) }

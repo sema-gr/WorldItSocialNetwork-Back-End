@@ -1,17 +1,17 @@
 model Album {
-  id         Int           @id @default(autoincrement())
+  id         Int                     @id @default(autoincrement())
   name       String
   // theme String?
   // year String?
-  images     AlbumImages[]
-  created_at DateTime      @default(now())
-  shown      Boolean       @default(false)
-  topic      AlbumTags[]
-  author     Profile       @relation(fields: [author_id], references: [id])
+  images     post_app_album_images[]
+  created_at DateTime                @default(now())
+  shown      Boolean                 @default(false)
+  topic      post_app_album_tags[]
+  author     Profile                 @relation(fields: [author_id], references: [id])
   author_id  Int
 }
 
-model AlbumImages {
+model post_app_album_images {
   id       Int   @id @default(autoincrement())
   album_id Int
   image_id Int
@@ -20,7 +20,7 @@ model AlbumImages {
   // @@id([album_id, image_id])
 }
 
-model AlbumTags {
+model post_app_album_tags {
   album_id Int
   tag_id   Int
   album    Album @relation(fields: [album_id], references: [id])
@@ -29,11 +29,11 @@ model AlbumTags {
 }
 
 model ChatGroup {
-  id               Int                @id @default(autoincrement())
+  id               Int                          @id @default(autoincrement())
   name             String
-  is_personal_chat Boolean            @default(false)
-  members          ChatGroupMembers[]
-  admin            Profile            @relation("administeredGroup", fields: [admin_id], references: [id])
+  is_personal_chat Boolean                      @default(false)
+  members          chat_app_chatgroup_members[]
+  admin            Profile                      @relation("administeredGroup", fields: [admin_id], references: [id])
   admin_id         Int
   avatar           String
   chat_messages    ChatMessage[]
@@ -50,7 +50,7 @@ model ChatMessage {
   attached_image String
 }
 
-model ChatGroupMembers {
+model chat_app_chatgroup_members {
   chat_groupId Int
   profile_id   Int
   chat_group   ChatGroup @relation(fields: [chat_groupId], references: [id])
@@ -82,29 +82,29 @@ model Image {
   // album Album? @relation(fields: [albumId], references: [id])
   // albumId Int?
 
-  album_images AlbumImages[]
-  PostImages   PostImages[]
+  album_images post_app_album_images[]
+  PostImages   post_app_post_image[]
 }
 
 model Post {
-  id        Int          @id @default(autoincrement())
+  id        Int                   @id @default(autoincrement())
   title     String
-  tags      PostTags[]
+  tags      post_app_post_tag[]
   content   String
-  images    PostImages[]
-  views     PostViews[]
-  likes     PostLikes[]
-  author    Profile      @relation(fields: [author_id], references: [id])
+  images    post_app_post_image[]
+  views     post_app_post_views[]
+  likes     post_app_post_likes[]
+  author    Profile               @relation(fields: [author_id], references: [id])
   author_id Int
-  link      Link?        @relation(fields: [linkId], references: [id])
+  link      Link?                 @relation(fields: [linkId], references: [id])
   linkId    Int?
 }
 
 model Tags {
-  id         Int         @id @default(autoincrement())
-  name       String      @unique
-  posts      PostTags[]
-  album_tags AlbumTags[]
+  id         Int                   @id @default(autoincrement())
+  name       String                @unique
+  posts      post_app_post_tag[]
+  album_tags post_app_album_tags[]
 }
 
 model Link {
@@ -113,7 +113,7 @@ model Link {
   post Post[] @relation()
 }
 
-model PostTags {
+model post_app_post_tag {
   post_id Int
   tag_id  Int
   post    Post @relation(fields: [post_id], references: [id])
@@ -121,19 +121,19 @@ model PostTags {
   id      Int  @id @default(autoincrement())
 }
 
-model PostLikes {
+model post_app_post_likes {
   post_id Int
   post    Post @relation(fields: [post_id], references: [id])
   id      Int  @id @default(autoincrement())
 }
 
-model PostViews {
+model post_app_post_views {
   post_id Int
   post    Post @relation(fields: [post_id], references: [id])
   id      Int  @id @default(autoincrement())
 }
 
-model PostImages {
+model post_app_post_image {
   post_id  Int
   image_id Int
   post     Post  @relation(fields: [post_id], references: [id])
@@ -142,26 +142,26 @@ model PostImages {
 }
 
 model Profile {
-  id                  Int                @id @default(autoincrement())
+  id                  Int                          @id @default(autoincrement())
   name                String?
-  username            String?            @unique
+  username            String?                      @unique
   surname             String?
   date_of_birth       DateTime?
-  email               String             @unique
+  email               String                       @unique
   password            String
   image               String?
   about               String?
   signature           String?
   post                Post[]
   album               Album[]
-  administered_groups ChatGroup[]        @relation("administeredGroup")
+  administered_groups ChatGroup[]                  @relation("administeredGroup")
   chat_messages       ChatMessage[]
   avatar              Avatar?
-  friendship_from     Friendship[]       @relation("friendshipFrom")
-  friendship_to       Friendship[]       @relation("friendshipTo")
-  profile_views       ProfileViews[]
-  profile_likes       ProfileLikes[]
-  chat_group_members  ChatGroupMembers[]
+  friendship_from     Friendship[]                 @relation("friendshipFrom")
+  friendship_to       Friendship[]                 @relation("friendshipTo")
+  // profile_views       ProfileViews[]
+  // profile_likes       ProfileLikes[]
+  chat_group_members  chat_app_chatgroup_members[]
 }
 
 model Avatar {
@@ -173,19 +173,17 @@ model Avatar {
   active     Boolean @default(true)
 }
 
-model ProfileViews {
-  profile_id Int
-  profile    Profile @relation(fields: [profile_id], references: [id])
+// model ProfileViews {
+//     profile_id Int
+//     profile   user_app_profile @relation(fields: [profile_id], references: [id])
+//     @@id([profile_id])
+// }
 
-  @@id([profile_id])
-}
-
-model ProfileLikes {
-  profile_id Int
-  profile    Profile @relation(fields: [profile_id], references: [id])
-
-  @@id([profile_id])
-}
+// model ProfileLikes {
+//     profile_id Int
+//     profile user_app_profile @relation(fields: [profile_id], references: [id])
+//     @@id([profile_id])
+// }
 
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema

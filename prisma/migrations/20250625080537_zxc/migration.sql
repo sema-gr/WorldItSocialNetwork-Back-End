@@ -10,10 +10,9 @@ CREATE TABLE "Album" (
 
 -- CreateTable
 CREATE TABLE "AlbumImages" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "album_id" INTEGER NOT NULL,
     "image_id" INTEGER NOT NULL,
-
-    PRIMARY KEY ("album_id", "image_id"),
     CONSTRAINT "AlbumImages_album_id_fkey" FOREIGN KEY ("album_id") REFERENCES "Album" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "AlbumImages_image_id_fkey" FOREIGN KEY ("image_id") REFERENCES "Image" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -22,8 +21,7 @@ CREATE TABLE "AlbumImages" (
 CREATE TABLE "AlbumTags" (
     "album_id" INTEGER NOT NULL,
     "tag_id" INTEGER NOT NULL,
-
-    PRIMARY KEY ("album_id", "tag_id"),
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     CONSTRAINT "AlbumTags_album_id_fkey" FOREIGN KEY ("album_id") REFERENCES "Album" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "AlbumTags_tag_id_fkey" FOREIGN KEY ("tag_id") REFERENCES "Tags" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -67,7 +65,7 @@ CREATE TABLE "Friendship" (
     "profile2_id" INTEGER NOT NULL,
     "accepted" BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT "Friendship_profile1_id_fkey" FOREIGN KEY ("profile1_id") REFERENCES "Profile" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Friendship_profile1_id_fkey" FOREIGN KEY ("profile1_id") REFERENCES "Profile" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Friendship_profile2_id_fkey" FOREIGN KEY ("profile2_id") REFERENCES "Profile" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -105,21 +103,22 @@ CREATE TABLE "Link" (
 CREATE TABLE "PostTags" (
     "post_id" INTEGER NOT NULL,
     "tag_id" INTEGER NOT NULL,
-
-    PRIMARY KEY ("post_id", "tag_id"),
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     CONSTRAINT "PostTags_post_id_fkey" FOREIGN KEY ("post_id") REFERENCES "Post" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "PostTags_tag_id_fkey" FOREIGN KEY ("tag_id") REFERENCES "Tags" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
 CREATE TABLE "PostLikes" (
-    "post_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "post_id" INTEGER NOT NULL,
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     CONSTRAINT "PostLikes_post_id_fkey" FOREIGN KEY ("post_id") REFERENCES "Post" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
 CREATE TABLE "PostViews" (
-    "post_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "post_id" INTEGER NOT NULL,
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     CONSTRAINT "PostViews_post_id_fkey" FOREIGN KEY ("post_id") REFERENCES "Post" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -127,8 +126,7 @@ CREATE TABLE "PostViews" (
 CREATE TABLE "PostImages" (
     "post_id" INTEGER NOT NULL,
     "image_id" INTEGER NOT NULL,
-
-    PRIMARY KEY ("post_id", "image_id"),
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     CONSTRAINT "PostImages_post_id_fkey" FOREIGN KEY ("post_id") REFERENCES "Post" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "PostImages_image_id_fkey" FOREIGN KEY ("image_id") REFERENCES "Image" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );

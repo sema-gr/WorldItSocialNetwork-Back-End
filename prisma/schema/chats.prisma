@@ -1,8 +1,8 @@
-model ChatGroup{
+model ChatGroup {
     id Int @id @default(autoincrement())
     name String
     is_personal_chat Boolean @default(false)
-    members ChatGroupMembers[]
+    members chat_app_chatgroup_members[]
     admin Profile @relation("administeredGroup", fields: [admin_id], references: [id])
     admin_id Int
     avatar String
@@ -20,7 +20,7 @@ model ChatMessage {
     attached_image String
 }
 
-model ChatGroupMembers {
+model chat_app_chatgroup_members {
     chat_groupId Int
     profile_id Int
     chat_group ChatGroup @relation(fields: [chat_groupId], references: [id])

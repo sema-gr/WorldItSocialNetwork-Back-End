@@ -1,4 +1,4 @@
-model Friendship{
+model Friendship {
     id Int @id @default(autoincrement())
     profile1 Profile @relation("friendshipFrom", fields: [profile1_id], references: [id]) 
     profile2 Profile @relation("friendshipTo",fields: [profile2_id], references: [id])

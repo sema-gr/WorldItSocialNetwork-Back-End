@@ -125,13 +125,13 @@ exports.Prisma.AlbumScalarFieldEnum = {
   author_id: 'author_id'
 };
 
-exports.Prisma.AlbumImagesScalarFieldEnum = {
+exports.Prisma.Post_app_album_imagesScalarFieldEnum = {
   id: 'id',
   album_id: 'album_id',
   image_id: 'image_id'
 };
 
-exports.Prisma.AlbumTagsScalarFieldEnum = {
+exports.Prisma.Post_app_album_tagsScalarFieldEnum = {
   album_id: 'album_id',
   tag_id: 'tag_id',
   id: 'id'
@@ -154,7 +154,7 @@ exports.Prisma.ChatMessageScalarFieldEnum = {
   attached_image: 'attached_image'
 };
 
-exports.Prisma.ChatGroupMembersScalarFieldEnum = {
+exports.Prisma.Chat_app_chatgroup_membersScalarFieldEnum = {
   chat_groupId: 'chat_groupId',
   profile_id: 'profile_id'
 };
@@ -191,23 +191,23 @@ exports.Prisma.LinkScalarFieldEnum = {
   url: 'url'
 };
 
-exports.Prisma.PostTagsScalarFieldEnum = {
+exports.Prisma.Post_app_post_tagScalarFieldEnum = {
   post_id: 'post_id',
   tag_id: 'tag_id',
   id: 'id'
 };
 
-exports.Prisma.PostLikesScalarFieldEnum = {
+exports.Prisma.Post_app_post_likesScalarFieldEnum = {
   post_id: 'post_id',
   id: 'id'
 };
 
-exports.Prisma.PostViewsScalarFieldEnum = {
+exports.Prisma.Post_app_post_viewsScalarFieldEnum = {
   post_id: 'post_id',
   id: 'id'
 };
 
-exports.Prisma.PostImagesScalarFieldEnum = {
+exports.Prisma.Post_app_post_imageScalarFieldEnum = {
   post_id: 'post_id',
   image_id: 'image_id',
   id: 'id'
@@ -234,14 +234,6 @@ exports.Prisma.AvatarScalarFieldEnum = {
   active: 'active'
 };
 
-exports.Prisma.ProfileViewsScalarFieldEnum = {
-  profile_id: 'profile_id'
-};
-
-exports.Prisma.ProfileLikesScalarFieldEnum = {
-  profile_id: 'profile_id'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -255,24 +247,22 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   Album: 'Album',
-  AlbumImages: 'AlbumImages',
-  AlbumTags: 'AlbumTags',
+  post_app_album_images: 'post_app_album_images',
+  post_app_album_tags: 'post_app_album_tags',
   ChatGroup: 'ChatGroup',
   ChatMessage: 'ChatMessage',
-  ChatGroupMembers: 'ChatGroupMembers',
+  chat_app_chatgroup_members: 'chat_app_chatgroup_members',
   Friendship: 'Friendship',
   Image: 'Image',
   Post: 'Post',
   Tags: 'Tags',
   Link: 'Link',
-  PostTags: 'PostTags',
-  PostLikes: 'PostLikes',
-  PostViews: 'PostViews',
-  PostImages: 'PostImages',
+  post_app_post_tag: 'post_app_post_tag',
+  post_app_post_likes: 'post_app_post_likes',
+  post_app_post_views: 'post_app_post_views',
+  post_app_post_image: 'post_app_post_image',
   Profile: 'Profile',
-  Avatar: 'Avatar',
-  ProfileViews: 'ProfileViews',
-  ProfileLikes: 'ProfileLikes'
+  Avatar: 'Avatar'
 };
 
 /**

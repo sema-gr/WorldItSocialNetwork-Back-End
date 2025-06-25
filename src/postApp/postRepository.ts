@@ -112,7 +112,7 @@ async function deletePost(id: number) {
             throw console.log("Post not found!")
         }
 
-        await prisma.postImages.deleteMany({
+        await prisma.post_app_post_image.deleteMany({
             where: { post_id: id }
         });
 
@@ -121,7 +121,7 @@ async function deletePost(id: number) {
             where: { id: { in: imageIds } }
         });
 
-        await prisma.postTags.deleteMany({
+        await prisma.post_app_post_tag.deleteMany({
             where: { post_id: id }
         });
 

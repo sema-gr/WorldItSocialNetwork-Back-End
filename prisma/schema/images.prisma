@@ -10,6 +10,6 @@ model Image {
     // album Album? @relation(fields: [albumId], references: [id])
     // albumId Int?
 
-    album_images AlbumImages[]
-    PostImages PostImages[]
+    album_images post_app_album_images[]
+    PostImages post_app_post_image[]
 }

@@ -118,7 +118,7 @@ async function deleteAlbum(id: number) {
             throw console.log("Album not found!")
         }
 
-        await prisma.albumImages.deleteMany({
+        await prisma.post_app_album_images.deleteMany({
             where: { album_id: id }
         });
 
@@ -127,7 +127,7 @@ async function deleteAlbum(id: number) {
             where: { id: { in: imageIds } }
         });
 
-        await prisma.albumTags.deleteMany({
+        await prisma.post_app_album_tags.deleteMany({
             where: { album_id: id }
         });
 
