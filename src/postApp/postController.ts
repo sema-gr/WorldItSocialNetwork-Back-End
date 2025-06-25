@@ -64,7 +64,7 @@ async function editPost(req: Request, res: Response) {
 	if (result.status == "error") {
 		res.json("error");
 	} else {
-		res.json(result.data);
+		res.json(result);
 	}
 }
 

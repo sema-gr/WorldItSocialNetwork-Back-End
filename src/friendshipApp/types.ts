@@ -10,3 +10,4 @@ export type AcceptedFriendshipBody = {
 }
 
 export type AcceptedFriendshipWhere = Prisma.FriendshipProfile1_idProfile2_idCompoundUniqueInput
+
