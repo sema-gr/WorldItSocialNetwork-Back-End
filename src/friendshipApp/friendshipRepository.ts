@@ -60,12 +60,30 @@ async function updateFriendship(data: UpdateFriendship, where: WhereFriendship) 
 }
 async function deleteFriendship(where: WhereFriendship) {
     try {
-      
-        return await client.friendship.delete({
+        // Перевіряємо, чи існує запис дружби
+        const friendToDelete = await client.friendship.findUnique({
+            where: where,
+            include: {
+                profile1: true,
+                profile2: true, // Включаємо profile2 для повноти даних
+            },
+        });
+
+        // Якщо запис не знайдено, викидаємо помилку
+        if (!friendToDelete) {
+            console.error("Friendship not found for where:", where);
+            throw new Error("Friendship not found!");
+        }
+
+        // Видаляємо запис дружби
+        await client.friendship.delete({
             where: where,
         });
+
+        // Повертаємо видалений запис
+        return friendToDelete;
     } catch (err) {
-        console.log("Error in deleteFriendship:", err);
+        console.error("Error deleting friendship:", err);
         throw err;
     }
 }
