@@ -14,7 +14,7 @@ const httpServer = createServer(app)
 initSocketServer(httpServer)
 
 const PORT = 3000
-const HOST = '192.168.1.104'
+const HOST = '192.168.1.101'
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
