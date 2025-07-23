@@ -247,7 +247,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Admin\\Desktop\\Native\\Chit-Chat-Back-End\\src\\generated\\prisma",
+      "value": "/Users/bogdanrubanov/Desktop/js/socialNetwork/social_back/Chit-Chat-Back-End/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -256,12 +256,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\Admin\\Desktop\\Native\\Chit-Chat-Back-End\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/bogdanrubanov/Desktop/js/socialNetwork/social_back/Chit-Chat-Back-End/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
