@@ -176,6 +176,7 @@ exports.Prisma.ImageScalarFieldEnum = {
 exports.Prisma.PostScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  theme: 'theme',
   content: 'content',
   author_id: 'author_id',
   linkId: 'linkId'

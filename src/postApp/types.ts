@@ -20,6 +20,7 @@ export type CreatePost = Prisma.PostUncheckedCreateInput;
 
 export type IUpdatePost = {
     title: string;
+    theme: string;
     content: string;
     links?: string[];
     tags?: string[];
@@ -30,11 +31,11 @@ export type IUpdatePost = {
     author_id: number;
 };
 
-export type CreatePostData = Prisma.PostImagesUncheckedCreateNestedManyWithoutPostInput;
+export type CreatePostData = Prisma.post_app_post_imageUncheckedCreateNestedManyWithoutPostInput;
 
 export type Image = Prisma.ImageUncheckedCreateInput;
 
-export type CreateImageData = Prisma.PostImagesUncheckedCreateNestedManyWithoutPostInput
+export type CreateImageData = Prisma.post_app_post_imageUncheckedCreateNestedManyWithoutPostInput
 
 
 export interface CreatePostBody {
@@ -42,6 +43,7 @@ export interface CreatePostBody {
     content: string;
     links?: string[];
     tags?: string[];
+    theme: string;
     images?: {
         url: string;
     }[]

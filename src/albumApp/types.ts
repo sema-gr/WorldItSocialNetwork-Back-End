@@ -29,7 +29,7 @@ export type CreateAlbum = Prisma.AlbumUncheckedCreateInput
 
 export type UpdateAlbum = Prisma.AlbumUncheckedUpdateInput
 
-export type CreateAlbumData = Prisma.AlbumImagesUncheckedCreateNestedManyWithoutAlbumInput
+export type CreateAlbumData = Prisma.post_app_album_imagesUncheckedCreateNestedManyWithoutAlbumInput
 
 export type AlbumUpdateBody = {
     name?: string,

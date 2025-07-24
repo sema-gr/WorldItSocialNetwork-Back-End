@@ -4,10 +4,10 @@ const client = new PrismaClient()
 
 async function updateFriendship() {
     try {
-        return await client.friendship.delete({
+        return await client.post.delete({
             where: {
                 id: 2
-            }
+            },
         });
     } catch (err) {
         console.log("Error in editAlbum:", err);

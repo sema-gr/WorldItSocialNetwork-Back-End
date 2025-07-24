@@ -89,6 +89,7 @@ model Image {
 model Post {
   id        Int                   @id @default(autoincrement())
   title     String
+  theme     String
   tags      post_app_post_tag[]
   content   String
   images    post_app_post_image[]

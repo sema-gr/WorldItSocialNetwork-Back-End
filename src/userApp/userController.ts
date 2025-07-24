@@ -26,12 +26,12 @@ async function getUserByReqId(req: Request, res: Response){
 
 async function registerUser(req: Request, res: Response){
     let {code, ...user} = req.body
-    userService.saveCode(user.email, code)
-    const result = await userService.verifyCode(user.email, code)
 
-    if (result.success === false){
-        console.log(result)
-        res.json(result)
+    const verificationResult = await userService.verifyCode(user.email, code);
+
+    if (!verificationResult.success) {
+        console.log(verificationResult)
+        res.json(verificationResult)
         return
     }
     const resultUser = await userService.registration(user)

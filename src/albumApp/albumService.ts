@@ -6,6 +6,7 @@ import path from "path";
 import prisma from "../client/prismaClient";
 import { albumRepository } from "./albumRepository";
 import { Image } from "../postApp/types";
+import { API_BASE_URL } from "..";
 
 async function getAlbums(): Promise<IOkWithData<Album[]> | IError> {
 	const albums = await albumRepository.getAlbums();
@@ -69,7 +70,6 @@ export async function editAlbum(
 
 	try {
 		console.log(data.images)
-		const API_BASE_URL = "http://192.168.1.104:3000";
 		const uploadDir = path.join(__dirname, "..", "..", "public", "uploads");
 
 		await fs.mkdir(uploadDir, { recursive: true });
