@@ -9333,6 +9333,7 @@ export namespace Prisma {
     profile1_id: number | null
     profile2_id: number | null
     accepted: boolean | null
+    status_message: string | null
   }
 
   export type FriendshipMaxAggregateOutputType = {
@@ -9340,6 +9341,7 @@ export namespace Prisma {
     profile1_id: number | null
     profile2_id: number | null
     accepted: boolean | null
+    status_message: string | null
   }
 
   export type FriendshipCountAggregateOutputType = {
@@ -9347,6 +9349,7 @@ export namespace Prisma {
     profile1_id: number
     profile2_id: number
     accepted: number
+    status_message: number
     _all: number
   }
 
@@ -9368,6 +9371,7 @@ export namespace Prisma {
     profile1_id?: true
     profile2_id?: true
     accepted?: true
+    status_message?: true
   }
 
   export type FriendshipMaxAggregateInputType = {
@@ -9375,6 +9379,7 @@ export namespace Prisma {
     profile1_id?: true
     profile2_id?: true
     accepted?: true
+    status_message?: true
   }
 
   export type FriendshipCountAggregateInputType = {
@@ -9382,6 +9387,7 @@ export namespace Prisma {
     profile1_id?: true
     profile2_id?: true
     accepted?: true
+    status_message?: true
     _all?: true
   }
 
@@ -9476,6 +9482,7 @@ export namespace Prisma {
     profile1_id: number
     profile2_id: number
     accepted: boolean
+    status_message: string | null
     _count: FriendshipCountAggregateOutputType | null
     _avg: FriendshipAvgAggregateOutputType | null
     _sum: FriendshipSumAggregateOutputType | null
@@ -9502,6 +9509,7 @@ export namespace Prisma {
     profile1_id?: boolean
     profile2_id?: boolean
     accepted?: boolean
+    status_message?: boolean
     profile1?: boolean | ProfileDefaultArgs<ExtArgs>
     profile2?: boolean | ProfileDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["friendship"]>
@@ -9511,6 +9519,7 @@ export namespace Prisma {
     profile1_id?: boolean
     profile2_id?: boolean
     accepted?: boolean
+    status_message?: boolean
     profile1?: boolean | ProfileDefaultArgs<ExtArgs>
     profile2?: boolean | ProfileDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["friendship"]>
@@ -9520,6 +9529,7 @@ export namespace Prisma {
     profile1_id?: boolean
     profile2_id?: boolean
     accepted?: boolean
+    status_message?: boolean
     profile1?: boolean | ProfileDefaultArgs<ExtArgs>
     profile2?: boolean | ProfileDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["friendship"]>
@@ -9529,9 +9539,10 @@ export namespace Prisma {
     profile1_id?: boolean
     profile2_id?: boolean
     accepted?: boolean
+    status_message?: boolean
   }
 
-  export type FriendshipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "profile1_id" | "profile2_id" | "accepted", ExtArgs["result"]["friendship"]>
+  export type FriendshipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "profile1_id" | "profile2_id" | "accepted" | "status_message", ExtArgs["result"]["friendship"]>
   export type FriendshipInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     profile1?: boolean | ProfileDefaultArgs<ExtArgs>
     profile2?: boolean | ProfileDefaultArgs<ExtArgs>
@@ -9556,6 +9567,7 @@ export namespace Prisma {
       profile1_id: number
       profile2_id: number
       accepted: boolean
+      status_message: string | null
     }, ExtArgs["result"]["friendship"]>
     composites: {}
   }
@@ -9985,6 +9997,7 @@ export namespace Prisma {
     readonly profile1_id: FieldRef<"Friendship", 'Int'>
     readonly profile2_id: FieldRef<"Friendship", 'Int'>
     readonly accepted: FieldRef<"Friendship", 'Boolean'>
+    readonly status_message: FieldRef<"Friendship", 'String'>
   }
     
 
@@ -21717,7 +21730,8 @@ export namespace Prisma {
     id: 'id',
     profile1_id: 'profile1_id',
     profile2_id: 'profile2_id',
-    accepted: 'accepted'
+    accepted: 'accepted',
+    status_message: 'status_message'
   };
 
   export type FriendshipScalarFieldEnum = (typeof FriendshipScalarFieldEnum)[keyof typeof FriendshipScalarFieldEnum]
@@ -22226,6 +22240,7 @@ export namespace Prisma {
     profile1_id?: IntFilter<"Friendship"> | number
     profile2_id?: IntFilter<"Friendship"> | number
     accepted?: BoolFilter<"Friendship"> | boolean
+    status_message?: StringNullableFilter<"Friendship"> | string | null
     profile1?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
     profile2?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
   }
@@ -22235,6 +22250,7 @@ export namespace Prisma {
     profile1_id?: SortOrder
     profile2_id?: SortOrder
     accepted?: SortOrder
+    status_message?: SortOrderInput | SortOrder
     profile1?: ProfileOrderByWithRelationInput
     profile2?: ProfileOrderByWithRelationInput
   }
@@ -22248,6 +22264,7 @@ export namespace Prisma {
     profile1_id?: IntFilter<"Friendship"> | number
     profile2_id?: IntFilter<"Friendship"> | number
     accepted?: BoolFilter<"Friendship"> | boolean
+    status_message?: StringNullableFilter<"Friendship"> | string | null
     profile1?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
     profile2?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
   }, "id" | "profile1_id_profile2_id">
@@ -22257,6 +22274,7 @@ export namespace Prisma {
     profile1_id?: SortOrder
     profile2_id?: SortOrder
     accepted?: SortOrder
+    status_message?: SortOrderInput | SortOrder
     _count?: FriendshipCountOrderByAggregateInput
     _avg?: FriendshipAvgOrderByAggregateInput
     _max?: FriendshipMaxOrderByAggregateInput
@@ -22272,6 +22290,7 @@ export namespace Prisma {
     profile1_id?: IntWithAggregatesFilter<"Friendship"> | number
     profile2_id?: IntWithAggregatesFilter<"Friendship"> | number
     accepted?: BoolWithAggregatesFilter<"Friendship"> | boolean
+    status_message?: StringNullableWithAggregatesFilter<"Friendship"> | string | null
   }
 
   export type ImageWhereInput = {
@@ -23127,6 +23146,7 @@ export namespace Prisma {
 
   export type FriendshipCreateInput = {
     accepted?: boolean
+    status_message?: string | null
     profile1: ProfileCreateNestedOneWithoutFriendship_fromInput
     profile2: ProfileCreateNestedOneWithoutFriendship_toInput
   }
@@ -23136,10 +23156,12 @@ export namespace Prisma {
     profile1_id: number
     profile2_id: number
     accepted?: boolean
+    status_message?: string | null
   }
 
   export type FriendshipUpdateInput = {
     accepted?: BoolFieldUpdateOperationsInput | boolean
+    status_message?: NullableStringFieldUpdateOperationsInput | string | null
     profile1?: ProfileUpdateOneRequiredWithoutFriendship_fromNestedInput
     profile2?: ProfileUpdateOneRequiredWithoutFriendship_toNestedInput
   }
@@ -23149,6 +23171,7 @@ export namespace Prisma {
     profile1_id?: IntFieldUpdateOperationsInput | number
     profile2_id?: IntFieldUpdateOperationsInput | number
     accepted?: BoolFieldUpdateOperationsInput | boolean
+    status_message?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FriendshipCreateManyInput = {
@@ -23156,10 +23179,12 @@ export namespace Prisma {
     profile1_id: number
     profile2_id: number
     accepted?: boolean
+    status_message?: string | null
   }
 
   export type FriendshipUpdateManyMutationInput = {
     accepted?: BoolFieldUpdateOperationsInput | boolean
+    status_message?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FriendshipUncheckedUpdateManyInput = {
@@ -23167,6 +23192,7 @@ export namespace Prisma {
     profile1_id?: IntFieldUpdateOperationsInput | number
     profile2_id?: IntFieldUpdateOperationsInput | number
     accepted?: BoolFieldUpdateOperationsInput | boolean
+    status_message?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ImageCreateInput = {
@@ -24043,6 +24069,25 @@ export namespace Prisma {
     profile_id?: SortOrder
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type FriendshipProfile1_idProfile2_idCompoundUniqueInput = {
     profile1_id: number
     profile2_id: number
@@ -24053,6 +24098,7 @@ export namespace Prisma {
     profile1_id?: SortOrder
     profile2_id?: SortOrder
     accepted?: SortOrder
+    status_message?: SortOrder
   }
 
   export type FriendshipAvgOrderByAggregateInput = {
@@ -24066,6 +24112,7 @@ export namespace Prisma {
     profile1_id?: SortOrder
     profile2_id?: SortOrder
     accepted?: SortOrder
+    status_message?: SortOrder
   }
 
   export type FriendshipMinOrderByAggregateInput = {
@@ -24073,12 +24120,30 @@ export namespace Prisma {
     profile1_id?: SortOrder
     profile2_id?: SortOrder
     accepted?: SortOrder
+    status_message?: SortOrder
   }
 
   export type FriendshipSumOrderByAggregateInput = {
     id?: SortOrder
     profile1_id?: SortOrder
     profile2_id?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type Post_app_post_imageListRelationFilter = {
@@ -24152,11 +24217,6 @@ export namespace Prisma {
   export type LinkNullableScalarRelationFilter = {
     is?: LinkWhereInput | null
     isNot?: LinkWhereInput | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type post_app_post_tagOrderByRelationAggregateInput = {
@@ -24397,20 +24457,6 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | null
@@ -24502,23 +24548,6 @@ export namespace Prisma {
 
   export type ProfileSumOrderByAggregateInput = {
     id?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -24907,6 +24936,10 @@ export namespace Prisma {
     create?: XOR<ProfileCreateWithoutFriendship_toInput, ProfileUncheckedCreateWithoutFriendship_toInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutFriendship_toInput
     connect?: ProfileWhereUniqueInput
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type ProfileUpdateOneRequiredWithoutFriendship_fromNestedInput = {
@@ -25535,10 +25568,6 @@ export namespace Prisma {
     connect?: chat_app_chatgroup_membersWhereUniqueInput | chat_app_chatgroup_membersWhereUniqueInput[]
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
   }
@@ -25880,6 +25909,37 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -25918,20 +25978,6 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | null
@@ -25941,23 +25987,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -27953,6 +27982,7 @@ export namespace Prisma {
 
   export type FriendshipCreateWithoutProfile1Input = {
     accepted?: boolean
+    status_message?: string | null
     profile2: ProfileCreateNestedOneWithoutFriendship_toInput
   }
 
@@ -27960,6 +27990,7 @@ export namespace Prisma {
     id?: number
     profile2_id: number
     accepted?: boolean
+    status_message?: string | null
   }
 
   export type FriendshipCreateOrConnectWithoutProfile1Input = {
@@ -27973,6 +28004,7 @@ export namespace Prisma {
 
   export type FriendshipCreateWithoutProfile2Input = {
     accepted?: boolean
+    status_message?: string | null
     profile1: ProfileCreateNestedOneWithoutFriendship_fromInput
   }
 
@@ -27980,6 +28012,7 @@ export namespace Prisma {
     id?: number
     profile1_id: number
     accepted?: boolean
+    status_message?: string | null
   }
 
   export type FriendshipCreateOrConnectWithoutProfile2Input = {
@@ -28142,6 +28175,7 @@ export namespace Prisma {
     profile1_id?: IntFilter<"Friendship"> | number
     profile2_id?: IntFilter<"Friendship"> | number
     accepted?: BoolFilter<"Friendship"> | boolean
+    status_message?: StringNullableFilter<"Friendship"> | string | null
   }
 
   export type FriendshipUpsertWithWhereUniqueWithoutProfile2Input = {
@@ -28574,12 +28608,14 @@ export namespace Prisma {
     id?: number
     profile2_id: number
     accepted?: boolean
+    status_message?: string | null
   }
 
   export type FriendshipCreateManyProfile2Input = {
     id?: number
     profile1_id: number
     accepted?: boolean
+    status_message?: string | null
   }
 
   export type chat_app_chatgroup_membersCreateManyProfileInput = {
@@ -28690,6 +28726,7 @@ export namespace Prisma {
 
   export type FriendshipUpdateWithoutProfile1Input = {
     accepted?: BoolFieldUpdateOperationsInput | boolean
+    status_message?: NullableStringFieldUpdateOperationsInput | string | null
     profile2?: ProfileUpdateOneRequiredWithoutFriendship_toNestedInput
   }
 
@@ -28697,16 +28734,19 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     profile2_id?: IntFieldUpdateOperationsInput | number
     accepted?: BoolFieldUpdateOperationsInput | boolean
+    status_message?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FriendshipUncheckedUpdateManyWithoutProfile1Input = {
     id?: IntFieldUpdateOperationsInput | number
     profile2_id?: IntFieldUpdateOperationsInput | number
     accepted?: BoolFieldUpdateOperationsInput | boolean
+    status_message?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FriendshipUpdateWithoutProfile2Input = {
     accepted?: BoolFieldUpdateOperationsInput | boolean
+    status_message?: NullableStringFieldUpdateOperationsInput | string | null
     profile1?: ProfileUpdateOneRequiredWithoutFriendship_fromNestedInput
   }
 
@@ -28714,12 +28754,14 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     profile1_id?: IntFieldUpdateOperationsInput | number
     accepted?: BoolFieldUpdateOperationsInput | boolean
+    status_message?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FriendshipUncheckedUpdateManyWithoutProfile2Input = {
     id?: IntFieldUpdateOperationsInput | number
     profile1_id?: IntFieldUpdateOperationsInput | number
     accepted?: BoolFieldUpdateOperationsInput | boolean
+    status_message?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type chat_app_chatgroup_membersUpdateWithoutProfileInput = {

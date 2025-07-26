@@ -5,5 +5,6 @@ model Friendship {
     profile1_id Int 
     profile2_id Int 
     accepted Boolean @default(false)
+    status_message String?
     @@unique([profile1_id, profile2_id])
 }

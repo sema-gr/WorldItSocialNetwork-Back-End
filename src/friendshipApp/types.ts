@@ -11,3 +11,14 @@ export type AcceptedFriendshipBody = {
 
 export type AcceptedFriendshipWhere = Prisma.FriendshipProfile1_idProfile2_idCompoundUniqueInput
 
+type SendFriendshipPayload = IFriendship;
+
+export interface IFriendshipServerEvents {
+    friendRequestDeclined: (data: { requestId: number; message: string }) => void;
+}
+
+export interface IFriendshipClientEvents {
+    sendFriendship: (
+        data: SendFriendshipPayload
+    ) => void
+}

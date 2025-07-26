@@ -5,7 +5,7 @@ import { CreateFriendship, UpdateFriendship, WhereFriendship } from "./types";
 
 async function createFriendship(data: CreateFriendship) {
     try {
-        console.log(data)
+
         const friendship = await client.friendship.create({
             data: {
                 profile1_id: data.profile1_id,
@@ -60,28 +60,38 @@ async function updateFriendship(data: UpdateFriendship, where: WhereFriendship) 
 }
 async function deleteFriendship(where: WhereFriendship) {
     try {
-        // Перевіряємо, чи існує запис дружби
+
+        console.log("Deleting friendship with where:", where);
+
         const friendToDelete = await client.friendship.findUnique({
             where: where,
             include: {
                 profile1: true,
-                profile2: true, // Включаємо profile2 для повноти даних
+                profile2: true,
             },
         });
 
-        // Якщо запис не знайдено, викидаємо помилку
         if (!friendToDelete) {
             console.error("Friendship not found for where:", where);
             throw new Error("Friendship not found!");
         }
 
-        // Видаляємо запис дружби
+        const updateData = await client.friendship.update({
+            where: where,
+            data: {
+                status_message: ` Користувач ${where.profile2?.avatar?.profile?.username} відхилив запит на дружбу.`,
+            },
+            include: {
+                profile1: true,
+                profile2: true,
+            }
+        });
+
         await client.friendship.delete({
             where: where,
         });
 
-        // Повертаємо видалений запис
-        return friendToDelete;
+        return updateData;
     } catch (err) {
         console.error("Error deleting friendship:", err);
         throw err;

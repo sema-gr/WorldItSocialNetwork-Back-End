@@ -4,9 +4,9 @@ const client = new PrismaClient()
 
 async function updateFriendship() {
     try {
-        return await client.post.delete({
+        return await client.friendship.delete({
             where: {
-                id: 2
+                id: 21
             },
         });
     } catch (err) {

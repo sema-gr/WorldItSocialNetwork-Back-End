@@ -1,6 +1,18 @@
 import friendshipService from "./friendshipService";
 import { Request, Response } from "express";
 import { AcceptedFriendshipBody } from "./types";
+import client from "../client/prismaClient";
+import { AuthenticatedSocket } from "../types/socket";
+
+const userSockets = new Map<number, AuthenticatedSocket>();
+
+export function registerFriendshipSocket(socket: AuthenticatedSocket) {
+	userSockets.set(socket.data.userId, socket);
+
+	socket.on("disconnect", () => {
+		userSockets.delete(socket.data.userId);
+	});
+}
 
 async function createFriendship(req: Request, res: Response) {
 	let body = req.body
@@ -33,25 +45,42 @@ async function acceptFriendship(req: Request<{}, {}, AcceptedFriendshipBody>, re
 	}
 }
 
-async function deleteFriendship(
-	req: Request<{}, {}, AcceptedFriendshipBody>,
-	res: Response
-) {
+async function deleteFriendship(req: Request<{}, {}, AcceptedFriendshipBody>, res: Response) {
 	const userId = res.locals.userId;
 	const { id: otherUserId } = req.body;
 
+	console.log(userId, otherUserId);
+
 	const pairs = [
-		{ profile1_id: otherUserId, profile2_id: userId },
 		{ profile1_id: userId, profile2_id: otherUserId },
+		{ profile1_id: otherUserId, profile2_id: userId },
 	];
+
+	const user = await client.profile.findUnique({
+		where: { id: userId },
+		select: {
+			name: true,
+			surname: true,
+		}
+	});
+
+	const fullName = user ? `${user.name} ${user.surname}` : "Користувач";
 
 	for (const where of pairs) {
 		const result = await friendshipService.deleteFriendship(where);
+
 		if (result.status === "success") {
+
+			const senderSocket = userSockets.get(otherUserId);
+			if (senderSocket) {
+				senderSocket.emit("friendRequestDeclined", {
+					requestId: otherUserId,
+					message: `Користувач ${fullName} відхилив ваш запит на дружбу.`,
+				});
+			}
 			res.json(result.data);
 		}
 	}
-
 	res.send("error")
 }
 

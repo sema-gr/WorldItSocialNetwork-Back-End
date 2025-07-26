@@ -163,7 +163,8 @@ exports.Prisma.FriendshipScalarFieldEnum = {
   id: 'id',
   profile1_id: 'profile1_id',
   profile2_id: 'profile2_id',
-  accepted: 'accepted'
+  accepted: 'accepted',
+  status_message: 'status_message'
 };
 
 exports.Prisma.ImageScalarFieldEnum = {

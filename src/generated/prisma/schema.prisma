@@ -60,12 +60,13 @@ model chat_app_chatgroup_members {
 }
 
 model Friendship {
-  id          Int     @id @default(autoincrement())
-  profile1    Profile @relation("friendshipFrom", fields: [profile1_id], references: [id])
-  profile2    Profile @relation("friendshipTo", fields: [profile2_id], references: [id])
-  profile1_id Int
-  profile2_id Int
-  accepted    Boolean @default(false)
+  id             Int     @id @default(autoincrement())
+  profile1       Profile @relation("friendshipFrom", fields: [profile1_id], references: [id])
+  profile2       Profile @relation("friendshipTo", fields: [profile2_id], references: [id])
+  profile1_id    Int
+  profile2_id    Int
+  accepted       Boolean @default(false)
+  status_message String?
 
   @@unique([profile1_id, profile2_id])
 }
