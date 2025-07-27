@@ -29,9 +29,9 @@ async function acceptFriendship(where: AcceptedFriendshipWhere): Promise<IOkWith
 	return { status: "success", data: updatedFriendship }
 }
 
-async function deleteFriendship(where: AcceptedFriendshipWhere): Promise<IOkWithData<IFriendship> | IError> {
+async function deleteFriendship(profile1_id: number, profile2_id: number): Promise<IOkWithData<IFriendship> | IError> {
 
-	const deletedFriendship = await friendshipRepository.deleteFriendship({ profile1_id_profile2_id: where })
+	const deletedFriendship = await friendshipRepository.deleteFriendship(profile1_id, profile2_id)
 
 	if (!deletedFriendship) {
 		return { status: "error", message: "No friendship found" };

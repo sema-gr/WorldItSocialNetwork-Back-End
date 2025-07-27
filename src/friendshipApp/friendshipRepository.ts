@@ -58,44 +58,32 @@ async function updateFriendship(data: UpdateFriendship, where: WhereFriendship) 
         throw err;
     }
 }
-async function deleteFriendship(where: WhereFriendship) {
-    try {
+async function deleteFriendship(profile1Id: number, profile2Id: number) {
 
-        console.log("Deleting friendship with where:", where);
+    const friendship = await client.friendship.findFirst({
+        where: {
+            OR: [
+                { profile1_id: profile1Id, profile2_id: profile2Id },
+                { profile1_id: profile2Id, profile2_id: profile1Id },
+            ],
+        },
+    });
 
-        const friendToDelete = await client.friendship.findUnique({
-            where: where,
-            include: {
-                profile1: true,
-                profile2: true,
-            },
-        });
-
-        if (!friendToDelete) {
-            console.error("Friendship not found for where:", where);
-            throw new Error("Friendship not found!");
-        }
-
-        const updateData = await client.friendship.update({
-            where: where,
-            data: {
-                status_message: ` Користувач ${where.profile2?.avatar?.profile?.username} відхилив запит на дружбу.`,
-            },
-            include: {
-                profile1: true,
-                profile2: true,
-            }
-        });
-
-        await client.friendship.delete({
-            where: where,
-        });
-
-        return updateData;
-    } catch (err) {
-        console.error("Error deleting friendship:", err);
-        throw err;
+    if (!friendship) {
+        console.error("Friendship not found between", profile1Id, "and", profile2Id);
+        return null;
     }
+
+    await client.friendship.delete({
+        where: {
+            profile1_id_profile2_id: {
+                profile1_id: friendship.profile1_id,
+                profile2_id: friendship.profile2_id,
+            },
+        },
+    });
+
+    return friendship;
 }
 
 const friendshipRepository = {

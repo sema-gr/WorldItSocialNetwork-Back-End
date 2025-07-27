@@ -45,43 +45,35 @@ async function acceptFriendship(req: Request<{}, {}, AcceptedFriendshipBody>, re
 	}
 }
 
-async function deleteFriendship(req: Request<{}, {}, AcceptedFriendshipBody>, res: Response) {
+async function deleteFriendship(req: Request, res: Response) {
 	const userId = res.locals.userId;
 	const { id: otherUserId } = req.body;
 
-	console.log(userId, otherUserId);
-
-	const pairs = [
-		{ profile1_id: userId, profile2_id: otherUserId },
-		{ profile1_id: otherUserId, profile2_id: userId },
-	];
-
 	const user = await client.profile.findUnique({
 		where: { id: userId },
-		select: {
-			name: true,
-			surname: true,
-		}
+		select: { name: true, surname: true },
 	});
 
 	const fullName = user ? `${user.name} ${user.surname}` : "Користувач";
 
-	for (const where of pairs) {
-		const result = await friendshipService.deleteFriendship(where);
+	const deletedFriendship = await friendshipService.deleteFriendship(
+		userId,
+		otherUserId
+	);
 
-		if (result.status === "success") {
-
-			const senderSocket = userSockets.get(otherUserId);
-			if (senderSocket) {
-				senderSocket.emit("friendRequestDeclined", {
-					requestId: otherUserId,
-					message: `Користувач ${fullName} відхилив ваш запит на дружбу.`,
-				});
-			}
-			res.json(result.data);
-		}
+	if (!deletedFriendship) {
+		res.json({ error: "Friendship not found" });
 	}
-	res.send("error")
+
+	const senderSocket = userSockets.get(otherUserId);
+	if (senderSocket) {
+		senderSocket.emit("friendRequestDeclined", {
+			requestId: otherUserId,
+			message: `Користувач ${fullName} відхилив ваш запит на дружбу.`,
+		});
+	}
+
+	res.json({ success: true });
 }
 
 const friendshipController = {
