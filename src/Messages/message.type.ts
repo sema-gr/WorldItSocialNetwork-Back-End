@@ -5,6 +5,7 @@ export type Message = Prisma.ChatMessageGetPayload<{}>
 export type MessageWhereUnique = Prisma.ChatMessageWhereUniqueInput
 export type CreateMessage = Prisma.ChatMessageUncheckedCreateInput
 export type MessageInclude = Prisma.ChatMessageInclude
+export type DeletedMessagesInfo = { deletedCount: number };
 
 export type MessagePayload = Omit<Message, "id" | "chatAsLastMessageId">
 

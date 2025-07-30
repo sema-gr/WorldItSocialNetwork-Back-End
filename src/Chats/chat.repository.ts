@@ -87,6 +87,6 @@ async function getChat(where: WhereChat) {
 const chatRepository = {
     createChat,
     getChat,
-    getAllChats
+    getAllChats,
 }
 export default chatRepository

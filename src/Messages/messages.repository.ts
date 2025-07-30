@@ -26,9 +26,9 @@ async function getMessage(where: MessageWhereUnique) {
             where: where,
         })
         return message
-    }catch(error){
-        if (error instanceof Prisma.PrismaClientKnownRequestError){
-            if (error.code in Object.keys(errors)){
+    } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code in Object.keys(errors)) {
                 const errorKey: keyof IErrors = error.code
                 console.log(errors[errorKey])
             }
@@ -36,8 +36,17 @@ async function getMessage(where: MessageWhereUnique) {
     }
 }
 
+async function deleteAllMessagesFromChat(chatId: number) {
+    const result = await client.chatMessage.deleteMany({
+        where: { chat_groupId: chatId },
+    });
+
+    return { deletedCount: result.count };
+}
+
 const messageRepository = {
     createMessage,
-    getMessage
+    getMessage,
+    deleteAllMessagesFromChat
 }
 export default messageRepository

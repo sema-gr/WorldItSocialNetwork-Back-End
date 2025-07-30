@@ -24,5 +24,5 @@ async function createChat(req: Request, res: Response){
 export const chatController = {
     createChat,
     getChat,
-    getChats
+    getChats,
 }

@@ -1,5 +1,6 @@
+import { Chat } from "../Chats/chat.type";
 import { IError, IOk, IOkWithData } from "../types/types";
-import { CreateMessage, Message } from "./message.type";
+import { CreateMessage, DeletedMessagesInfo, Message } from "./message.type";
 import messageRepository from "./messages.repository";
 
 
@@ -19,7 +20,17 @@ async function getMessage(id: number): Promise<IOkWithData<Message> | IError> {
     return { status: "success", data: result }
 }
 
+async function deleteAllMessagesFromChat(id: number): Promise<IOkWithData<DeletedMessagesInfo> | IError> {
+    try {
+        const result = await messageRepository.deleteAllMessagesFromChat(id);
+        return { status: "success", data: result };
+    } catch (error) {
+        return { status: "error", message: "Не вдалося видалити повідомлення" };
+    }
+}
+
 export const messageService = {
     createMessage,
     getMessage,
+    deleteAllMessagesFromChat
 }

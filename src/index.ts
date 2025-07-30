@@ -8,6 +8,7 @@ import path from 'path';
 import friendshipRouter from './friendshipApp/friendshipRouter';
 import { createServer } from 'http';
 import { initSocketServer } from './socket';
+import messageRouter from './Messages/message.router';
 
 const app: Express = express();
 const httpServer = createServer(app)
@@ -33,6 +34,8 @@ app.use('/uploads', express.static(path.join(__dirname, '..', 'public', 'uploads
 app.use("/friendship", friendshipRouter)
 
 app.use("/chats", chatsRouter)
+
+app.use("/messages", messageRouter)
 
 
 httpServer.listen(PORT, HOST, () => {

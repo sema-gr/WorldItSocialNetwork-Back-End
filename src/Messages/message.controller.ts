@@ -21,8 +21,20 @@ async function getMessage(req: Request, res: Response) {
     res.json(result);
 }
 
+async function deleteAllMessagesFromChat(req: Request, res: Response) {
+    let id = req.params.id;
+    const result = await messageService.deleteAllMessagesFromChat(+id);
+    if (result.status == "error") {
+        res.json("error");
+    } else {
+        res.json(result.data);
+        console.log("Message deleted successfully");
+    }
+}
+
 
 export const messageController = {
     getMessage,
     createMessage,
+    deleteAllMessagesFromChat
 }

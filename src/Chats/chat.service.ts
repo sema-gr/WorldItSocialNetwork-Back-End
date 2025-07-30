@@ -58,10 +58,11 @@ async function saveMessage(data: MessagePayload) {
   }
 }
 
+
 export const chatService = {
     createChat,
     getChat,
     joinChat,
     getChats,
-    saveMessage
+    saveMessage,
 }
