@@ -1,3 +1,11 @@
+## [1.2.1](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.2.0...v1.2.1) (2025-12-12)
+
+
+### Bug Fixes
+
+* did prettier:check for changelog ([afaed11](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/afaed114b6bab601450a428f461c84e1621bb6da))
+* update dockerfile for railway ([9309dec](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/9309decc9e61ee91ae7959e83257109bc86c7c3c))
+
 # [1.2.0](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.1.0...v1.2.0) (2025-12-12)
 
 ### Bug Fixes
