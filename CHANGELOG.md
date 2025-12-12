@@ -1,3 +1,17 @@
+## [1.2.3](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.2.2...v1.2.3) (2025-12-12)
+
+
+### Bug Fixes
+
+* added script postinstall for railway ([c495b6d](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/c495b6da9895330ab6ee03faa28320f513f49093))
+* change docker file ([97fab55](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/97fab555084879f9871e542df829f020c31e4e9e))
+* change prisma located ([3f8d53f](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/3f8d53f16e9540b90ed7627ca662cd4b27f1c6cd))
+* change prisma place back ([fda42fd](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/fda42fd604400eed785c25c7a87ff5a55713e6ea))
+* import repository in user, album and post ([5575c36](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/5575c36616fa0594596d848b5da301a10c1eb1c3))
+* update import in repository ([05ac6ce](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/05ac6ce05dd9bd889df8075f93d60ded4af8b248))
+* update place generated prisma, fix import prismaClient ([b0c60fa](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/b0c60fa8cb664377e0cbbd35d441f16c682adc8c))
+* update release ([cabef6d](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/cabef6db12018da6e65067a010fd43fd1cede38d))
+
 ## [1.2.2](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.2.1...v1.2.2) (2025-12-12)
 
 ### Bug Fixes
