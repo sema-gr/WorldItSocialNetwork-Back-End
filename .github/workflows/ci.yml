@@ -49,7 +49,9 @@ jobs:
               run: bun run build
 
             - name: Copy generated Prisma client to dist
-              run: powershell -Command "New-Item -ItemType Directory -Force dist/generated | Out-Null; Copy-Item -Recurse -Force src/generated/* dist/generated"
+              run: |
+                  mkdir -p dist/generated
+                  cp -r src/generated/* dist/generated/
 
             - name: Login to GHCR
               uses: docker/login-action@v3
