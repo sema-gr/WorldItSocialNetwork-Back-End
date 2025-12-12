@@ -12,7 +12,7 @@ RUN bunx prisma generate
 
 RUN bun run build
 
-RUN powershell -Command "New-Item -ItemType Directory -Force dist/generated | Out-Null; Copy-Item -Recurse -Force src/generated/* dist/generated" || true
+RUN mkdir -p dist/generated && cp -r src/generated/* dist/generated
 
 EXPOSE 3000
 
