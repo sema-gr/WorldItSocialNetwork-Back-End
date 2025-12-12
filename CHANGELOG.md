@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.0.0...v1.1.0) (2025-12-12)
+
+
+### Features
+
+* update Dockerfile to use Bun as the runtime and adjust installation commands ([c9c6013](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/c9c6013bdaeed5c4872034f9e403dcecaee53ba6))
+* update README to reflect Bun as the runtime and adjust installation scripts ([34d9d0a](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/34d9d0a56451d45689d78f89541554cc88b8bff5))
+
 # 1.0.0 (2025-12-05)
 
 ### Bug Fixes
