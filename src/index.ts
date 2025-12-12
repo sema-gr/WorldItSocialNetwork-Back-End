@@ -14,8 +14,9 @@ const app: Express = express();
 const httpServer = createServer(app);
 initSocketServer(httpServer);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const HOST = "0.0.0.0";
+
 export const API_BASE_URL = `http://${HOST}:${PORT}`;
 
 app.use(express.json({ limit: "50mb" }));
@@ -40,6 +41,6 @@ app.use("/chats", chatsRouter);
 
 app.use("/messages", messageRouter);
 
-httpServer.listen(PORT, HOST, () => {
-	console.log(`server is running at http://localhost:${PORT}`);
+httpServer.listen(Number(PORT), HOST, () => {
+	console.log(`server is running on port ${PORT}`);
 });
