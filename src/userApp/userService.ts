@@ -8,6 +8,7 @@ import nodemailer from "nodemailer";
 import path from "path";
 import fs from "fs/promises";
 import { API_BASE_URL } from "..";
+import bcrypt from "bcryptjs";
 
 const emailCodes = new Map<string, { code: string; expiresAt: number }>();
 
@@ -27,32 +28,23 @@ async function getUserById(id: number): Promise<IOkWithData<User> | IError> {
 	}
 }
 
-async function login(
-	email: string,
-	password: string,
-): Promise<IOkWithData<string> | IError> {
-	try {
-		const user = await userRepository.findUserByEmail(email);
-
-		if (!user) {
-			return { status: "error", message: "User not found" };
-		}
-		if (typeof user === "string") {
-			return { status: "error", message: user };
-		}
-		if (password !== user.password) {
-			return { status: "error", message: "Passwords didn`t match" };
-		}
-
-		const token = sign({ id: user.id }, SECRET_KEY, { expiresIn: "7d" });
-
-		return { status: "success", data: token };
-	} catch (err) {
-		if (err instanceof Error) {
-			return { status: "error", message: err.message };
-		}
-		return { status: "error", message: "Internal server error" };
+async function login(email: string, password: string) {
+	const user = await userRepository.findUserByEmail(email);
+	if (!user) {
+		return { status: "error", message: "User not found" };
 	}
+	console.log(user);
+	console.log("Password from DB:", user.password);
+	console.log("Password input:", password);
+
+	const isMatch = await bcrypt.compare(password, user.password);
+	if (!isMatch) {
+		return { status: "error", message: "Passwords didn't match" };
+	}
+
+	const token = sign({ id: user.id }, SECRET_KEY, { expiresIn: "7d" });
+
+	return { status: "success", data: token };
 }
 
 async function registration(
@@ -95,6 +87,8 @@ async function registration(
 }
 
 async function sendEmail(email: string) {
+	const normalizedEmail = email.trim().toLowerCase();
+
 	const generateCode = () => {
 		return Math.floor(100000 + Math.random() * 900000).toString();
 	};
@@ -102,21 +96,21 @@ async function sendEmail(email: string) {
 	const code = generateCode();
 	const expiresAt = Date.now() + 10 * 60 * 1000;
 
-	emailCodes.set(email, { code, expiresAt });
+	emailCodes.set(normalizedEmail, { code, expiresAt });
 
 	const transporter = nodemailer.createTransport({
 		service: "gmail",
 		auth: {
-			user: "honcharovstallker@gmail.com",
-			pass: "qxja qfuk urdy qihr",
+			user: process.env.EMAIL_USER,
+			pass: process.env.EMAIL_PASS,
 		},
 	});
 
 	const mailOptions = {
-		from: "chitchatbyteam1@gmail.com",
+		from: process.env.EMAIL_FROM || "chitchatbyteam1@gmail.com",
 		to: email,
 		subject: "Код подтверждения",
-		text: code,
+		text: `Ваш код підтвердження: ${code}`,
 	};
 
 	try {
