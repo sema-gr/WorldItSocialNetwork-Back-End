@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.1.0...v1.2.0) (2025-12-12)
+
+
+### Bug Fixes
+
+* update ci for deploy ([ed4ef04](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/ed4ef0413d43db2da34fe761a7df83fa497c782c))
+
+
+### Features
+
+* add step to copy generated Prisma client to dist directory ([f336023](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/f3360232397675e2d0fd0e56c05e36948c29cc73))
+
 # [1.1.0](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.0.0...v1.1.0) (2025-12-12)
 
 ### Features
