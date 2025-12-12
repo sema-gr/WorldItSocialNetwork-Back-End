@@ -33,9 +33,6 @@ async function login(email: string, password: string) {
 	if (!user) {
 		return { status: "error", message: "User not found" };
 	}
-	console.log(user);
-	console.log("Password from DB:", user.password);
-	console.log("Password input:", password);
 
 	const isMatch = await bcrypt.compare(password, user.password);
 	if (!isMatch) {

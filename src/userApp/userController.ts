@@ -9,7 +9,6 @@ async function sendCode(req: Request, res: Response) {
 
 async function loginUser(req: Request, res: Response) {
 	const data = req.body;
-	console.error(1);
 	const result = await userService.login(data.email, data.password);
 	res.json(result);
 }

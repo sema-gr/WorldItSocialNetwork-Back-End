@@ -2,8 +2,8 @@
 	"name": "chitchatbackend",
 	"main": "index.js",
 	"scripts": {
-		"start": "bun dist/index.js",
-		"dev": "bun run src/index.ts",
+		"start": "bun src/index.ts",
+		"dev": "bun run dist/index.ts",
 		"build": "tsc",
 		"prisma:generate": "prisma generate",
 		"test": "echo \"No tests specified\" && exit 0",
