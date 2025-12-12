@@ -5,6 +5,7 @@
 		"start": "bun dist/index.js",
 		"dev": "bun run src/index.ts",
 		"build": "tsc",
+		"prisma:generate": "prisma generate",
 		"test": "echo \"No tests specified\" && exit 0",
 		"prisma:format": "prisma/schema format",
 		"prisma:migrate": "prisma migrate dev",
@@ -55,6 +56,9 @@
 		"semantic-release": "^24.2.9",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.8.3"
+	},
+	"prisma": {
+		"schema": "./prisma"
 	},
 	"version": "1.2.2"
 }
