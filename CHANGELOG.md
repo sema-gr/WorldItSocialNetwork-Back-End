@@ -1,3 +1,11 @@
+## [1.2.2](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.2.1...v1.2.2) (2025-12-12)
+
+
+### Bug Fixes
+
+* fixed index.ts ([dfe2e12](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/dfe2e127f0f01a0d34d1a76eab83e1f96bfaf085))
+* forgot prettier ([c2d2454](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/c2d24547a2a2976b4d8361a7cddbe8b6c51421de))
+
 ## [1.2.1](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.2.0...v1.2.1) (2025-12-12)
 
 ### Bug Fixes
