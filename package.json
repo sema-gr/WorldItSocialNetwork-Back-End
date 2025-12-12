@@ -4,6 +4,7 @@
 	"scripts": {
 		"start": "bun dist/index.js",
 		"dev": "bun run src/index.ts",
+		"postinstall": "prisma generate",
 		"build": "tsc",
 		"test": "echo \"No tests specified\" && exit 0",
 		"prisma:format": "prisma/schema format",
