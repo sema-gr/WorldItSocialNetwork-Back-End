@@ -48,11 +48,6 @@ jobs:
             - name: Build project
               run: bun run build
 
-            - name: Copy generated Prisma client to dist
-              run: |
-                  mkdir -p dist/generated
-                  cp -r src/generated/* dist/generated/
-
             - name: Login to GHCR
               uses: docker/login-action@v3
               with:

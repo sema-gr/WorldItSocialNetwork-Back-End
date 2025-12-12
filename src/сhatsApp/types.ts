@@ -1,4 +1,4 @@
-import { Prisma } from "../generated/prisma";
+import { Prisma } from "@prisma/client";
 import { IOkWithData } from "../types/types";
 
 export type Chat = Prisma.ChatGroupGetPayload<{
