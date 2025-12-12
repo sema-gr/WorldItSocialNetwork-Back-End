@@ -1,6 +1,6 @@
+import { Prisma } from "@prisma/client";
 import prisma from "../client/prismaClient";
-import { Prisma } from "../generated/prisma/client";
-import { CreatePost, Post } from "./types";
+import { CreatePost } from "./types";
 
 async function getPosts() {
 	try {

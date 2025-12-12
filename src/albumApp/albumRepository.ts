@@ -1,6 +1,6 @@
+import { Prisma } from "@prisma/client";
 import prisma from "../client/prismaClient";
-import { Prisma } from "../generated/prisma/client";
-import { CreateAlbum, CreateAlbumBody, UpdateAlbum } from "./types";
+import { CreateAlbum, UpdateAlbum } from "./types";
 
 async function getAlbums() {
 	try {

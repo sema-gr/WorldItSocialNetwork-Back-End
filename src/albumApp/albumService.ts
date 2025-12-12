@@ -3,8 +3,6 @@ import {
 	Album,
 	CreateAlbum,
 	UpdateAlbum,
-	CreateAlbumData,
-	CreateAlbumBody,
 	AlbumCorrect,
 	AlbumUpdateBody,
 } from "./types";
