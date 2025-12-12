@@ -1,7 +1,6 @@
 import client from "../client/prismaClient";
 import { MessagePayload } from "../messagesApp/types";
-
-import { IError, IOk, IOkWithData } from "../types/types";
+import { IError, IOkWithData } from "../types/types";
 import chatRepository from "./chatRepository";
 import { Chat, CorrectChatForCreate, CreateChat } from "./types";
 

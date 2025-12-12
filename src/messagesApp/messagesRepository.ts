@@ -1,4 +1,4 @@
-import { Prisma } from "../generated/prisma";
+import { Prisma } from "@prisma/client";
 import client from "../client/prismaClient";
 import { errors, IErrors } from "../config/errorCodes";
 import { CreateMessage, MessageWhereUnique } from "./types";

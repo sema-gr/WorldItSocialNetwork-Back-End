@@ -1,6 +1,6 @@
+import { Prisma } from "@prisma/client";
 import client from "../client/prismaClient";
 import { IErrors, errors } from "../config/errorCodes";
-import { Prisma } from "../generated/prisma";
 import { CreateUser, UpdateUser } from "./types";
 
 async function findUserByEmail(email: string) {
