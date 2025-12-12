@@ -1,3 +1,11 @@
+## [1.2.4](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.2.3...v1.2.4) (2025-12-12)
+
+
+### Bug Fixes
+
+* changelog ([90f62b6](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/90f62b6e32da572e801fba16a469baf8f7c64f0c))
+* login ([053bdfc](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/053bdfc318f9bf0fe0481dfc8d6f6d15d04eae1f))
+
 ## [1.2.3](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.2.2...v1.2.3) (2025-12-12)
 
 ### Bug Fixes
