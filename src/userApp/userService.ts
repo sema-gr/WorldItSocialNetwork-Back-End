@@ -86,42 +86,42 @@ async function registration(
 async function sendEmail(email: string) {
 	const normalizedEmail = email.trim().toLowerCase();
 
-	const generateCode = () => {
-		return Math.floor(100000 + Math.random() * 900000).toString();
-	};
-
-	const code = generateCode();
+	const code = Math.floor(100000 + Math.random() * 900000).toString();
 	const expiresAt = Date.now() + 10 * 60 * 1000;
 
 	emailCodes.set(normalizedEmail, { code, expiresAt });
 
 	const transporter = nodemailer.createTransport({
-		service: "gmail",
+		host: "smtp.gmail.com",
+		port: 587,
+		secure: false,
 		auth: {
 			user: process.env.EMAIL_USER,
 			pass: process.env.EMAIL_PASS,
 		},
+		connectionTimeout: 10000,
 	});
 
-	const mailOptions = {
-		from: process.env.EMAIL_FROM || "chitchatbyteam1@gmail.com",
-		to: email,
-		subject: "Код подтверждения",
-		text: `Ваш код підтвердження: ${code}`,
-	};
-
 	try {
-		const info = await transporter.sendMail(mailOptions);
-		console.log("Письмо отправлено:", info.response, " Код:", code);
-		return { success: true, code };
+		await transporter.verify();
+
+		await transporter.sendMail({
+			from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
+			to: normalizedEmail,
+			subject: "Код подтверждения",
+			text: `Ваш код підтвердження: ${code}`,
+		});
+
+		return { success: true };
 	} catch (err) {
-		console.error("Ошибка отправки:", err);
+		console.error("Mail error:", err);
 		return { status: "error", message: "Не удалось отправить письмо" };
 	}
 }
 
 function verifyCode(email: string, userInputCode: string) {
-	const storedData = emailCodes.get(email);
+	const normalizedEmail = email.trim().toLowerCase();
+	const storedData = emailCodes.get(normalizedEmail);
 
 	if (!storedData) {
 		return { status: "error", message: "Код не найден или устарел" };
@@ -129,11 +129,8 @@ function verifyCode(email: string, userInputCode: string) {
 
 	const { code, expiresAt } = storedData;
 
-	console.log(code, "/", userInputCode);
-
 	if (Date.now() > expiresAt) {
-		emailCodes.delete(email);
-		console.log(emailCodes);
+		emailCodes.delete(normalizedEmail);
 		return { status: "error", message: "Код истёк" };
 	}
 
@@ -141,7 +138,7 @@ function verifyCode(email: string, userInputCode: string) {
 		return { status: "error", message: "Невірний код!" };
 	}
 
-	emailCodes.delete(email);
+	emailCodes.delete(normalizedEmail);
 	return { success: true };
 }
 
