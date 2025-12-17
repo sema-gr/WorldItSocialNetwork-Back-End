@@ -81,9 +81,9 @@ jobs:
                   node-version: "24"
 
             - name: Install dependencies (for semantic-release only)
-              run: npm ci
+              run: bun ci
 
             - name: Run semantic-release
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: npm run release
+              run: bun run release
