@@ -1,9 +1,8 @@
 ## [1.2.5](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.2.4...v1.2.5) (2025-12-17)
 
-
 ### Bug Fixes
 
-* delete db ([7e6b6a5](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/7e6b6a5ec2709ab2b45ca1b543766810acc0b3ef))
+- delete db ([7e6b6a5](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/7e6b6a5ec2709ab2b45ca1b543766810acc0b3ef))
 
 ## [1.2.4](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.2.3...v1.2.4) (2025-12-12)
 
