@@ -2,7 +2,7 @@
 	"name": "chitchatbackend",
 	"main": "index.js",
 	"scripts": {
-		"start": "bun src/index.ts",
+		"start": "bun --watch src/index.ts",
 		"dev": "bun run dist/index.ts",
 		"build": "tsc",
 		"prisma:generate": "prisma generate",

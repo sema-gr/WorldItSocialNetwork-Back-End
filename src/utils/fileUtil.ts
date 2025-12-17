@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
 
-const UPLOAD_DIR = path.join(__dirname, "../public/uploads/");
+const UPLOAD_DIR = path.join(__dirname, "../../public/uploads");
 
 async function saveBase64Image(base64: string): Promise<string> {
 	const matches = base64.match(/^data:image\/(\w+);base64,(.+)$/);

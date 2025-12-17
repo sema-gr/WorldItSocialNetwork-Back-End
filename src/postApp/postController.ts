@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import postService from "./postService";
 import { saveBase64Image } from "../utils/fileUtil";
-import { CreatePost, CreatePostBody } from "./types";
+import { CreatePostBody } from "./types";
 
 async function getPosts(req: Request, res: Response) {
 	const result = await postService.getPosts();
