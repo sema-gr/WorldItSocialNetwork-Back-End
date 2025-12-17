@@ -75,13 +75,11 @@ jobs:
               with:
                   fetch-depth: 0
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: "24"
+            - name: Install Bun
+              uses: oven-sh/setup-bun@v1
 
             - name: Install dependencies (for semantic-release only)
-              run: bun ci
+              run: bun install
 
             - name: Run semantic-release
               env:
