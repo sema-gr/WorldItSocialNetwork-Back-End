@@ -1,15 +1,13 @@
 # [1.3.0](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.2.5...v1.3.0) (2025-12-17)
 
-
 ### Bug Fixes
 
-* change ci ([e34db7c](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/e34db7ca8525bf4faaa6f9c37efe59cccd9400e6))
-* delete package-lock ([9ea18da](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/9ea18dacd84ff7362895d9bd717c29df92eebb83))
-
+- change ci ([e34db7c](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/e34db7ca8525bf4faaa6f9c37efe59cccd9400e6))
+- delete package-lock ([9ea18da](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/9ea18dacd84ff7362895d9bd717c29df92eebb83))
 
 ### Features
 
-* update sendCode to resend ([3556432](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/3556432d80fa8f31cffc2233c683208227334c58))
+- update sendCode to resend ([3556432](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/3556432d80fa8f31cffc2233c683208227334c58))
 
 ## [1.2.5](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.2.4...v1.2.5) (2025-12-17)
 
