@@ -4,13 +4,14 @@ import { sign } from "jsonwebtoken";
 import { SECRET_KEY } from "../config/token";
 import userRepository from "./userRepository";
 import { CreateUser, UpdateUser, User } from "./types";
-import nodemailer from "nodemailer";
 import path from "path";
 import fs from "fs/promises";
 import { API_BASE_URL } from "..";
 import bcrypt from "bcryptjs";
+import { Resend } from "resend";
 
 const emailCodes = new Map<string, { code: string; expiresAt: number }>();
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 async function getUserById(id: number): Promise<IOkWithData<User> | IError> {
 	try {
@@ -91,30 +92,21 @@ async function sendEmail(email: string) {
 
 	emailCodes.set(normalizedEmail, { code, expiresAt });
 
-	const transporter = nodemailer.createTransport({
-		host: "smtp.gmail.com",
-		port: 587,
-		secure: false,
-		auth: {
-			user: process.env.EMAIL_USER,
-			pass: process.env.EMAIL_PASS,
-		},
-		connectionTimeout: 10000,
-	});
-
 	try {
-		await transporter.verify();
-
-		await transporter.sendMail({
-			from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
+		await resend.emails.send({
+			from: "ChitChat <onboarding@resend.dev>",
 			to: normalizedEmail,
 			subject: "Код подтверждения",
-			text: `Ваш код підтвердження: ${code}`,
+			html: `
+				<p>Ваш код підтвердження:</p>
+				<h2>${code}</h2>
+				<p>Код діє 10 хвилин</p>
+			`,
 		});
 
 		return { success: true };
 	} catch (err) {
-		console.error("Mail error:", err);
+		console.error("Resend error:", err);
 		return { status: "error", message: "Не удалось отправить письмо" };
 	}
 }
