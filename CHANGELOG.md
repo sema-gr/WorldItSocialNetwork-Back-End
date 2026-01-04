@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.3.0...v1.3.1) (2025-12-17)
+
+
+### Bug Fixes
+
+* image ([ec6445f](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/ec6445faa55309092115a60fe78d7873d93d663a))
+
 # [1.3.0](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.2.5...v1.3.0) (2025-12-17)
 
 ### Bug Fixes
