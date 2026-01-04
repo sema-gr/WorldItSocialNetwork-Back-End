@@ -142,17 +142,43 @@ function saveCode(email: string, code: string) {
 }
 
 async function updateUserById(
-	data: UpdateUser,
+	data: UpdateUser & { oldPassword?: string; newPassword?: string },
 	id: number,
 ): Promise<IOkWithData<UpdateUser> | IError> {
 	const createdImageFilename: string[] = [];
-	try {
-		const uploadDir = path.join(__dirname, "..", "..", "public", "uploads");
+	const uploadDir = path.join(__dirname, "..", "..", "public", "uploads");
 
+	try {
 		await fs.mkdir(uploadDir, { recursive: true });
 
 		let updateData = { ...data };
 
+		if (data.oldPassword && data.newPassword) {
+			const existingUser = await userRepository.getUserById(id);
+			if (!existingUser) {
+				return { status: "error", message: "Користувача не знайдено" };
+			}
+
+			const isPasswordCorrect = await bcrypt.compare(
+				data.oldPassword,
+				existingUser.password,
+			);
+			if (!isPasswordCorrect) {
+				return {
+					status: "error",
+					message: "Старий пароль неправильний",
+				};
+			}
+
+			const salt = await bcrypt.genSalt(10);
+			const hashedNewPassword = await bcrypt.hash(data.newPassword, salt);
+
+			updateData.password = hashedNewPassword;
+			delete updateData.oldPassword;
+			delete updateData.newPassword;
+		}
+
+		// Обробка зображення
 		if (
 			updateData.image &&
 			typeof updateData.image === "string" &&
@@ -205,6 +231,7 @@ async function updateUserById(
 				};
 			}
 		}
+		console.log("Update data:", updateData);
 
 		const user = await userRepository.updateUserById(updateData, id);
 
@@ -221,9 +248,6 @@ async function updateUserById(
 				.replace(/\\/g, "/");
 			user.image = `${API_BASE_URL}/uploads/${relativeUrl}`;
 		}
-		console.log("beeeeeeeeeeeee");
-		console.log(user);
-		console.log("beeeeeeeeeeeee");
 
 		return { status: "success", data: user };
 	} catch (err) {
