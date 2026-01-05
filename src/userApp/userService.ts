@@ -8,10 +8,30 @@ import path from "path";
 import fs from "fs/promises";
 import { API_BASE_URL } from "..";
 import bcrypt from "bcryptjs";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
+import { env } from "process";
 
 const emailCodes = new Map<string, { code: string; expiresAt: number }>();
-const resend = new Resend(process.env.RESEND_API_KEY);
+
+const transporter = nodemailer.createTransport({
+	service: "gmail",
+	auth: {
+		user: env.EMAIL_USER,
+		pass: env.EMAIL_PASS,
+	},
+});
+
+setInterval(
+	() => {
+		const now = Date.now();
+		for (const [email, data] of emailCodes.entries()) {
+			if (now > data.expiresAt) {
+				emailCodes.delete(email);
+			}
+		}
+	},
+	10 * 60 * 1000,
+);
 
 async function getUserById(id: number): Promise<IOkWithData<User> | IError> {
 	try {
@@ -85,29 +105,25 @@ async function registration(
 }
 
 async function sendEmail(email: string) {
-	const normalizedEmail = email.trim().toLowerCase();
-
-	const code = Math.floor(100000 + Math.random() * 900000).toString();
-	const expiresAt = Date.now() + 10 * 60 * 1000;
-
-	emailCodes.set(normalizedEmail, { code, expiresAt });
-
 	try {
-		await resend.emails.send({
-			from: "ChitChat <onboarding@resend.dev>",
-			to: normalizedEmail,
-			subject: "Код подтверждения",
+		const code = Math.floor(100000 + Math.random() * 900000).toString();
+		saveCode(email, code);
+		await transporter.sendMail({
+			from: `"ChitChat Support" <${env.EMAIL_USER}>`,
+			to: email,
+			subject: "Код підтвердження",
 			html: `
-				<p>Ваш код підтвердження:</p>
-				<h2>${code}</h2>
-				<p>Код діє 10 хвилин</p>
-			`,
+                <div style="font-family: Arial, sans-serif; border: 1px solid #eee; padding: 20px;">
+                    <h2 style="color: #543C52;">Ваш код підтвердження</h2>
+                    <p style="font-size: 24px; font-weight: bold; letter-spacing: 2px;">${code}</p>
+                    <p style="color: #666;">Код діє 5 хвилин. Не передавайте його нікому.</p>
+                </div>
+            `,
 		});
-
 		return { success: true };
 	} catch (err) {
-		console.error("Resend error:", err);
-		return { status: "error", message: "Не удалось отправить письмо" };
+		console.error("Nodemailer error:", err);
+		return { success: false, message: "Помилка відправки пошти" };
 	}
 }
 
