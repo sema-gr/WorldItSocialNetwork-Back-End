@@ -1,10 +1,9 @@
 ## [1.3.2](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.3.1...v1.3.2) (2026-01-04)
 
-
 ### Bug Fixes
 
-* enhance updateUserById to handle password changes and improve error messages ([91cbfe5](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/91cbfe5349ba8e7fdc0050a5974e114defc78839))
-* remove unnecessary blank line in CHANGELOG.md ([ac8cd55](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/ac8cd556c7bc000dc70008c6f669c9291ac96d96))
+- enhance updateUserById to handle password changes and improve error messages ([91cbfe5](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/91cbfe5349ba8e7fdc0050a5974e114defc78839))
+- remove unnecessary blank line in CHANGELOG.md ([ac8cd55](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/ac8cd556c7bc000dc70008c6f669c9291ac96d96))
 
 ## [1.3.1](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.3.0...v1.3.1) (2025-12-17)
 
