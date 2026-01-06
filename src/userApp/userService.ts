@@ -14,10 +14,11 @@ import { env } from "process";
 const emailCodes = new Map<string, { code: string; expiresAt: number }>();
 
 const transporter = nodemailer.createTransport({
-	service: "gmail",
+	host: "smtp.sendgrid.net",
+	port: 587,
 	auth: {
-		user: env.EMAIL_USER,
-		pass: env.EMAIL_PASS,
+		user: "apikey",
+		pass: env.SENDGRID_API_KEY,
 	},
 });
 
@@ -108,21 +109,25 @@ async function sendEmail(email: string) {
 	try {
 		const code = Math.floor(100000 + Math.random() * 900000).toString();
 		saveCode(email, code);
+
 		await transporter.sendMail({
-			from: `"ChitChat Support" <${env.EMAIL_USER}>`,
+			from: `"ChitChat Support" <${env.SENDGRID_FROM}>`,
 			to: email,
 			subject: "Код підтвердження",
 			html: `
-                <div style="font-family: Arial, sans-serif; border: 1px solid #eee; padding: 20px;">
-                    <h2 style="color: #543C52;">Ваш код підтвердження</h2>
-                    <p style="font-size: 24px; font-weight: bold; letter-spacing: 2px;">${code}</p>
-                    <p style="color: #666;">Код діє 5 хвилин. Не передавайте його нікому.</p>
-                </div>
-            `,
+        <div style="font-family: Arial, sans-serif; border: 1px solid #eee; padding: 20px;">
+          <h2 style="color: #543C52;">Ваш код підтвердження</h2>
+          <p style="font-size: 24px; font-weight: bold; letter-spacing: 2px;">
+            ${code}
+          </p>
+          <p style="color: #666;">Код діє 5 хвилин. Не передавайте його нікому.</p>
+        </div>
+      `,
 		});
+
 		return { success: true };
 	} catch (err) {
-		console.error("Nodemailer error:", err);
+		console.error("SendGrid error:", err);
 		return { success: false, message: "Помилка відправки пошти" };
 	}
 }
