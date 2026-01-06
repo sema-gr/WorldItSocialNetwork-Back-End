@@ -1,9 +1,8 @@
 ## [1.3.5](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.3.4...v1.3.5) (2026-01-06)
 
-
 ### Bug Fixes
 
-* remove unnecessary blank line in CHANGELOG.md ([a73fa80](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/a73fa808f3c274d0a6ba39e2079206884d2b5d3a))
+- remove unnecessary blank line in CHANGELOG.md ([a73fa80](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/a73fa808f3c274d0a6ba39e2079206884d2b5d3a))
 
 ## [1.3.4](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.3.3...v1.3.4) (2026-01-06)
 
