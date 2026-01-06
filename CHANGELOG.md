@@ -1,3 +1,11 @@
+## [1.3.3](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.3.2...v1.3.3) (2026-01-05)
+
+
+### Bug Fixes
+
+* remove unnecessary blank line in CHANGELOG.md ([5166d2d](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/5166d2de9ae4101755c4fa8552ca18c57a37f67d))
+* replace Resend with Nodemailer for email sending and improve email content ([d8ae481](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/d8ae481c7ed2ad7d8f5fc42817fd76e742d12d63))
+
 ## [1.3.2](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.3.1...v1.3.2) (2026-01-04)
 
 ### Bug Fixes
