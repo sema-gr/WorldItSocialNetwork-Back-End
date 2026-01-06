@@ -8,19 +8,12 @@ import path from "path";
 import fs from "fs/promises";
 import { API_BASE_URL } from "..";
 import bcrypt from "bcryptjs";
-import nodemailer from "nodemailer";
+import sgMail from "@sendgrid/mail";
 import { env } from "process";
 
 const emailCodes = new Map<string, { code: string; expiresAt: number }>();
 
-const transporter = nodemailer.createTransport({
-	host: "smtp.sendgrid.net",
-	port: 587,
-	auth: {
-		user: "apikey",
-		pass: env.SENDGRID_API_KEY,
-	},
-});
+sgMail.setApiKey(env.SENDGRID_API_KEY!);
 
 setInterval(
 	() => {
@@ -110,9 +103,12 @@ async function sendEmail(email: string) {
 		const code = Math.floor(100000 + Math.random() * 900000).toString();
 		saveCode(email, code);
 
-		await transporter.sendMail({
-			from: `"ChitChat Support" <${env.SENDGRID_FROM}>`,
+		await sgMail.send({
 			to: email,
+			from: {
+				email: env.SENDGRID_FROM!,
+				name: "ChitChat Support",
+			},
 			subject: "Код підтвердження",
 			html: `
         <div style="font-family: Arial, sans-serif; border: 1px solid #eee; padding: 20px;">
@@ -127,7 +123,7 @@ async function sendEmail(email: string) {
 
 		return { success: true };
 	} catch (err) {
-		console.error("SendGrid error:", err);
+		console.error("SendGrid HTTP error:", err);
 		return { success: false, message: "Помилка відправки пошти" };
 	}
 }
