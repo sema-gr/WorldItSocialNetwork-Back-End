@@ -1,10 +1,9 @@
 ## [1.3.4](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.3.3...v1.3.4) (2026-01-06)
 
-
 ### Bug Fixes
 
-* remove unnecessary blank line in CHANGELOG.md ([1238e79](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/1238e79d7aeae5e513bd0f8f990f10fc56471221))
-* update email transport configuration to use SendGrid and improve email content formatting ([f0fcfef](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/f0fcfefffb700f267ee972b7489f361385f768c3))
+- remove unnecessary blank line in CHANGELOG.md ([1238e79](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/1238e79d7aeae5e513bd0f8f990f10fc56471221))
+- update email transport configuration to use SendGrid and improve email content formatting ([f0fcfef](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/f0fcfefffb700f267ee972b7489f361385f768c3))
 
 ## [1.3.3](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.3.2...v1.3.3) (2026-01-05)
 
