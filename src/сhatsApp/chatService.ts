@@ -7,19 +7,32 @@ import { Chat, CorrectChatForCreate, CreateChat } from "./types";
 async function createChat(
 	data: CreateChat,
 ): Promise<IOkWithData<CorrectChatForCreate> | IError> {
-	const existingChat = await client.chatGroup.findFirst({
-		where: { name: data.name },
-		include: {
-			members: true,
-		},
-	});
+	try {
+		if (data.is_personal_chat && data.members?.length) {
+			const memberIds = data.members.map((m) => m.id);
 
-	const result = await chatRepository.createChat(data);
+			const existingChat = await client.chatGroup.findFirst({
+				where: {
+					is_personal_chat: true,
+					members: {
+						every: {
+							profile_id: { in: memberIds },
+						},
+					},
+				},
+				include: { members: true, admin: true },
+			});
 
-	if (!result) {
-		return { status: "error", message: "Error" };
+			if (existingChat) {
+				return { status: "success", data: existingChat };
+			}
+		}
+
+		const chat = await chatRepository.createChat(data);
+		return { status: "success", data: chat };
+	} catch {
+		return { status: "error", message: "Cannot create chat" };
 	}
-	return { status: "success", data: result };
 }
 
 async function getChat(id: number): Promise<IOkWithData<Chat> | IError> {
@@ -58,10 +71,20 @@ async function saveMessage(data: MessagePayload) {
 	}
 }
 
+async function deleteChat(id: number): Promise<IOkWithData<Chat> | IError> {
+	const result = await chatRepository.deleteChat({ id });
+	console.log("Deleted chat result:", result);
+	if (!result) {
+		return { status: "error", message: "Error" };
+	}
+	return { status: "success", data: result };
+}
+
 export const chatService = {
 	createChat,
 	getChat,
 	joinChat,
 	getChats,
 	saveMessage,
+	deleteChat,
 };

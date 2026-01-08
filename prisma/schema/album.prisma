@@ -1,29 +1,29 @@
 model Album {
-    id Int @id @default(autoincrement())
-    name String
-    // theme String?
-    // year String?
-    images post_app_album_images[]
-    created_at DateTime @default(now())
-    shown Boolean @default(false)
-    topic post_app_album_tags[]
-    author Profile @relation(fields: [author_id], references: [id])
-    author_id Int
+  id         Int                     @id @default(autoincrement())
+  name       String
+  // theme String?
+  // year String?
+  images     post_app_album_images[]
+  created_at DateTime                @default(now())
+  shown      Boolean                 @default(false)
+  topic      post_app_album_tags[]
+  author     Profile                 @relation(fields: [author_id], references: [id])
+  author_id  Int
 }
 
 model post_app_album_images {
-    id Int @id @default(autoincrement())
-    album_id Int
-    image_id Int
-    album Album @relation(fields: [album_id], references: [id])
-    image Image @relation(fields: [image_id], references: [id])
-    // @@id([album_id, image_id])
+  id       Int   @id @default(autoincrement())
+  album_id Int
+  image_id Int
+  album    Album @relation(fields: [album_id], references: [id])
+  image    Image @relation(fields: [image_id], references: [id])
+  // @@id([album_id, image_id])
 }
 
-model post_app_album_tags { 
-    album_id Int
-    tag_id Int
-    album Album @relation(fields: [album_id], references: [id])
-    tag Tags @relation(fields: [tag_id], references: [id])
-    id Int @id @default(autoincrement())
+model post_app_album_tags {
+  album_id Int
+  tag_id   Int
+  album    Album @relation(fields: [album_id], references: [id])
+  tag      Tags  @relation(fields: [tag_id], references: [id])
+  id       Int   @id @default(autoincrement())
 }

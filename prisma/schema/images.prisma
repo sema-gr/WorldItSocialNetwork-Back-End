@@ -1,15 +1,15 @@
 model Image {
-    id Int @id @default(autoincrement())
-    filename String
-    file String
-    uploaded_at DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  filename    String
+  file        String
+  uploaded_at DateTime @default(now())
 
-    // post UserPost? @relation(fields: [userPostId], references: [id])
-    // userPostId Int?
+  // post UserPost? @relation(fields: [userPostId], references: [id])
+  // userPostId Int?
 
-    // album Album? @relation(fields: [albumId], references: [id])
-    // albumId Int?
+  // album Album? @relation(fields: [albumId], references: [id])
+  // albumId Int?
 
-    album_images post_app_album_images[]
-    PostImages post_app_post_image[]
+  album_images post_app_album_images[]
+  PostImages   post_app_post_image[]
 }

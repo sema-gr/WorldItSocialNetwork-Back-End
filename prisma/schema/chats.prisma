@@ -1,29 +1,35 @@
 model ChatGroup {
-    id Int @id @default(autoincrement())
-    name String
-    is_personal_chat Boolean @default(false)
-    members chat_app_chatgroup_members[]
-    admin Profile @relation("administeredGroup", fields: [admin_id], references: [id])
-    admin_id Int
-    avatar String
-    chat_messages ChatMessage[]
+  id               Int     @id @default(autoincrement())
+  name             String
+  is_personal_chat Boolean @default(false)
+  avatar           String
+
+  admin_id Int
+  admin    Profile @relation("administeredGroup", fields: [admin_id], references: [id], onDelete: Cascade)
+
+  members       chat_app_chatgroup_members[]
+  chat_messages ChatMessage[]
 }
 
 model ChatMessage {
-    id Int @id @default(autoincrement())
-    content String
-    sent_at DateTime @default(now())
-    author Profile @relation(fields: [author_id], references: [id])
-    author_id Int
-    chat_group ChatGroup @relation(fields: [chat_groupId], references: [id])
-    chat_groupId Int
-    attached_image String
+  id             Int      @id @default(autoincrement())
+  content        String
+  sent_at        DateTime @default(now())
+  attached_image String
+
+  author_id Int
+  author    Profile @relation(fields: [author_id], references: [id])
+
+  chat_groupId Int
+  chat_group   ChatGroup @relation(fields: [chat_groupId], references: [id], onDelete: Cascade)
 }
 
 model chat_app_chatgroup_members {
-    chat_groupId Int
-    profile_id Int
-    chat_group ChatGroup @relation(fields: [chat_groupId], references: [id])
-    profile Profile @relation(fields: [profile_id], references: [id])
-    @@id([chat_groupId, profile_id])
+  chat_groupId Int
+  profile_id   Int
+
+  chat_group ChatGroup @relation(fields: [chat_groupId], references: [id], onDelete: Cascade)
+  profile    Profile   @relation(fields: [profile_id], references: [id])
+
+  @@id([chat_groupId, profile_id])
 }

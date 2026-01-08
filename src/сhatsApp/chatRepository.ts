@@ -4,45 +4,30 @@ import { errors, IErrors } from "../config/errorCodes";
 import { Prisma } from "@prisma/client";
 
 async function createChat(data: CreateChat) {
-	try {
-		const correctedData = {
+	const memberIds = [
+		...(data.members?.map((m) => m.id) ?? []),
+		data.admin_id,
+	];
+
+	const uniqueMemberIds = [...new Set(memberIds)];
+
+	return client.chatGroup.create({
+		data: {
 			name: data.name,
 			is_personal_chat: data.is_personal_chat,
-			avatar: data.avatar,
+			avatar: data.avatar || "",
 			admin_id: data.admin_id,
-			members: Array.isArray(data.members)
-				? {
-						create: data.members.map((member) => ({
-							profile_id: member.id,
-						})),
-					}
-				: undefined,
-		};
-
-		const chatGroup = await client.chatGroup.create({
-			data: correctedData,
-			include: {
-				members: true,
-				admin: true,
+			members: {
+				create: uniqueMemberIds.map((id) => ({
+					profile_id: id,
+				})),
 			},
-		});
-
-		return chatGroup;
-	} catch (error) {
-		if (error instanceof Prisma.PrismaClientKnownRequestError) {
-			console.error(
-				`Prisma error code: ${error.code}, message: ${error.message}, meta:`,
-				error.meta,
-			);
-			if (error.code in Object.keys(errors)) {
-				const errorKey: keyof IErrors = error.code;
-				console.error(errors[errorKey]);
-			}
-		} else {
-			console.error("Unexpected error:", error);
-		}
-		throw error;
-	}
+		},
+		include: {
+			members: true,
+			admin: true,
+		},
+	});
 }
 
 async function getAllChats() {
@@ -50,7 +35,11 @@ async function getAllChats() {
 		const chat = await client.chatGroup.findMany({
 			include: {
 				chat_messages: true,
-				members: true,
+				members: {
+					include: {
+						profile: true,
+					},
+				},
 				admin: true,
 			},
 		});
@@ -71,7 +60,11 @@ async function getChat(where: WhereChat) {
 			where: where,
 			include: {
 				chat_messages: true,
-				members: true,
+				members: {
+					include: {
+						profile: true,
+					},
+				},
 				admin: true,
 			},
 		});
@@ -86,9 +79,27 @@ async function getChat(where: WhereChat) {
 	}
 }
 
+async function deleteChat(where: { id: number }) {
+	try {
+		return await client.chatGroup.delete({
+			where,
+			include: {
+				members: true,
+				chat_messages: true,
+			},
+		});
+	} catch (error) {
+		if (error instanceof Prisma.PrismaClientKnownRequestError) {
+			console.error(error.code, error.message);
+		}
+		return null;
+	}
+}
+
 const chatRepository = {
 	createChat,
 	getChat,
 	getAllChats,
+	deleteChat,
 };
 export default chatRepository;

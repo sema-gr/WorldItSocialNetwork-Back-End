@@ -23,7 +23,13 @@ export type CorrectChatForCreate = Prisma.ChatGroupGetPayload<{
 // }
 
 export type ChatInclude = Prisma.ChatGroupInclude;
-export type CreateChat = Prisma.ChatGroupUncheckedCreateInput;
+export interface CreateChat {
+	name: string;
+	is_personal_chat: boolean;
+	admin_id: number;
+	avatar?: string;
+	members?: { id: number }[];
+}
 export type WhereChat = Prisma.ChatGroupWhereUniqueInput;
 
 export interface IChatServerEvents {

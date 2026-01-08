@@ -1,33 +1,33 @@
 model Profile {
-    id                 Int           @id @default(autoincrement())
-    name               String?
-    username           String?       @unique
-    surname            String?
-    date_of_birth      DateTime?
-    email              String        @unique
-    password           String
-    image              String?
-    about              String?
-    signature          String?
-    post               Post[]
-    album              Album[]
-    administered_groups ChatGroup[]   @relation("administeredGroup")
-    chat_messages       ChatMessage[]
-    avatar             Avatar?
-    friendship_from    Friendship[] @relation("friendshipFrom")
-    friendship_to      Friendship[] @relation("friendshipTo")
-    // profile_views       ProfileViews[]
-    // profile_likes       ProfileLikes[]
-    chat_group_members  chat_app_chatgroup_members[]
+  id                  Int                          @id @default(autoincrement())
+  name                String?
+  username            String?                      @unique
+  surname             String?
+  date_of_birth       DateTime?
+  email               String                       @unique
+  password            String
+  image               String?
+  about               String?
+  signature           String?
+  post                Post[]
+  album               Album[]
+  administered_groups ChatGroup[]                  @relation("administeredGroup")
+  chat_messages       ChatMessage[]
+  avatar              Avatar?
+  friendship_from     Friendship[]                 @relation("friendshipFrom")
+  friendship_to       Friendship[]                 @relation("friendshipTo")
+  // profile_views       ProfileViews[]
+  // profile_likes       ProfileLikes[]
+  chat_group_members  chat_app_chatgroup_members[]
 }
 
 model Avatar {
-    id        Int     @id @default(autoincrement())
-    image     String
-    profile   Profile @relation(fields: [profile_id], references: [id])
-    profile_id Int     @unique
-    shown     Boolean @default(true)
-    active    Boolean @default(true)
+  id         Int     @id @default(autoincrement())
+  image      String
+  profile    Profile @relation(fields: [profile_id], references: [id])
+  profile_id Int     @unique
+  shown      Boolean @default(true)
+  active     Boolean @default(true)
 }
 
 // model ProfileViews {

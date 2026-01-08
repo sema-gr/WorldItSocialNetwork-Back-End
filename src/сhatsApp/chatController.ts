@@ -20,8 +20,15 @@ async function createChat(req: Request, res: Response) {
 	res.json(chat);
 }
 
+async function deleteChat(req: Request, res: Response) {
+	let id = req.params.id;
+	const chat = await chatService.deleteChat(+id);
+	res.json(chat);
+}
+
 export const chatController = {
 	createChat,
 	getChat,
 	getChats,
+	deleteChat,
 };

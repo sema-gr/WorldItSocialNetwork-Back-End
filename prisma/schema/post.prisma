@@ -1,55 +1,55 @@
-model Post{
-    id Int @id @default(autoincrement())
-    title String
-    theme String
-    tags post_app_post_tag[]
-    content String
-    images post_app_post_image[]
-    views post_app_post_views[]
-    likes post_app_post_likes[]
-    author Profile @relation(fields: [author_id], references: [id])
-    author_id Int
-    link Link? @relation(fields: [linkId], references: [id])
-    linkId Int?
+model Post {
+  id        Int                   @id @default(autoincrement())
+  title     String
+  theme     String
+  tags      post_app_post_tag[]
+  content   String
+  images    post_app_post_image[]
+  views     post_app_post_views[]
+  likes     post_app_post_likes[]
+  author    Profile               @relation(fields: [author_id], references: [id])
+  author_id Int
+  link      Link?                 @relation(fields: [linkId], references: [id])
+  linkId    Int?
 }
 
 model Tags {
-    id Int @id @default(autoincrement())
-    name String @unique
-    posts post_app_post_tag[]
-    album_tags post_app_album_tags[]
+  id         Int                   @id @default(autoincrement())
+  name       String                @unique
+  posts      post_app_post_tag[]
+  album_tags post_app_album_tags[]
 }
 
-model Link{
-    id Int @id @default(autoincrement())
-    url String
-    post Post[] @relation()
+model Link {
+  id   Int    @id @default(autoincrement())
+  url  String
+  post Post[] @relation()
 }
-    
+
 model post_app_post_tag {
-    post_id Int
-    tag_id Int
-    post Post @relation(fields: [post_id], references: [id])
-    tag Tags @relation(fields: [tag_id], references: [id])
-    id Int @id @default(autoincrement())
+  post_id Int
+  tag_id  Int
+  post    Post @relation(fields: [post_id], references: [id])
+  tag     Tags @relation(fields: [tag_id], references: [id])
+  id      Int  @id @default(autoincrement())
 }
 
 model post_app_post_likes {
-    post_id Int
-    post Post @relation(fields: [post_id], references: [id])
-    id Int @id @default(autoincrement())
+  post_id Int
+  post    Post @relation(fields: [post_id], references: [id])
+  id      Int  @id @default(autoincrement())
 }
 
 model post_app_post_views {
-    post_id Int
-    post Post @relation(fields: [post_id], references: [id])
-    id Int @id @default(autoincrement())
+  post_id Int
+  post    Post @relation(fields: [post_id], references: [id])
+  id      Int  @id @default(autoincrement())
 }
 
 model post_app_post_image {
-    post_id Int
-    image_id Int
-    post Post @relation(fields: [post_id], references: [id])
-    image Image @relation(fields: [image_id], references: [id])
-    id Int @id @default(autoincrement())
+  post_id  Int
+  image_id Int
+  post     Post  @relation(fields: [post_id], references: [id])
+  image    Image @relation(fields: [image_id], references: [id])
+  id       Int   @id @default(autoincrement())
 }
