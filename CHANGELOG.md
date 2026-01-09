@@ -1,3 +1,15 @@
+# [1.5.0](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.4.0...v1.5.0) (2026-01-09)
+
+
+### Bug Fixes
+
+* remove redundant blank lines in CHANGELOG.md ([edd6580](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/edd6580c11ee8553a6853653e6560d2fd0fe11b6))
+
+
+### Features
+
+* add image saving functionality to message creation and chat message saving ([6dd2656](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/6dd2656f05d19ab8b581a26697a3f46677dfb802))
+
 # [1.4.0](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.3.6...v1.4.0) (2026-01-08)
 
 ### Bug Fixes
