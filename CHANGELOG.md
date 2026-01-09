@@ -1,14 +1,12 @@
 # [1.4.0](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.3.6...v1.4.0) (2026-01-08)
 
-
 ### Bug Fixes
 
-* remove extra blank line in CHANGELOG.md ([bce4de0](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/bce4de04036786733abe79525db3dbc69d285542))
-
+- remove extra blank line in CHANGELOG.md ([bce4de0](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/bce4de04036786733abe79525db3dbc69d285542))
 
 ### Features
 
-* enhance chat functionality with delete feature and update Prisma schema ([3b41354](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/3b413548c40585f063e5cdb5d74f6e8fa60647aa))
+- enhance chat functionality with delete feature and update Prisma schema ([3b41354](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/3b413548c40585f063e5cdb5d74f6e8fa60647aa))
 
 ## [1.3.6](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.3.5...v1.3.6) (2026-01-06)
 
