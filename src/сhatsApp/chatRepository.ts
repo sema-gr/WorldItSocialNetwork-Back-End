@@ -30,11 +30,22 @@ async function createChat(data: CreateChat) {
 	});
 }
 
-async function getAllChats() {
+async function getChatsByUser(userId: number) {
 	try {
-		const chat = await client.chatGroup.findMany({
+		const chats = await client.chatGroup.findMany({
+			where: {
+				members: {
+					some: {
+						profile_id: userId,
+					},
+				},
+			},
 			include: {
-				chat_messages: true,
+				chat_messages: {
+					orderBy: {
+						sent_at: "asc",
+					},
+				},
 				members: {
 					include: {
 						profile: true,
@@ -44,16 +55,14 @@ async function getAllChats() {
 			},
 		});
 
-		return chat;
+		return chats;
 	} catch (error) {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
-			if (error.code in Object.keys(errors)) {
-				const errorKey: keyof IErrors = error.code;
-				console.log(errors[errorKey]);
-			}
+			console.error(error);
 		}
 	}
 }
+
 async function getChat(where: WhereChat) {
 	try {
 		const chat = await client.chatGroup.findUniqueOrThrow({
@@ -99,7 +108,7 @@ async function deleteChat(where: { id: number }) {
 const chatRepository = {
 	createChat,
 	getChat,
-	getAllChats,
+	getChatsByUser,
 	deleteChat,
 };
 export default chatRepository;
