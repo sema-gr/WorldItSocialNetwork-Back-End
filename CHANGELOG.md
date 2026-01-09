@@ -1,3 +1,11 @@
+## [1.5.3](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.5.2...v1.5.3) (2026-01-09)
+
+
+### Bug Fixes
+
+* remode changelog ([db31c7e](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/db31c7ef2d941b7e14d88adebc1dd91bddbbc128))
+* remove auth midlewaare ([41ae0ca](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/41ae0ca456e4811197d91eace3094069903e7715))
+
 ## [1.5.2](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.5.1...v1.5.2) (2026-01-09)
 
 ### Bug Fixes
