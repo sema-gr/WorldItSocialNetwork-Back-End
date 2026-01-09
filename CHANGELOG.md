@@ -1,3 +1,11 @@
+## [1.5.2](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.5.1...v1.5.2) (2026-01-09)
+
+
+### Bug Fixes
+
+* come back chat service, repository and controller ([0413428](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/0413428146a02158564fa9b86d281caa0535dc87))
+* remove unnecessary blank lines in CHANGELOG.md for cleaner formatting ([42fc2c2](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/42fc2c205058245347a19c9d36ca7240cf82d21a))
+
 ## [1.5.1](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.5.0...v1.5.1) (2026-01-09)
 
 ### Bug Fixes
