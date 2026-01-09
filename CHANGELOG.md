@@ -1,3 +1,12 @@
+## [1.5.1](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.5.0...v1.5.1) (2026-01-09)
+
+
+### Bug Fixes
+
+* add authTokenMiddleware to getChats route for improved security ([cc9e092](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/cc9e09227dc785a0004d5870664d732f55f9a899))
+* pass userId to getChats function for correct chat retrieval ([da3f3c7](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/da3f3c7e11c82f5a8cff9a377db983fd656188f6))
+* remove unnecessary blank lines in CHANGELOG.md for cleaner formatting ([54a91c7](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/54a91c7ee003476a08a14479bbf015fe628ac50c))
+
 # [1.5.0](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.4.0...v1.5.0) (2026-01-09)
 
 ### Bug Fixes
