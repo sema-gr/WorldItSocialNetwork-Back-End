@@ -1,6 +1,7 @@
 import client from "../client/prismaClient";
 import { MessagePayload } from "../messagesApp/types";
 import { IError, IOkWithData } from "../types/types";
+import { saveBase64Image } from "../utils/fileUtil";
 import chatRepository from "./chatRepository";
 import { Chat, CorrectChatForCreate, CreateChat } from "./types";
 
@@ -63,8 +64,18 @@ async function joinChat(id: number): Promise<IOkWithData<Chat> | IError> {
 
 async function saveMessage(data: MessagePayload) {
 	try {
+		const messageData = { ...data };
+
+		if (
+			messageData.attached_image &&
+			messageData.attached_image.startsWith("data:image/")
+		) {
+			const savedPath = await saveBase64Image(messageData.attached_image);
+			messageData.attached_image = savedPath;
+		}
+
 		await client.chatMessage.create({
-			data: data,
+			data: messageData,
 		});
 	} catch (error) {
 		console.error("Ошибка при сохранении сообщения:", error);
