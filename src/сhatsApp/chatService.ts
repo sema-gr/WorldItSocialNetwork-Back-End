@@ -44,8 +44,8 @@ async function getChat(id: number): Promise<IOkWithData<Chat> | IError> {
 	return { status: "success", data: result };
 }
 
-async function getChats(userId: number): Promise<IOkWithData<Chat[]> | IError> {
-	const result = await chatRepository.getChatsByUser(userId);
+async function getChats(): Promise<IOkWithData<Chat[]> | IError> {
+	const result = await chatRepository.getAllChats();
 	if (!result) {
 		return { status: "error", message: "Error" };
 	}

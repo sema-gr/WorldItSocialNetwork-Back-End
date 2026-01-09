@@ -3,8 +3,7 @@ import { chatService } from "./chatService";
 import { Request, Response } from "express";
 
 async function getChats(req: Request, res: Response, next: NextFunction) {
-	const userId = res.locals.userId;
-	const chat = await chatService.getChats(userId);
+	const chat = await chatService.getChats();
 	res.json(chat);
 }
 
