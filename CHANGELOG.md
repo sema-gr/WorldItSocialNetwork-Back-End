@@ -1,14 +1,12 @@
 # [1.6.0](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.5.3...v1.6.0) (2026-01-12)
 
-
 ### Bug Fixes
 
-* commit changelog ([8d19e44](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/8d19e4445d57d6eddea50b6343c23fd89a24f709))
-
+- commit changelog ([8d19e44](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/8d19e4445d57d6eddea50b6343c23fd89a24f709))
 
 ### Features
 
-* add initial vercel configuration for routing ([189e25f](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/189e25f002c6848ec6a3af6c927c3995f90a1b06))
+- add initial vercel configuration for routing ([189e25f](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/189e25f002c6848ec6a3af6c927c3995f90a1b06))
 
 ## [1.5.3](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.5.2...v1.5.3) (2026-01-09)
 
