@@ -15,9 +15,8 @@ const httpServer = createServer(app);
 initSocketServer(httpServer);
 
 const PORT = process.env.PORT || 3000;
-const HOST = "0.0.0.0";
-
-export const API_BASE_URL = `http://${HOST}:${PORT}`;
+export const API_BASE_URL =
+	process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
@@ -41,6 +40,6 @@ app.use("/chats", chatsRouter);
 
 app.use("/messages", messageRouter);
 
-httpServer.listen(Number(PORT), HOST, () => {
-	console.log(`server is running on port ${PORT}`);
+httpServer.listen(Number(PORT), () => {
+	console.log(`Server is running on port ${PORT}`);
 });
