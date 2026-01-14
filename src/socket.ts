@@ -9,7 +9,7 @@ import {
 import {
 	chatSocketController,
 	setSocketServerInstance,
-} from "./сhatsApp/chatSocketController";
+} from "./chatsApp/chatSocketController";
 import { socketAuthMiddleware } from "./middlewares/socketAuthMiddleware";
 import { registerFriendshipSocket } from "./friendshipApp/friendshipController";
 
@@ -19,7 +19,14 @@ export function initSocketServer(httpServer: HttpServer) {
 		AppServerEvents,
 		{},
 		SocketData
-	>(httpServer);
+	>(httpServer, {
+		cors: {
+			origin: "*",
+			methods: ["GET", "POST"],
+			credentials: true,
+		},
+		transports: ["websocket", "polling"],
+	});
 
 	setSocketServerInstance(ioServer);
 

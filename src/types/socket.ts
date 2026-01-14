@@ -1,5 +1,5 @@
 import { Socket } from "socket.io";
-import { IChatClientEvents, IChatServerEvents } from "../сhatsApp/types";
+import { IChatClientEvents, IChatServerEvents } from "../chatsApp/types";
 import {
 	IFriendshipClientEvents,
 	IFriendshipServerEvents,

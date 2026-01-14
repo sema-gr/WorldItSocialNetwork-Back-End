@@ -3,7 +3,7 @@ import cors from "cors";
 import userRouter from "./userApp/userRouter";
 import postRouter from "./postApp/postRouter";
 import albumRouter from "./albumApp/albumRouter";
-import chatsRouter from "./сhatsApp/chatRouter";
+import chatsRouter from "./chatsApp/chatRouter";
 import path from "path";
 import friendshipRouter from "./friendshipApp/friendshipRouter";
 import { createServer } from "http";
