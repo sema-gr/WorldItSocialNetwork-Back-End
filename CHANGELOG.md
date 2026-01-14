@@ -1,3 +1,11 @@
+## [1.6.2](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.6.1...v1.6.2) (2026-01-14)
+
+
+### Bug Fixes
+
+* changelog ([7adc4b6](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/7adc4b6ccc1391fe7cc9efae655f8ca944355334))
+* upgrade socet for web ([519ccb5](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/commit/519ccb590f0c327db53c4c9914045a13898bcc9e))
+
 ## [1.6.1](https://github.com/sema-gr/WorldItSocialNetwork-Back-End/compare/v1.6.0...v1.6.1) (2026-01-12)
 
 ### Bug Fixes
